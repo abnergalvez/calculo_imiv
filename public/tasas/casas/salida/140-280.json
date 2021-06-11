@@ -1,0 +1,37 @@
+[{
+        "viajes_h_por_vivienda": 1,
+        "transporte_privado": 0.55,
+        "transporte_publico": 0.19,
+        "peatones_viajes": 0.12,
+        "ciclos_viajes": 0.03
+    },
+    {
+        "viajes_h_por_vivienda": 0.2,
+        "transporte_privado": 0.55,
+        "transporte_publico": 0.19,
+        "peatones_viajes": 0.12,
+        "ciclos_viajes": 0.03
+    },
+    {
+        "viajes_h_por_vivienda": 0.2,
+        "transporte_privado": 0.55,
+        "transporte_publico": 0.19,
+        "peatones_viajes": 0.12,
+        "ciclos_viajes": 0.03
+    },
+    {
+        "viajes_h_por_vivienda": 0.2,
+        "transporte_privado": 0.55,
+        "transporte_publico": 0.19,
+        "peatones_viajes": 0.12,
+        "ciclos_viajes": 0.03
+    },
+    {
+        "viajes_h_por_vivienda": 0.2,
+        "transporte_privado": 0.55,
+        "transporte_publico": 0.19,
+        "peatones_viajes": 0.12,
+        "ciclos_viajes": 0.03
+    }
+
+]

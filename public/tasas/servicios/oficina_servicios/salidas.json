@@ -1,0 +1,32 @@
+[{
+    "transporte_privado":   0.20 ,
+    "transporte_publico":   0.15 ,
+    "peatones_viajes":   0.18 ,
+    "ciclos_viajes":  0.02  
+},
+{
+    "transporte_privado":   0.47 ,
+    "transporte_publico":   0.21 ,
+    "peatones_viajes":  0.14  ,
+    "ciclos_viajes":  0.02  
+},
+{
+    "transporte_privado":  0.85  ,
+    "transporte_publico":  0.58  ,
+    "peatones_viajes":   0.43 ,
+    "ciclos_viajes":  0.04  
+},
+{
+    "transporte_privado":  0.00  ,
+    "transporte_publico":  0.00  ,
+    "peatones_viajes":  0.00  ,
+    "ciclos_viajes":  0.00  
+},
+{
+
+    "transporte_privado":   0.00 ,
+    "transporte_publico":  0.00  ,
+    "peatones_viajes":  0.00  ,
+    "ciclos_viajes": 0.00   
+}
+]
