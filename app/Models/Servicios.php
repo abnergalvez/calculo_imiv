@@ -8,4 +8,40 @@ use Illuminate\Database\Eloquent\Model;
 class Servicios extends Model
 {
     use HasFactory;
+
+    public static function subproyectos()
+    {
+        $subproyecto = [
+            "centros_medicos_o_dentales" => "Centros Médicos o Dentales", 
+            "edificios_playas_estacionamiento" => "Edificios o playas de estacionamiento",
+            "oficina_servicios" => "Oficina de servicios, públicos o privados",
+            "servicios_artesanales_y_reparacion" => "Servicios artesanales y de reparacion de objetos diversos",
+        ];
+
+        return $subproyecto;
+    }
+
+
+    public static function escalas($subproyecto_key)
+    {
+        $escalas = [
+            "centros_medicos_o_dentales" => NULL, 
+            "edificios_playas_estacionamiento" => NULL,
+            "oficina_servicios" => NULL,
+            "servicios_artesanales_y_reparacion" => NULL,
+        ];
+        return $escalas[$subproyecto_key];
+    }
+    
+    public static function tipoCalculo($subproyecto_key)
+    {
+        $calculos = [
+            "centros_medicos_o_dentales" => "superficie", 
+            "edificios_playas_estacionamiento" => "cantidad",
+            "oficina_servicios" => "superficie",
+            "servicios_artesanales_y_reparacion" => "superficie",
+        ];
+
+        return $calculos[$subproyecto_key];
+    }
 }

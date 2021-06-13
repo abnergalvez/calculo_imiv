@@ -9,9 +9,9 @@ class Comercio extends Model
 {
     use HasFactory;
 
-    public static function proyectos()
+    public static function subproyectos()
     {
-        $proyecto = [
+        $subproyecto = [
             "tienda_por_departamentos" => "Centro Comercial, Tienda por Departamentos", 
             "centro_automotor" => "Centro de Servicio Automotor",
             "estacion_servicio_dispensador" => "Dispensador de Estacion de Servicio",
@@ -20,13 +20,13 @@ class Comercio extends Model
             "otro_equipamiento" => "Otro Equipamiento de Comercio",
         ];
 
-        return $proyecto;
+        return $subproyecto;
     }
 
 
-    public static function escalas($proyecto_key)
+    public static function escalas($subproyecto_key)
     {
-        $escala = [
+        $escalas = [
             'tienda_por_departamentos' => [ 
                 'mayor' => 'Mayor' , 
                 'mediano' =>'Mediano'
@@ -41,16 +41,19 @@ class Comercio extends Model
                 'mediano' =>'Mediano',
                 'menor' =>'Menor',
                 'menor' =>'Básico',
-            ]
+            ],
+            'centro_automotor' => NULL,
+            'estacion_servicio_dispensador' => NULL,
+            'restaurant_bar_discoteca' => NULL,
         ];
 
-        return $escala[$proyecto_key];
+        return $escalas[$subproyecto_key];
 
     }
     
-    public static function tipoCalculo($proyecto_key)
+    public static function tipoCalculo($subproyecto_key)
     {
-        $proyecto = [
+        $calculos = [
             "tienda_por_departamentos" => "superficie", 
             "centro_automotor" => "superficie",
             "estacion_servicio_dispensador" => "cantidad",
@@ -59,6 +62,6 @@ class Comercio extends Model
             "otro_equipamiento" => "superficie",
         ];
 
-        return $proyecto[$proyecto_key];
+        return $calculos[$subproyecto_key];
     }
 }
