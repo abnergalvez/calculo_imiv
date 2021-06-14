@@ -64,4 +64,19 @@ class Comercio extends Model
 
         return $calculos[$subproyecto_key];
     }
+
+
+    public static function labelIngreso($subproyecto_key)
+    {
+        $labels = [
+            "tienda_por_departamentos" => "Superficie Total (M2)", 
+            "centro_automotor" => "Superficie Total (M2)",
+            "estacion_servicio_dispensador" => "Cantidad Dispensadores",
+            "supermercado_local_comercial" => "Superficie Total (M2)",
+            "restaurant_bar_discoteca" => "Superficie Total (M2)",
+            "otro_equipamiento" => "Superficie Total (M2)",
+        ];
+
+        return $labels[$subproyecto_key];
+    }
 }

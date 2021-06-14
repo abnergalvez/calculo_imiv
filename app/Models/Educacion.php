@@ -47,4 +47,16 @@ class Educacion extends Model
         return $calculos[$subproyecto_key];
     }
 
+    public static function labelIngreso($subproyecto_key)
+    {
+        $labels = [
+            "basica_media_especial" => "Cantidad Total Estudiantes", 
+            "otro_equipamiento" => "Cantidad Total Estudiantes",
+            "parvularia" => "Cantidad Total Estudiantes",
+            "superior" => "Cantidad Total Estudiantes",
+        ];
+
+        return $labels[$subproyecto_key];
+    }
+
 }

@@ -47,4 +47,16 @@ class Industrial extends Model
         return $calculos[$subproyecto_key];
     }
 
+    public static function labelIngreso($subproyecto_key)
+    {
+        $labels = [
+            "grandes_depositos_bodegas" => "Superficie Total (M2)",
+            "industrias" => "Superficie Total (M2)",
+            "planta_revision_tecnica" => "Cantidad Lineas Revisión",
+            "talleres" => "Superficie Total (M2)",
+        ];
+
+        return $labels[$subproyecto_key];
+    }
+
 }

@@ -48,4 +48,16 @@ class Salud extends Model
         return $calculos[$subproyecto_key];
     }
 
+    public static function labelIngreso($subproyecto_key)
+    {
+        $labels = [
+            "atencion_primaria_urgencia_familiar" => "Superficie Total (M2)", 
+            "cementerio_crematorio" => "Superficie Total (M2)",
+            "hospital_clinica" => "Superficie Total (M2)",
+            "rehabilitacion" => "Superficie Total (M2)",
+        ];
+
+        return $labels[$subproyecto_key];
+    }
+
 }

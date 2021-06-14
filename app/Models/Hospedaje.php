@@ -38,5 +38,14 @@ class Hospedaje extends Model
         return $calculos[$subproyecto_key];
     }
 
+    public static function labelIngreso($subproyecto_key)
+    {
+        $labels = [
+            "alojamiento_turistico" => "Cantidad Total Habitaciones", 
+        ];
+
+        return $labels[$subproyecto_key];
+    }
+
 
 }

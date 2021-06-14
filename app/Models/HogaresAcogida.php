@@ -45,4 +45,15 @@ class HogaresAcogida extends Model
         return $calculos[$subproyecto_key];
     }
 
+    public static function labelIngreso($subproyecto_key)
+    {
+        $labels = [
+            "atencion_ninez_adolecencia" => "Cantidad Total Habitaciones", 
+            "hogar_estudiantil" => "Cantidad Total Habitaciones",
+            "larga_estadia_adultos_mayores" => "Cantidad Total Habitaciones",
+        ];
+
+        return $labels[$subproyecto_key];
+    }
+
 }

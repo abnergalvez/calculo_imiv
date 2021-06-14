@@ -1,4 +1,4 @@
-<div class="">
+<div>
     <strong>Periodos</strong><br>
         PM-L = Punta Mañana Laboral <br>
         PMd-L = Punta Medio dia Laboral <br>

@@ -38,4 +38,13 @@ class Social extends Model
         return $calculos[$subproyecto_key];
     }
 
+    public static function labelIngreso($subproyecto_key)
+    {
+        $labels = [
+            "junta_vecinal_club_social_otros" => "Superficie Total (M2)", 
+        ];
+
+        return $labels[$subproyecto_key];
+    }
+
 }

@@ -6,37 +6,31 @@
 
 @section('content')
 <div class="container">
-    <div class="py-5 text-center mt-5">
+    <div class="py-5 text-center mt-4">
         <h2>Calculo IMIV - Resultado</h2>
 	    <h3>{{ $proyecto }} - {{ $subproyecto }} - {{ $escala }}</h3>
     </div>
 
+      @if($superficie)
+      Sumatoria total proyecto con {{ $superficie }} MT<sup>2</sup> de superficie <br>
+      @else
+      Calculo para {{ $cantidad }} ({{ $modelo::labelIngreso($subproyecto_key) }})  - {{ $subproyecto }}  <br><br>
+      @endif
+      
 <div class="accordion accordion-flush" id="accordionFlushExample">
 
   <div class="accordion-item">
-    <h2 class="accordion-header" id="flush-headingTwo">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseTwo">
-      SUMATORIA  (clic para ver detalles)
+    <h2 class="accordion-header " id="flush-headingTwo">
+      <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseTwo">
+      Suma de Ciclos de Entradas y Salidas  (clic para ver detalles)
       </button>
     </h2>
     <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
       <div class="accordion-body">
-      <ul>
-        <?php
-          if($superficie !='') {
-           echo '<li> Sumatoria total proyecto con '.$superficie.' MT<sup>2</sup> de superficie </li>'; 
-          }
-
-          if($cantidad !='') {
-            echo '<li> Sumatoria total  para '.$cantidad.' de cantidad  </li>'; 
-           }
-
-           
-        ?> 
         
+        <x-inicio.periodos />
 
-      </ul>
-    <div class="row g-5">
+    <div class="row g-3">
 
         <table class="table table-hover table-sm">
           <thead>

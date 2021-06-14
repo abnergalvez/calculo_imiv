@@ -37,4 +37,13 @@ class Cientifico extends Model
         return $calculos[$subproyecto_key];
     }
 
+    public static function labelIngreso($subproyecto_key)
+    {
+        $labels = [
+            "centro_investigacion" => "Superficie Total (M2)",
+        ];
+
+        return $labels[$subproyecto_key];
+    }
+
 }

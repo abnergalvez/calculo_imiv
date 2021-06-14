@@ -44,4 +44,16 @@ class Servicios extends Model
 
         return $calculos[$subproyecto_key];
     }
+
+    public static function labelIngreso($subproyecto_key)
+    {
+        $labels = [
+            "centros_medicos_o_dentales" => "Superficie Total (M2)", 
+            "edificios_playas_estacionamiento" => "Numero Total Estacionamientos",
+            "oficina_servicios" => "Superficie Total (M2)",
+            "servicios_artesanales_y_reparacion" => "Superficie Total (M2)",
+        ];
+
+        return $labels[$subproyecto_key];
+    }
 }

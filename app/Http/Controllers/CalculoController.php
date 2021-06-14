@@ -61,13 +61,15 @@ class CalculoController extends Controller
             
             ->with('sumatoria', $sumatoria)
             ->with('calculo', $tipoCalculo)
-            ->with('superficie', $tipoCalculo == 'superficie' ? $request->superficie : '')
-            ->with('cantidad', $tipoCalculo == 'superficie' ? $request->cantidad : '')
+            ->with('superficie', $tipoCalculo == 'superficie' ? $request->superficie : 0 )
+            ->with('cantidad', $tipoCalculo == 'cantidad' ? $request->cantidad : 0 )
             ->with('max_t_privado',$maximo_t_privado)
             ->with('max_t_otros', $maximo_t_otros)
             ->with('imiv_t_privado', FuncionesCalculos::categoria_imiv_t_privado($maximo_t_privado))
             ->with('imiv_t_otros', FuncionesCalculos::categoria_imiv_t_otros($maximo_t_otros))
             ->with('proyecto', FuncionesCalculos::fullProyectos()[$request->proyecto]['label'] )
+            ->with('modelo', FuncionesCalculos::fullProyectos()[$request->proyecto]['modelo'] )
+            ->with('subproyecto_key', $request->subproyecto)
             ->with('subproyecto', $request->modelo::subproyectos()[$request->subproyecto])
             ->with('escala', $request->escala ? $request->modelo::escalas($request->subproyecto)[$request->escala] : '' );
         

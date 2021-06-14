@@ -48,4 +48,16 @@ class CultoCultura extends Model
         return $calculos[$subproyecto_key];
     }
 
+    public static function labelIngreso($subproyecto_key)
+    {
+        $labels = [
+            "centro_cultural" => "Superficie Total (M2)", 
+            "conciertos_cine_teatro" => "Superficie Total (M2)",
+            "otro_equipamiento" => "Superficie Total (M2)",
+            "templo_desarrollo" => "Superficie Total (M2)",
+        ];
+
+        return $labels[$subproyecto_key];
+    }
+
 }

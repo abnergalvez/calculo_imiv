@@ -48,7 +48,7 @@ class ProyectoSubproyectoEscala extends Component
         if(!is_null($subproyecto)){
             $this->formulario_normal = true;
             $this->tipo_calculo = $this->modelo::tipoCalculo($subproyecto);
-            $this->tipo_calculo_label = $this->modelo::tipoCalculo($subproyecto) == 'superficie' ? 'Ingrese Superficie (M2)': 'Ingrese Cantidad';
+            $this->tipo_calculo_label = $this->modelo::labelIngreso($subproyecto);
             $escalas = $this->modelo::escalas($subproyecto);
             if(!is_null($escalas)){
                 $this->escalas = $escalas;

@@ -33,20 +33,16 @@
                 </select>
             </div>
         @endif
+
+        @if ($formulario_normal)
+        <div class="col-md-5 ">
+            <label for="cant_sup" class="form-label fw-bold">Ingrese {{ $tipo_calculo_label }}</label>
+            <input  type="text" class="form-control" name="{{ $tipo_calculo}}" id="cant_sup" required>
+        </div>
+        @endif
     </div>
     
-    @if ($formulario_normal)
-    <div  class="row g-3">    
-        <div class="col-md-12 my-2">
-            <hr>
-        </div>
-        <br>
-        <div class="col-md-3 form-floating ">
-            <input  type="text" class="form-control" name="{{ $tipo_calculo}}" id="floatingInput" required>
-            <label class="px-4" for="floatingInput">{{ $tipo_calculo_label }}</label>
-        </div>
-    </div>
-    @endif
+
 
     <input  type="hidden" class="" value="{{ $modelo }}" name="modelo" required>
 
