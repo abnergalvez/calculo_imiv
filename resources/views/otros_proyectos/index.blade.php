@@ -5,10 +5,10 @@
 @endsection
 
 @section('content')
-
-<div class="py-5 text-center mt-5">
-      <h2>Calculo IMIV - Resultado</h2>
-	  <h3>{{ $proyecto }} - {{ $subproyecto }} - {{ $escala }}</h3>
+<div class="container">
+    <div class="py-5 text-center mt-5">
+        <h2>Calculo IMIV - Resultado</h2>
+	    <h3>{{ $proyecto }} - {{ $subproyecto }} - {{ $escala }}</h3>
     </div>
 
 <div class="accordion accordion-flush" id="accordionFlushExample">
@@ -88,7 +88,7 @@
           <a href="{{ route('inicio') }}" class="w-100 btn btn-secondary btn-lg" >Volver</a>
     </div>
 
-
+</div>
 @endsection
 
 @section('scripts')

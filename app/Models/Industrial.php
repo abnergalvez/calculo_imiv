@@ -8,4 +8,43 @@ use Illuminate\Database\Eloquent\Model;
 class Industrial extends Model
 {
     use HasFactory;
+
+    public static function subproyectos()
+    {
+        $subproyecto = [
+            "grandes_depositos_bodegas" => "Grandes Depositos, Bodegas Industriales", 
+            "industrias" => "Industrias",
+            "planta_revision_tecnica" => "Linea de Revisión (Planta Revision Técnica)",
+            "talleres" => "Supermercado, Local Comercial",
+        ];
+
+        return $subproyecto;
+    }
+
+
+    public static function escalas($subproyecto_key)
+    {
+        $escalas = [
+            'grandes_depositos_bodegas' => NULL,
+            'industrias' => NULL,
+            'planta_revision_tecnica' => NULL,
+            'talleres' => NULL,
+        ];
+
+        return $escalas[$subproyecto_key];
+
+    }
+    
+    public static function tipoCalculo($subproyecto_key)
+    {
+        $calculos = [
+            "grandes_depositos_bodegas" => "superficie",
+            "industrias" => "superficie",
+            "planta_revision_tecnica" => "cantidad",
+            "talleres" => "superficie",
+        ];
+
+        return $calculos[$subproyecto_key];
+    }
+
 }

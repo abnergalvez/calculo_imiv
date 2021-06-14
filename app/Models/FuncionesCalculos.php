@@ -150,7 +150,7 @@ class FuncionesCalculos extends Model
         $proyectos = [
             'casas' => ['label' => 'Casas','modelo' => Casas::class],
             'departamentos' => ['label' => 'Departamentos','modelo' => Departamentos::class],
-            'c_acogida' => ['label' => 'Hogares de Acogida','modelo' => HogaresAcogida::class],
+            'hogares_acogida' => ['label' => 'Hogares de Acogida','modelo' => HogaresAcogida::class],
             'cientifico' => ['label' => 'Cientifico','modelo' => Cientifico::class],
             'comercio' => ['label' => 'Comercio','modelo' => Comercio::class],
             'culto_y_cultura' => ['label' => 'Culto y Cultura','modelo' => CultoCultura::class],
