@@ -21,11 +21,13 @@ class ProyectoSubproyectoEscala extends Component
     public $subproyecto_seleccionado = '';
     public $escala_seleccionada = '';
     public $casasDeptos = '';
+    public $ruta ='';
     
 
     public function mount()
     {
         $this->proyectos = FuncionesCalculos::fullProyectos();
+        $this->ruta = route('calculo_otros');
     }
 
     public function render()
@@ -45,12 +47,15 @@ class ProyectoSubproyectoEscala extends Component
                 $this->escalas = NULL;
                 $this->formulario_normal = false;
                 $this->modelo =  $this->proyectos[$proyecto]['modelo'];
+                $this->ruta =  $proyecto == "casas" ? route('calculo_casas') : route('calculo_deptos');
             }else{
                 $this->modelo =  $this->proyectos[$proyecto]['modelo'];
                 $this->subproyectos = $this->modelo::subproyectos();
                 //$this->selectedSubproyectos = NULL;
                 $this->casasDeptos = '';
                 $this->formulario_normal = false;
+                $this->ruta = route('calculo_otros');
+
             }
         }
     }

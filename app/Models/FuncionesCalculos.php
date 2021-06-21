@@ -23,7 +23,8 @@ use App\Models\Social;
 class FuncionesCalculos extends Model
 {
     
-    public static function sum_flujos($flujos){
+    public static function sum_flujos($flujos)
+    {
         $final = array();
         foreach ($flujos as $key1 => $values) {
             if($key1 == 0){

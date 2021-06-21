@@ -1,4 +1,6 @@
 <div>
+    <form class="needs-validation" id="formulario_inicial" action="{{ $ruta }}" name="formulario_inicial" method="post">
+    @csrf
     <div class="row g-3">
         <div class="col-md-4">
             <label for="proyecto" class="form-label fw-bold" >{{ __('Categoria') }}</label>
@@ -38,9 +40,9 @@
         @endif
 
         @if ($formulario_normal)
-        <div class="col-md-5 ">
+        <div class="col-md-4 ">
             <label for="cant_sup" class="form-label fw-bold">Ingrese {{ $tipo_calculo_label }}</label>
-            <input  type="text" class="form-control" name="{{ $tipo_calculo}}" id="cant_sup" required>
+            <input  type="number" min="1" class="form-control" name="{{ $tipo_calculo}}" id="cant_sup" required>
         </div>
         @endif
     </div>
@@ -50,4 +52,11 @@
     @endif
     
     <input  type="hidden" class="" value="{{ $modelo }}" name="modelo" required>
+
+    <div id="formulario" class="row g-3">
+    </div>
+    <hr class="my-4">
+    <button type="submit" class="w-100 btn btn-primary btn-lg" >Calcular</button>
+
+    </form>
 </div>

@@ -8,7 +8,7 @@
 <div class="container">
     <div class="py-5 text-center mt-4">
         <h2>Calculo IMIV - Resultado</h2>
-	    <h3>{{ $proyecto }} - {{ $subproyecto }} - {{ $escala }}</h3>
+	      <h3>{{ $proyecto }} - {{ $subproyecto }} - {{ $escala }}</h3>
     </div>
 
       @if($superficie)

@@ -5,12 +5,99 @@
 @endsection
 
 @section('content')
+<div class="container">
+    <div class="py-5 text-center mt-4">
+        <h2>Calculo IMIV - Resultado</h2>
+	      <h3>{{ App\Models\FuncionesCalculos::fullProyectos()[$proyecto]['label'] }}</h3>
+    </div>
+	<p>Calculo para:</p>
+	<ul>
+		<?php foreach ($superficies as $key => $value) { ?> 
+			
+		<li>  <?php  echo $cantidades[$key]; ?> 
+		Construcciones de <?php  echo $value; ?> MT<sup>2</sup></li> 
+		<?php } ?> 
+	</ul>
+<br>
+<div class="accordion accordion-flush" id="accordionFlushExample">
+<div class="accordion-item">
+  <h2 class="accordion-header" id="flush-headingTwo">
+	<button class="accordion-button bg-dark text-light collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseTwo">
+	SUMATORIA  (clic para ver detalles)
+	</button>
+  </h2>
+  <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+	<div class="accordion-body">
+
+		  <br>
+		  <x-inicio.periodos />
+		  <br>
+  <div class="row g-3">
+
+	  <table class="table table-hover table-sm">
+		<thead>
+		  <tr> 
+			<th scope="col">Periodos</th>
+			<th scope="col">Totales </th>
+			<th scope="col">Autos </th>
+			<th scope="col">T. Publico </th>
+			<th scope="col">Peatones </th>
+			<th scope="col">Ciclos </th>
+		  </tr>
+		</thead>
+		<tbody>
+		  <?php
+		   $periodos = array("PM-L", "PMd-L", "PT-L", "PMd-F","PT-F"); 
+		   foreach ($sumatoria as $key => $value) { 
+		  ?>
+		  <tr>
+			<td><?php  echo $periodos[$key]; ?></td>
+			<td><?php  echo $value["viajes_h_por_vivienda"];  ?></td>
+			<td><?php  echo $value["transporte_privado"];         ?></td>
+			<td><?php  echo $value["transporte_publico"];         ?></td>
+			<td><?php  echo $value["peatones_viajes"];         ?></td>
+			<td><?php  echo $value["ciclos_viajes"];         ?></td>
+		  </tr>
+		  <?php
+		   }
+		  ?>
+		  
+		</tbody>
+	  </table>
+  </div>
 
 
-Hola!
-Resultados casas y dptos
+	</div>
+  </div>
+</div>
 
 
+
+</div>
+
+	  <br>
+
+	 <h4>El valor mas alto de los periodos en viajes de <span class="badge bg-dark">transporte privado</span> es:</h4>
+	 <p><span class="badge bg-secondary">
+	 <?php
+		echo $max_t_privado;
+	  ?></span>
+	  Estudio IMIV requerido:  <span class="badge bg-primary"><?php echo $imiv_t_privado; ?> </span>
+	 </p>
+	 <h4>El valor mas alto de los periodos en viajes de <span class="badge bg-dark">otros transportes</span> es:</h4>
+	 <p><span class="badge bg-secondary">
+	 <?php
+		echo $max_t_otros;
+	  ?></span>
+	  Estudio IMIV requerido: <span class="badge bg-primary"><?php echo $imiv_t_otros; ?> </span>
+	 </p>      
+	  
+
+		<a href="{{ route('inicio') }}" class="w-100 btn btn-secondary btn-lg" >Volver</a>
+  </div>
+
+
+</div>
 @endsection
 
 @section('scripts')
