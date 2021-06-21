@@ -23,9 +23,8 @@
 		:imiv_t_otros="$imiv_t_otros"
 	/>	
 	  
-	<a href="{{ route('inicio') }}" class="w-100 btn btn-secondary btn-lg" >
-		Volver
-	</a>
+	<x-resultados.btn_volver />
+	
 </div>
 @endsection
 @section('scripts')
