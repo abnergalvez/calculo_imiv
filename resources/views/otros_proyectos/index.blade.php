@@ -6,82 +6,28 @@
 
 @section('content')
 <div class="container">
-    <div class="py-5 text-center mt-4">
-        <h2>Calculo IMIV - Resultado</h2>
-	      <h3>{{ $proyecto }} - {{ $subproyecto }} - {{ $escala }}</h3>
-    </div>
+    
+    <x-resultados.titulo_otros 
+        :proyecto="$proyecto"
+        :subproyecto="$subproyecto"
+        :escala="$escala"
+        :superficie="$superficie"
+        :cantidad="$cantidad"
+        :modelo="$modelo"
+        :subproyecto_key="$subproyecto_key"
+    />
 
-      @if($superficie)
-      Sumatoria total proyecto con {{ $superficie }} MT<sup>2</sup> de superficie <br>
-      @else
-      Calculo para {{ $cantidad }} ({{ $modelo::labelIngreso($subproyecto_key) }})  - {{ $subproyecto }}  <br><br>
-      @endif
-      
-<div class="accordion accordion-flush" id="accordionFlushExample">
+    <x-resultados.tabla_sumatoria_otros 
+        :sumatoria="$sumatoria"
+    />
 
-  <div class="accordion-item">
-    <h2 class="accordion-header " id="flush-headingTwo">
-      <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseTwo">
-      Suma de Ciclos de Entradas y Salidas  (clic para ver detalles)
-      </button>
-    </h2>
-    <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-      <div class="accordion-body">
-        
-        <x-inicio.periodos />
-
-    <div class="row g-3">
-
-        <table class="table table-hover table-sm">
-          <thead>
-            <tr> 
-              <th scope="col">Periodos</th>
-              <th scope="col">Autos </th>
-              <th scope="col">T. Publico </th>
-              <th scope="col">Peatones </th>
-              <th scope="col">Ciclos </th>
-            </tr>
-          </thead>
-          <tbody>
-		   	@php
-			   $periodos = array("PM-L", "PMd-L", "PT-L", "PMd-F","PT-F");
-			@endphp
-
-            @foreach($sumatoria as $key => $value)
-            <tr>
-              <td>{{ $periodos[$key] }}</td>
-              <td>{{ $value["transporte_privado"] }}</td>
-              <td>{{ $value["transporte_publico"] }}</td>
-              <td>{{ $value["peatones_viajes"] }}</td>
-              <td>{{ $value["ciclos_viajes"] }}</td>
-            </tr>
-			@endforeach
-
-          </tbody>
-        </table>
-    </div>
-
-
-      </div>
-    </div>
-  </div>
-
-
-
-</div>
-
-        <br>
-
-       <h4>Maximo Valor: <span class="badge bg-dark">transporte privado</span> es: <span class="badge bg-secondary">{{ $max_t_privado }}</span></h4>
-	   <p>Estudio IMIV requerido:  <span class="badge bg-primary">{{ $imiv_t_privado }}</span></p>
-       
-       <h4>Maximo Valor: <span class="badge bg-dark">otros transportes</span> es: <span class="badge bg-secondary"> {{ $max_t_otros }}</span></h4>
-       <p></span>Estudio IMIV requerido: <span class="badge bg-primary">{{ $imiv_t_otros }}</span></p>      
-        
-
-          <a href="{{ route('inicio') }}" class="w-100 btn btn-secondary btn-lg" >Volver</a>
-    </div>
-
+    <x-resultados.estudio_imiv 
+        :max_t_privado="$max_t_privado"
+        :imiv_t_privado="$imiv_t_privado "
+        :max_t_otros="$max_t_otros"
+        :imiv_t_otros="$imiv_t_otros"
+    />    
+    <a href="{{ route('inicio') }}" class="w-100 btn btn-secondary btn-lg" >Volver</a>
 </div>
 @endsection
 
