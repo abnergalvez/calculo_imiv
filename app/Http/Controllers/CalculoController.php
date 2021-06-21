@@ -28,6 +28,7 @@ class CalculoController extends Controller
 
     public function calculo(Request $request)
     {
+        dd($request->all());
         $dir_escala = $request->proyecto."/".$request->subproyecto."/".$request->escala;
         $dir_subproyecto = $request->proyecto."/".$request->subproyecto;
         $tipoCalculo = $request->modelo::tipoCalculo($request->subproyecto);

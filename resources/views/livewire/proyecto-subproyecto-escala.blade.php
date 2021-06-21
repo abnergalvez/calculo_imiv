@@ -1,35 +1,38 @@
 <div>
     <div class="row g-3">
         <div class="col-md-4">
-            <label for="country" class="form-label fw-bold" >{{ __('Categoria') }}</label>
-            <select wire:model="selectedProyectos" class="form-select"  name="proyecto" autocomplete="off" required>
+            <label for="proyecto" class="form-label fw-bold" >{{ __('Categoria') }}</label>
+            <select wire:model="proyecto_seleccionado" class="form-select" name="proyecto" autocomplete="off" required>
                 <option value="" selected>Selecciona Categoria</option>
-                @foreach($proyectos as $key => $value)
+                @forelse($proyectos as $key => $value)
                     <option value="{{ $key }}">{{ $value['label'] }}</option>
-                @endforeach
+                @empty
+                @endforelse
             </select>
         </div>
 
-        @if (!is_null($selectedProyectos))
+        @if (!empty($proyecto_seleccionado) && empty($casasDeptos))
             <div class="col-md-6">
-                <label for="state" class="form-label fw-bold">{{ __('Proyecto') }}</label>
-                <select wire:model="selectedSubproyectos" class="form-select" name="subproyecto" required>
+                <label for="subproyecto" class="form-label fw-bold">{{ __('Proyecto') }}</label>
+                <select wire:model="subproyecto_seleccionado" class="form-select" name="subproyecto" required>
                     <option value="" selected>Selecciona Proyecto</option>
-                    @foreach($subproyectos as $key => $value)
+                    @forelse($subproyectos as $key => $value)
                         <option value="{{ $key }}">{{ $value }}</option>
-                    @endforeach
+                    @empty
+                    @endforelse
                 </select>
             </div>
         @endif
 
-        @if (!is_null($selectedSubproyectos) && $escalas )
+        @if (!empty($escalas))
             <div class="col-md-2">
-                <label for="city" class="form-label fw-bold">{{ __('Escala') }}</label>
-                <select wire:model="escalas" class="form-select" name="escala" required>
+                <label for="escala" class="form-label fw-bold">{{ __('Escala') }}</label>
+                <select wire:model="escala_seleccionada" class="form-select" name="escala" required>
                     <option value="" selected>Selecciona Escala</option>
-                    @foreach($escalas as $key => $value)
+                    @forelse($escalas as $key => $value)
                         <option value="{{ $key }}">{{ $value }}</option>
-                    @endforeach
+                    @empty
+                    @endforelse
                 </select>
             </div>
         @endif
@@ -41,10 +44,10 @@
         </div>
         @endif
     </div>
+
+    @if($proyecto_seleccionado == "casas" || $proyecto_seleccionado == "departamentos")
+        @livewire('casas-departamentos')
+    @endif
     
-
-
     <input  type="hidden" class="" value="{{ $modelo }}" name="modelo" required>
-
-
 </div>

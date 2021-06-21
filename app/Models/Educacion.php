@@ -15,7 +15,7 @@ class Educacion extends Model
             "basica_media_especial" => "Establecimiento Básica, Media, Especial o Técnico-Profesional", 
             "otro_equipamiento" => "Otro equipamiento educacional",
             "parvularia" => "Establecimiento Parvularia, Prebásica",
-            "superior" => "Supermercado, Local Comercial",
+            "superior" => "Establecimiento Educación Superior",
         ];
 
         return $subproyecto;

@@ -13,8 +13,7 @@ class HomeController extends Controller
     public function index()
     {
         
-        return view('inicio')
-            ->with('proyectos', FuncionesCalculos::fullProyectos());
+        return view('inicio');
     }
 
 }
