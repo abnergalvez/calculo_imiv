@@ -28,7 +28,12 @@
         :imiv_t_otros="$imiv_t_otros"
     />  
      
-    <x-resultados.btn_volver />
+    <x-resultados.btn_volver 
+		:proyecto="$proyecto"
+		:sumatoria="$sumatoria"
+		:datos_calculo="$datos_calculo"
+	/>
+    
 </div>
 @endsection
 

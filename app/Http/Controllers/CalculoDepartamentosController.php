@@ -57,6 +57,14 @@ class CalculoDepartamentosController extends Controller
     
         }
 
+        // datos en texto calculo        
+        $text1 = '';
+        foreach($request->superficies as $key => $value){
+            $text1 = $text1.' '.$request->cantidades[$key].' de '.$value.'M2 ,'; 
+        }
+        $datos_text = ' |'.$text1;
+        // datos en texto calculo 
+
         $sum_entradas = FuncionesCalculos::sum_flujos($entrada_resultado);
         $sum_salidas = FuncionesCalculos::sum_flujos($salida_resultado);
         $sumatoria = FuncionesCalculos::sum_total_flujos($sum_entradas,$sum_salidas);
@@ -64,6 +72,7 @@ class CalculoDepartamentosController extends Controller
         $maximo_t_otros = FuncionesCalculos::busca_mayor_otras_columnas($sumatoria); 
         
         return view('casas_y_departamentos.index')
+            ->with('datos_calculo', $datos_text)
             ->with('resultado_entradas',$sum_entradas)
             ->with('resultado_salidas',$sum_salidas)
             ->with('sumatoria', $sumatoria)

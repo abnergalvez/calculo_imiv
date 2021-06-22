@@ -63,9 +63,21 @@ class CalculoController extends Controller
             $sumatoria = FuncionesCalculos::sum_total_otros_flujos($entrada_resultado,$salida_resultado);
             $maximo_t_privado = FuncionesCalculos::buscar_mayor_columna($sumatoria,"transporte_privado");
             $maximo_t_otros = FuncionesCalculos::busca_mayor_otras_columnas($sumatoria); 
-            //dd(FuncionesCalculos::fullProyectos()[$request->proyecto]);
+
+            // datos en texto calculo 
+            $escala_text = $request->escala ? ' - Escala: '.$request->escala : '';
+            $tex1 = substr($request->modelo::subproyectos()[$request->subproyecto],0,35).''.$escala_text;
+            
+            if($request->superficie){
+                $text2 = ' calculo total con '.$request->superficie.' M2 de superficie';
+            }else{
+                $text2 = ' calculo para '.$request->cantidad.' de '.$request->modelo::labelIngreso($request->subproyecto);
+            }
+            $datos_text = $tex1.' |'.$text2;
+            // datos en texto calculo 
 
             return view('otros_proyectos.index')
+                ->with('datos_calculo', $datos_text)
                 ->with('sumatoria', $sumatoria)
                 ->with('calculo', $tipoCalculo)
                 ->with('superficie', $tipoCalculo == 'superficie' ? $request->superficie : 0 )
@@ -74,7 +86,7 @@ class CalculoController extends Controller
                 ->with('max_t_otros', $maximo_t_otros)
                 ->with('imiv_t_privado', FuncionesCalculos::categoria_imiv_t_privado($maximo_t_privado))
                 ->with('imiv_t_otros', FuncionesCalculos::categoria_imiv_t_otros($maximo_t_otros))
-                ->with('proyecto', FuncionesCalculos::fullProyectos()[$request->proyecto]['label'] )
+                ->with('proyecto',$request->proyecto)
                 ->with('modelo', FuncionesCalculos::fullProyectos()[$request->proyecto]['modelo'] )
                 ->with('subproyecto_key', $request->subproyecto)
                 ->with('subproyecto', $request->modelo::subproyectos()[$request->subproyecto])
