@@ -77,6 +77,29 @@ class FuncionesCalculos extends Model
         }
         return $final;
     }
+
+    public static function sum_flujos_mixto($flujos)
+    {
+        $final = array();
+        foreach ($flujos as $key1 => $values) {
+            if($key1 == 0){
+                foreach ($values as $key2 => $val) {    
+                    $final[$key2]["transporte_privado"] = $val->transporte_privado;
+                    $final[$key2]["transporte_publico"] = $val->transporte_publico;
+                    $final[$key2]["peatones_viajes"] = $val->peatones_viajes;
+                    $final[$key2]["ciclos_viajes"] = $val->ciclos_viajes;  
+                }
+            }else{
+                foreach ($values as $key2 => $val) {    
+                    $final[$key2]["transporte_privado"] = $final[$key2]["transporte_privado"] + $val->transporte_privado;
+                    $final[$key2]["transporte_publico"] = $final[$key2]["transporte_publico"] + $val->transporte_publico;
+                    $final[$key2]["peatones_viajes"] = $final[$key2]["peatones_viajes"] + $val->peatones_viajes;
+                    $final[$key2]["ciclos_viajes"] = $final[$key2]["ciclos_viajes"] + $val->ciclos_viajes;  
+                }
+            }
+        }
+        return $final;
+    }
     
     public static function sum_total_otros_flujos($entradas,$salidas)
     {

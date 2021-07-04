@@ -11,3 +11,4 @@ Route::post('/calcular_deptos', 'CalculoDepartamentosController@calculo')->name(
 Route::post('/calcular_casas', 'CalculoCasasController@calculo')->name('calculo_casas');
 Route::post('/guardar_mixto', 'CalculoMixtoController@guardar')->name('mixto_guardar');
 Route::get('/calcular_mixto', 'CalculoMixtoController@calcular')->name('mixto_calcular');
+Route::get('/borrar_mixto', 'CalculoMixtoController@borrar')->name('mixto_borrar');
