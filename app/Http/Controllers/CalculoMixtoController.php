@@ -23,4 +23,10 @@ class CalculoMixtoController extends Controller
 
         
     }
+
+    public function calcular()
+    {
+        dd('calculo mixto');
+    }
+    
 }

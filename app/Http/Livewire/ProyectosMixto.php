@@ -9,6 +9,7 @@ class ProyectosMixto extends Component
 {
     
     public $proyectos_mixtos = [];
+    public $ruta ='';
     
     public function render()
     {   
@@ -18,6 +19,7 @@ class ProyectosMixto extends Component
     public function mount()
     {
         $this->proyectos_mixtos = request()->session()->get('calculo_mixto');
+        $this->ruta = route('mixto_calcular');
     }
 
     public function remove($key) 

@@ -1,6 +1,7 @@
 <div>
 @if (session('calculo_mixto') && count($proyectos_mixtos['proyectos']) > 0 )
     <hr> 
+    <form action="{{ $ruta }}" name="formulario_mixto" method="get">
     <h4 class="mb-3"> Datos calculo Mixto</h4>
     <ul>
     @foreach($proyectos_mixtos['proyectos'] as $key => $proyecto )
@@ -9,5 +10,9 @@
             <button  class="btn btn-danger btn-sm" wire:click="remove({{ $key }})"> <i class="bi bi-trash"></i></button></li>
     @endforeach
     </ul>
+    <div class="col-md-4">
+    <button type="submit" class="btn btn-primary btn-lg" >Calcular</button>
+    </div>
+    </form> 
 @endif
 </div>
