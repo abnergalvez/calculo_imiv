@@ -2,6 +2,10 @@
     <h2>Calculo IMIV - Resultado</h2>
       <h3>{{ App\Models\FuncionesCalculos::fullProyectos()[$attributes['proyecto']]['label'] }}</h3>
 </div>
+<br>
+    <x-resultados.periodos />
+<br>
+
 <p>Calculo para:</p>
 <ul>
     @foreach($attributes['superficies'] as $key => $value) 

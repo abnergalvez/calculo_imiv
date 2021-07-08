@@ -2,6 +2,9 @@
     <h2>Calculo IMIV - Resultado</h2>
     <h3>{{ $attributes['proyecto'] }} - {{ $attributes['subproyecto'] }} - {{ $attributes['escala'] }}</h3>
 </div>
+<br>
+    <x-resultados.periodos />
+<br>
 
 @if($attributes['superficie'])
 Sumatoria total proyecto con {{ $attributes['superficie'] }} MT<sup>2</sup> de superficie <br>

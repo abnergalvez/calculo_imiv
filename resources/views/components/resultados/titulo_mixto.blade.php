@@ -1,6 +1,9 @@
 <div class="py-5 text-center mt-4">
     <h2>Calculo IMIV - Calculo Mixto - Resultado</h2>
 </div>
+<br>
+    <x-resultados.periodos />
+<br>
 <p>Calculo para:</p>
 <ul>
     @foreach($attributes['datos'] as $key => $value) 

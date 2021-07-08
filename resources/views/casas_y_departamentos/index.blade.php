@@ -6,12 +6,21 @@
 
 @section('content')
 <div class="container">
+
 	<x-resultados.titulo_casadeptos
 		:proyecto="$proyecto"
 		:superficies="$superficies"
 		:cantidades="$cantidades"
 	/>
 
+	<x-resultados.tabla_entradas_casadeptos 
+		:entradas="$resultado_entradas"
+	/>
+	<hr>
+	<x-resultados.tabla_salidas_casadeptos 
+		:salidas="$resultado_salidas"
+	/>
+	<hr>
 	<x-resultados.tabla_sumatoria_casadeptos 
 		:sumatoria="$sumatoria"
 	/>

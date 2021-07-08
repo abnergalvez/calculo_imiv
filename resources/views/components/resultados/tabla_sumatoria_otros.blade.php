@@ -7,9 +7,6 @@
         </h2>
         <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
             <div class="accordion-body">
-                
-                <x-resultados.periodos />
-
                 <div class="row g-3">
                     <table class="table table-hover table-sm">
                         <thead>

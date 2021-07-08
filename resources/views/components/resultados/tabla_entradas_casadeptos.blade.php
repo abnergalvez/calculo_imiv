@@ -1,11 +1,11 @@
-<div class="accordion accordion-flush" id="casas_deptos_tabla">
+<div class="accordion accordion-flush" id="casas_deptos_tabla_entradas">
     <div class="accordion-item">
       <h2 class="accordion-header" id="flush-headingTwo">
-        <button class="accordion-button bg-dark text-light collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#casas_deptos" aria-expanded="false" aria-controls="flush-collapseTwo">
-        SUMATORIA  (clic para ver detalles)
+        <button class="accordion-button bg-dark text-light collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#casas_deptos_entradas" aria-expanded="false" aria-controls="flush-collapseTwo">
+        ENTRADAS  (clic para ver detalles)
         </button>
       </h2>
-      <div id="casas_deptos" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#casas_deptos_tabla">
+      <div id="casas_deptos_entradas" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#casas_deptos_tabla_entradas">
         <div class="accordion-body">
     
       <div class="row g-3">
@@ -24,7 +24,7 @@
             <tbody>
               <?php
                $periodos = array("PM-L", "PMd-L", "PT-L", "PMd-F","PT-F"); 
-               foreach ($attributes['sumatoria'] as $key => $value) { 
+               foreach ($attributes['entradas'] as $key => $value) { 
               ?>
               <tr>
                 <td><?php  echo $periodos[$key]; ?></td>
