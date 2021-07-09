@@ -29,6 +29,7 @@ class CalculoController extends Controller
 
     public function calculo(Request $request)
     {
+
         if($request->proyecto == "departamentos" || $request->proyecto == "casas"){
            
             
@@ -80,6 +81,8 @@ class CalculoController extends Controller
                 ->with('datos_calculo', $datos_text)
                 ->with('sumatoria', $sumatoria)
                 ->with('calculo', $tipoCalculo)
+                ->with('resultado_entradas', $entrada_resultado)
+                ->with('resultado_salidas', $salida_resultado)
                 ->with('superficie', $tipoCalculo == 'superficie' ? $request->superficie : 0 )
                 ->with('cantidad', $tipoCalculo == 'cantidad' ? $request->cantidad : 0 )
                 ->with('max_t_privado',$maximo_t_privado)

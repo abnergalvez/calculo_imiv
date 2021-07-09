@@ -16,7 +16,14 @@
         :modelo="$modelo"
         :subproyecto_key="$subproyecto_key"
     />
-
+    <x-resultados.tabla_entradas_otros
+		:entradas="$resultado_entradas"
+	/>
+	<hr>
+	<x-resultados.tabla_salidas_otros
+		:salidas="$resultado_salidas"
+	/>
+	<hr>
     <x-resultados.tabla_sumatoria_otros 
         :sumatoria="$sumatoria"
     />
