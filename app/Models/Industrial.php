@@ -14,8 +14,8 @@ class Industrial extends Model
         $subproyecto = [
             "grandes_depositos_bodegas" => "Grandes Depositos, Bodegas Industriales", 
             "industrias" => "Industrias",
-            "planta_revision_tecnica" => "Linea de Revisión (Planta Revision Técnica)",
-            "talleres" => "Supermercado, Local Comercial",
+            "planta_revision_tecnica" => "Linea de Revisión - Planta Revision Técnica",
+            "talleres" => "Talleres",
         ];
 
         return $subproyecto;
