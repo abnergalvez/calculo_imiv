@@ -19,7 +19,7 @@ class Casas extends Model
             foreach ($items_entrada as $key => $value) {
             
                 $resultado_entradas[$key]["viajes_h_por_vivienda"] = $value["viajes_h_por_vivienda"] * $cantidad;
-                $resultado_entradas[$key]["transporte_privado"] = $value["transporte_privado"] * $cantidad;
+                $resultado_entradas[$key]["transporte_privado"] = $value["transporte_privado"] * $cantidad * $factor_ap;
                 $resultado_entradas[$key]["transporte_publico"] = $value["transporte_publico"] * $cantidad;
                 $resultado_entradas[$key]["peatones_viajes"] = $value["peatones_viajes"] * $cantidad;
                 $resultado_entradas[$key]["ciclos_viajes"] = $value["ciclos_viajes"] * $cantidad;
