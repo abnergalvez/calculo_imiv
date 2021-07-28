@@ -12,3 +12,6 @@ Route::post('/calcular_casas', 'CalculoCasasController@calculo')->name('calculo_
 Route::post('/guardar_mixto', 'CalculoMixtoController@guardar')->name('mixto_guardar');
 Route::get('/calcular_mixto', 'CalculoMixtoController@calcular')->name('mixto_calcular');
 Route::get('/borrar_mixto', 'CalculoMixtoController@borrar')->name('mixto_borrar');
+Route::post('/enviar_resultados', 'EmailController@enviarResultados')->name('resultados_por_email');
+Route::get('/calculo_cesion', 'CalculoCesionController@index')->name('inicio.cesion');
+Route::post('/resultado_cesion', 'CalculoCesionController@calculo')->name('calculo.cesion');

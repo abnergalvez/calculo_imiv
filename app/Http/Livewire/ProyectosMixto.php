@@ -28,6 +28,7 @@ class ProyectosMixto extends Component
         session()->pull('calculo_mixto.proyectos.'.$key);
         session()->pull('calculo_mixto.datos_calculo.'.$key);
         session()->pull('calculo_mixto.sumatoria.'.$key);
+        
         if(empty(session()->get('calculo_mixto'))){
             session()->forget('calculo_mixto');
         }else{

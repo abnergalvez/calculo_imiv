@@ -6,7 +6,7 @@
 
 @section('content')
 <div class="container">
-    <x-inicio.descripcion />
+    <x-inicio.descripcion_imiv />
     
 
         @livewire('proyectos-mixto')

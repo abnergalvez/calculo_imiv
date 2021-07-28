@@ -7,7 +7,8 @@
     @foreach($proyectos_mixtos['proyectos'] as $key => $proyecto )
        <li> <h4 class="badge bg-primary"> Calculo {{ $key+1 }} </h4> : 
             <strong> {{ App\Models\FuncionesCalculos::fullProyectos()[$proyecto]['label'] }} </strong> - {{ $proyectos_mixtos['datos_calculo'][$key] }}
-            <button  class="btn btn-danger btn-sm" wire:click="remove({{ $key }})"> <i class="bi bi-trash"></i></button></li>
+            <a  class="btn btn-danger btn-sm" wire:click="remove({{ $key }})"> <i class="bi bi-trash"></i></a>
+        </li>
     @endforeach
     </ul>
     <div class="col-md-4">

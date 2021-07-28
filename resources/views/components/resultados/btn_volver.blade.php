@@ -17,12 +17,12 @@
 </form>
 </div>
 <div class="col-md-4">
-    <div class="input-group mb-4">
-        <input type="text" class="form-control" placeholder="Ingrese email destino" aria-label="Email destino" aria-describedby="basic-addon2">
-        <div class="input-group-append">
-          <button class="btn btn-success" type="button">Enviar Resultados</button>
-        </div>
-      </div>
+    @component('components.resultados.envio_email', 
+        [
+            'sumatoria' => json_encode($attributes['sumatoria']),
+            'proyecto' => $attributes['proyecto'],
+        ])
+    @endcomponent 
 </div>
 
 </div>
