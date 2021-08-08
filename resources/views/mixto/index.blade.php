@@ -13,6 +13,7 @@
 
     <x-resultados.tabla_sumatoria_mixto 
         :sumatoria="$sumatoria"
+        :suma_otros="$suma_otros"
     />
 
     <x-resultados.estudio_imiv 

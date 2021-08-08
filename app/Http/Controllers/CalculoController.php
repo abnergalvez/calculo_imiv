@@ -76,8 +76,11 @@ class CalculoController extends Controller
             }
             $datos_text = $tex1.' |'.$text2;
             // datos en texto calculo 
+            $suma_otros = FuncionesCalculos::sumar_columnas_otros($sumatoria);
+            
 
             return view('otros_proyectos.index')
+                ->with('suma_otros', $suma_otros)
                 ->with('datos_calculo', $datos_text)
                 ->with('sumatoria', $sumatoria)
                 ->with('calculo', $tipoCalculo)

@@ -26,6 +26,7 @@
 	<hr>
     <x-resultados.tabla_sumatoria_otros 
         :sumatoria="$sumatoria"
+        :suma_otros="$suma_otros"
     />
 
     <x-resultados.estudio_imiv 

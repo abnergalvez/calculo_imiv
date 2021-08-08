@@ -19,6 +19,7 @@
                 <th scope="col">T. Publico </th>
                 <th scope="col">Peatones </th>
                 <th scope="col">Ciclos </th>
+                <th scope="col">Sum. Otros (T.Publico, Peaton, Ciclos) </th>
               </tr>
             </thead>
             <tbody>
@@ -33,6 +34,7 @@
                 <td><?php  echo $value["transporte_publico"];         ?></td>
                 <td><?php  echo $value["peatones_viajes"];         ?></td>
                 <td><?php  echo $value["ciclos_viajes"];         ?></td>
+                <td><?php echo $attributes['suma_otros'][$key]  ?></td>
               </tr>
               <?php
                }

@@ -16,6 +16,7 @@
                                 <th scope="col">T. Publico </th>
                                 <th scope="col">Peatones </th>
                                 <th scope="col">Ciclos </th>
+                                <th scope="col">Sum. Otros (T.Publico, Peaton, Ciclos) </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -30,6 +31,7 @@
                                 <td>{{ $value["transporte_publico"] }}</td>
                                 <td>{{ $value["peatones_viajes"] }}</td>
                                 <td>{{ $value["ciclos_viajes"] }}</td>
+                                <td><?php echo $attributes['suma_otros'][$key]  ?></td>
                             </tr>
                             @endforeach
                         </tbody>

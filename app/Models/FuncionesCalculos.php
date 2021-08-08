@@ -129,26 +129,84 @@ class FuncionesCalculos extends Model
     
     public static function busca_mayor_otras_columnas($array)
     {
-        $mayor_t_publico = FuncionesCalculos::buscar_mayor_columna($array,"transporte_publico");
-        $mayor_peatones = FuncionesCalculos::buscar_mayor_columna($array,"peatones_viajes");
-        $mayor_ciclos = FuncionesCalculos::buscar_mayor_columna($array,"ciclos_viajes");
-        $mayores = array($mayor_t_publico,$mayor_peatones, $mayor_ciclos);   
-        return max ($mayores);
+        $sumas = FuncionesCalculos::sumar_columnas_otros($array);
+        //$mayor_t_publico = FuncionesCalculos::buscar_mayor_columna($array,"transporte_publico");
+        //$mayor_peatones = FuncionesCalculos::buscar_mayor_columna($array,"peatones_viajes");
+        //$mayor_ciclos = FuncionesCalculos::buscar_mayor_columna($array,"ciclos_viajes");
+        //$mayores = array($mayor_t_publico,$mayor_peatones, $mayor_ciclos);   
+        return max ($sumas);
+    }
+
+    public static function sumar_columnas_otros($array)
+    {
+        $result_sum = array();
+        foreach ($array as $key => $value) {
+            array_push($result_sum, $value["transporte_publico"]+$value["peatones_viajes"]+$value["ciclos_viajes"]);
+        }
+        return $result_sum;
     }
     
     public static function categoria_imiv_t_privado($n_viajes)
     {
         if($n_viajes < 20){
-            return "No requiere estudio";
+            return [
+                "imiv" => "No requiere estudio",
+                "cruces" => "2 en total"
+            ];
         }
         if($n_viajes >= 20 && $n_viajes <= 80){
-            return "Básico";
+            return [
+                "imiv" => "No requiere estudio",
+                "cruces" => "2 en total"
+            ];
         }
-        if($n_viajes > 80 && $n_viajes <= 250){
-            return "Intermedio";
+        if($n_viajes > 80 && $n_viajes <= 120){
+            return [
+                "imiv" => "Intermedio",
+                "cruces" => "2 por ruta"
+            ];
         }
-        if($n_viajes > 250){
-            return "Mayor";
+        if($n_viajes > 120 && $n_viajes <= 180){
+            return [
+                "imiv" => "Intermedio",
+                "cruces" => "3 por ruta"
+            ];
+        }
+        if($n_viajes > 180 && $n_viajes <= 250){
+            return [
+                "imiv" => "Intermedio",
+                "cruces" => "4 por ruta"
+            ];
+        }
+        if($n_viajes > 250 && $n_viajes <= 400){
+            return [
+                "imiv" => "Mayor",
+                "cruces" => "5 por ruta"
+            ];
+        }
+        if($n_viajes > 400 && $n_viajes <= 550){
+            return [
+                "imiv" => "Mayor",
+                "cruces" => "6 por ruta"
+            ];
+        }
+        if($n_viajes > 550 && $n_viajes <= 750){
+            return [
+                "imiv" => "Mayor",
+                "cruces" => "7 por ruta"
+            ];
+        }
+        if($n_viajes > 750 && $n_viajes <= 1000){
+            return [
+                "imiv" => "Mayor",
+                "cruces" => "8 por ruta"
+            ];
+        }
+        if($n_viajes > 1000){
+            return [
+                "imiv" => "Mayor",
+                "cruces" => "Consultar al administrador *"
+            ];
         }
     
     }
@@ -156,16 +214,34 @@ class FuncionesCalculos extends Model
     public static function categoria_imiv_t_otros($n_viajes)
     {
         if($n_viajes < 40){
-            return "No requiere estudio";
+            return [
+                "imiv" => "No requiere estudio",
+                "cruces" => "2 en total"
+            ];
         }
         if($n_viajes >= 40 && $n_viajes <= 160){
-            return "Básico";
+            return [
+                "imiv" => "No requiere estudio",
+                "cruces" => "2 en total"
+            ];
         }
         if($n_viajes > 160 && $n_viajes <= 500){
-            return "Intermedio";
+            return [
+                "imiv" => "Intermedio",
+                "cruces" => "3 por ruta"
+            ];
         }
-        if($n_viajes > 500){
-            return "Mayor";
+        if($n_viajes > 500 && $n_viajes <= 2000){
+            return [
+                "imiv" => "Mayor",
+                "cruces" => "6 por ruta"
+            ];
+        }
+        if($n_viajes > 2000){
+            return [
+                "imiv" => "Mayor",
+                "cruces" => "8 por ruta"
+            ];
         }
     }
 
@@ -190,4 +266,15 @@ class FuncionesCalculos extends Model
 
         return $proyectos;
     }
+
+    public static function cargaOcupacion($sup_util_vivienda)
+    {
+        if ($sup_util_vivienda <= 60) {
+            return 15;
+        }elseif($sup_util_vivienda > 60 && $sup_util_vivienda <= 140){
+            return 20;
+        }elseif($sup_util_vivienda > 140){
+            return 30;
+        }
+    } 
 }

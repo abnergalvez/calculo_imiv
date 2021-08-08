@@ -11,7 +11,13 @@
 <p>
     Estudio IMIV requerido:  
     <span class="badge bg-primary">
-        {{ $attributes['imiv_t_privado'] }}
+        {{ $attributes['imiv_t_privado']['imiv'] }} <br>
+    </span>
+</p>
+<p>
+    Cantidad Intersecciones:  
+    <span class="badge bg-secondary">
+        {{ $attributes['imiv_t_privado']['cruces'] }}
     </span>
 </p>
        
@@ -27,6 +33,12 @@
 <p>
     Estudio IMIV requerido: 
     <span class="badge bg-primary">
-        {{ $attributes['imiv_t_otros'] }}
+        {{ $attributes['imiv_t_otros']['imiv']  }}<br>
+    </span>
+</p>
+<p>
+Cantidad Intersecciones: 
+    <span class="badge bg-secondary">
+        {{ $attributes['imiv_t_otros']['cruces']  }}
     </span>
 </p>

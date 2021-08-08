@@ -70,6 +70,8 @@ class CalculoDepartamentosController extends Controller
         $sumatoria = FuncionesCalculos::sum_total_flujos($sum_entradas,$sum_salidas);
         $maximo_t_privado = FuncionesCalculos::buscar_mayor_columna($sumatoria,"transporte_privado");
         $maximo_t_otros = FuncionesCalculos::busca_mayor_otras_columnas($sumatoria); 
+        $suma_otros = FuncionesCalculos::sumar_columnas_otros($sumatoria);
+
         
         return view('casas_y_departamentos.index')
             ->with('datos_calculo', $datos_text)
@@ -81,6 +83,7 @@ class CalculoDepartamentosController extends Controller
             ->with('superficies', $request->superficies)
             ->with('max_t_privado', $maximo_t_privado)
             ->with('max_t_otros', $maximo_t_otros)
+            ->with('suma_otros', $suma_otros)
             ->with('imiv_t_privado', FuncionesCalculos::categoria_imiv_t_privado($maximo_t_privado))
             ->with('imiv_t_otros', FuncionesCalculos::categoria_imiv_t_otros($maximo_t_otros));
     }

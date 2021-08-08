@@ -23,6 +23,7 @@
 	<hr>
 	<x-resultados.tabla_sumatoria_casadeptos 
 		:sumatoria="$sumatoria"
+		:suma_otros="$suma_otros"
 	/>
 
 	<x-resultados.estudio_imiv 
