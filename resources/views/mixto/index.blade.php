@@ -23,7 +23,19 @@
         :imiv_t_otros="$imiv_t_otros"
     />
 
-	<x-resultados.btn_volver_mixto />  
+	<x-resultados.btn_volver_mixto 
+
+        tipo_calculo=mixto
+		:proyecto="$proyectos"
+		:sumatoria="$sumatoria"
+        :suma_otros="$suma_otros"
+		:datos_calculo="$datos"
+		:max_t_privado="$max_t_privado"
+		:imiv_t_privado="$imiv_t_privado "
+		:max_t_otros="$max_t_otros"
+		:imiv_t_otros="$imiv_t_otros"
+    
+    />  
     
 </div>
 @endsection

@@ -37,9 +37,17 @@
     />  
      
     <x-resultados.btn_volver 
+        tipo_calculo=normal
 		:proyecto="$proyecto"
 		:sumatoria="$sumatoria"
 		:datos_calculo="$datos_calculo"
+		:entradas="$resultado_entradas"
+		:salidas="$resultado_salidas"
+		:suma_otros="$suma_otros"
+		:max_t_privado="$max_t_privado"
+		:imiv_t_privado="$imiv_t_privado "
+		:max_t_otros="$max_t_otros"
+		:imiv_t_otros="$imiv_t_otros"
 	/>
     
 </div>

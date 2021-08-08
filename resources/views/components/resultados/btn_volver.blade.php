@@ -21,6 +21,15 @@
         [
             'sumatoria' => json_encode($attributes['sumatoria']),
             'proyecto' => $attributes['proyecto'],
+            'datos_calculo' => $attributes['datos_calculo'],
+            'entradas' => json_encode($attributes['entradas']),
+            'salidas' => json_encode($attributes['salidas']),
+            'suma_otros' => json_encode($attributes['suma_otros']),
+            'max_t_privado' => $attributes['max_t_privado'],
+            'imiv_t_privado' => json_encode($attributes['imiv_t_privado']),
+            'max_t_otros' => $attributes['max_t_otros'],
+            'imiv_t_otros' => json_encode($attributes['imiv_t_otros']),
+            'tipo_calculo' => $attributes['tipo_calculo'],
         ])
     @endcomponent 
 </div>

@@ -10,14 +10,15 @@
             </div>
         </div>
         <input type="hidden" name="proyecto" value="{{ $proyecto }}"/>
-        <input type="hidden" name="tipo_calculo" value=""/>
-        <input type="hidden" name="texto_datos" value=""/>
-        <input type="hidden" name="entradas" value=""/>
-        <input type="hidden" name="salidas" value=""/>
+        <input type="hidden" name="tipo_calculo" value="{{ $tipo_calculo }}"/>
+        <input type="hidden" name="texto_datos" value="{{ $datos_calculo }}"/>
+        <input type="hidden" name="entradas" value="{{ isset($entradas) ? $entradas : '' }}"/>
+        <input type="hidden" name="salidas" value="{{ isset($salidas) ? $salidas : ''  }}"/>
         <input type="hidden" name="sumatoria" value="{{ $sumatoria }}"/>
-        <input type="hidden" name="maximo_t_privado" value=""/>
-        <input type="hidden" name="maximo_t_otros" value=""/>
-        <input type="hidden" name="estudio_t_privado" value=""/>
-        <input type="hidden" name="estudio_t_otros" value=""/>
+        <input type="hidden" name="suma_otros" value="{{ $suma_otros }}"/>
+        <input type="hidden" name="maximo_t_privado" value="{{ $max_t_privado }}"/>
+        <input type="hidden" name="maximo_t_otros" value="{{ $max_t_otros }}"/>
+        <input type="hidden" name="estudio_t_privado" value="{{ $imiv_t_privado }}"/>
+        <input type="hidden" name="estudio_t_otros" value="{{ $imiv_t_otros }}"/>
     </form>
 </div>

@@ -11,13 +11,18 @@
     </a>
 </div>
 <div class="col-md-4">
-    
     @component('components.resultados.envio_email', 
         [
             'sumatoria' => json_encode($attributes['sumatoria']),
-            'proyecto' => $attributes['proyecto'],
+            'proyecto' => json_encode($attributes['proyecto']),
+            'datos_calculo' => json_encode($attributes['datos_calculo']),
+            'suma_otros' => json_encode($attributes['suma_otros']),
+            'max_t_privado' => $attributes['max_t_privado'],
+            'imiv_t_privado' => json_encode($attributes['imiv_t_privado']),
+            'max_t_otros' => $attributes['max_t_otros'],
+            'imiv_t_otros' => json_encode($attributes['imiv_t_otros']),
+            'tipo_calculo' => $attributes['tipo_calculo'],
         ])
     @endcomponent 
-
 </div>
 </div>
