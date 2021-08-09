@@ -14,9 +14,9 @@ class CasasDepartamentos extends Component
     }
 
     public function add() {
-        if(count($this->items) > 3) {
-             return;
-        } 
+        // if(count($this->items) > 3) {
+        //      return;
+        // } 
         // array_push($this->count, count($this->count)+1);
         $this->items[] = count($this->items);
     }
