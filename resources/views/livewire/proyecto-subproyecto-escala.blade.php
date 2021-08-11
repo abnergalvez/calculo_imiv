@@ -42,7 +42,15 @@
         @if ($formulario_normal)
         <div class="col-md-4 ">
             <label for="cant_sup" class="form-label fw-bold">Ingrese {{ $tipo_calculo_label }}</label>
-            <input  type="number" min="1" class="form-control" name="{{ $tipo_calculo}}" id="cant_sup" required>
+            <input  
+                type="number" 
+                min="1" 
+                class="form-control" 
+                name="{{ $tipo_calculo}}" 
+                id="cant_sup" 
+                @if($tipo_calculo == 'superficie') placeholder="0.00" step="any" @endif
+                required
+            >
         </div>
         @endif
     </div>
