@@ -15,12 +15,12 @@
         @csrf
         <div class="row g-3">
             <div class="col-md-4 ">
-                <label for="" class="form-label fw-bold"> Superficie Vivienda (M<sup>2</sup>) *</label>
-                <input  type="number" min="1" class="form-control" name="sup_vivienda" title="Solo superficie de lo construido" required>
+                <label for="" class="form-label fw-bold"> Valor de Carga de Ocupación *</label>
+                <input  type="number" min="1" class="form-control" name="carga_ocupacion" placeholder="0.00" step="any" title="Solo superficie de lo construido" required>
             </div>
             <div class="col-md-4 ">
                 <label for="" class="form-label fw-bold"> Superficie Bruta del terreno(M<sup>2</sup>) *</label>
-                <input  type="number" min="1" class="form-control" name="sup_bruta_terreno" title="Sup. Adjacente (Calle) + Sup. Total del Terreno de la Vivienda" required>
+                <input  type="number" min="1" class="form-control" name="sup_bruta_terreno"  placeholder="0.00" step="any" title="Sup. Adjacente (Calle) + Sup. Total del Terreno de la Vivienda" required>
             </div>
 
             <hr>
@@ -28,7 +28,7 @@
             
             <div class="col-md-4 ">
                 <label for="" class="form-label fw-bold"> Superficie Neta del terreno(M<sup>2</sup>) de la vivienda </label>
-                <input  type="number" min="1" class="form-control" name="sup_neta_terreno" title="Sup. Total del Terreno de la Vivienda">
+                <input  type="number" min="1" class="form-control" name="sup_neta_terreno" placeholder="0.00" step="any"  title="Sup. Total del Terreno de la Vivienda">
             </div>
             <div class="col-md-4 ">
                 <label for="" class="form-label fw-bold">Avaluo del Terreno Propio $ (CLP)</label>

@@ -11,7 +11,7 @@
     <table class="table table-striped table-bordered nowrap" cellspacing="0" width="100%">
         <thead>
             <tr>
-                <th>Sup. Vivienda </th>
+                <th>Valor Carga de Ocupación </th>
                 <th>Sup. Neta Terreno</th>
                 <th>Sup. Bruta Terreno</th>
                 <th> Avaluo Terreno Propio ($CLP)</th>
@@ -19,7 +19,7 @@
         </thead>
         <tbody>
             <tr>
-                <td>{{ $sup_vivienda }} M<sup>2</sup></td>
+                <td>{{ $carga_ocupacion }} M<sup>2</sup></td>
                 <td>{{ $sup_neta_terreno }} M<sup>2</sup></td>
                 <td>{{ $sup_bruta_terreno }} M<sup>2</sup></td>
                 <td> ${{  $avaluo_terreno_propio }}</td>   
