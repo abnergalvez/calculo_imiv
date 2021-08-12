@@ -151,61 +151,71 @@ class FuncionesCalculos extends Model
         if($n_viajes < 20){
             return [
                 "imiv" => "No requiere estudio",
-                "cruces" => "2 en total"
+                "cruces" => "2 en total",
+                "n_cruces" => "2t"
             ];
         }
         if($n_viajes >= 20 && $n_viajes <= 80){
             return [
-                "imiv" => "No requiere estudio",
-                "cruces" => "2 en total"
+                "imiv" => "Básico",
+                "cruces" => "2 en total",
+                "n_cruces" => "2t"
             ];
         }
         if($n_viajes > 80 && $n_viajes <= 120){
             return [
                 "imiv" => "Intermedio",
-                "cruces" => "2 por ruta"
+                "cruces" => "2 por ruta",
+                "n_cruces" => 2
             ];
         }
         if($n_viajes > 120 && $n_viajes <= 180){
             return [
                 "imiv" => "Intermedio",
-                "cruces" => "3 por ruta"
+                "cruces" => "3 por ruta",
+                "n_cruces" => 3
             ];
         }
         if($n_viajes > 180 && $n_viajes <= 250){
             return [
                 "imiv" => "Intermedio",
-                "cruces" => "4 por ruta"
+                "cruces" => "4 por ruta",
+                "n_cruces" => 4
             ];
         }
         if($n_viajes > 250 && $n_viajes <= 400){
             return [
                 "imiv" => "Mayor",
-                "cruces" => "5 por ruta"
+                "cruces" => "5 por ruta",
+                "n_cruces" => 5
             ];
         }
         if($n_viajes > 400 && $n_viajes <= 550){
             return [
                 "imiv" => "Mayor",
-                "cruces" => "6 por ruta"
+                "cruces" => "6 por ruta",
+                "n_cruces" => 6
             ];
         }
         if($n_viajes > 550 && $n_viajes <= 750){
             return [
                 "imiv" => "Mayor",
-                "cruces" => "7 por ruta"
+                "cruces" => "7 por ruta",
+                "n_cruces" => 7
             ];
         }
         if($n_viajes > 750 && $n_viajes <= 1000){
             return [
                 "imiv" => "Mayor",
-                "cruces" => "8 por ruta"
+                "cruces" => "8 por ruta",
+                "n_cruces" => 8
             ];
         }
         if($n_viajes > 1000){
             return [
                 "imiv" => "Mayor",
-                "cruces" => "Consultar al administrador *"
+                "cruces" => "Consultar al administrador *",
+                "n_cruces" => "n"
             ];
         }
     
@@ -216,31 +226,36 @@ class FuncionesCalculos extends Model
         if($n_viajes < 40){
             return [
                 "imiv" => "No requiere estudio",
-                "cruces" => "2 en total"
+                "cruces" => "2 en total",
+                "n_cruces" => "2t"
             ];
         }
         if($n_viajes >= 40 && $n_viajes <= 160){
             return [
-                "imiv" => "No requiere estudio",
-                "cruces" => "2 en total"
+                "imiv" => "Básico",
+                "cruces" => "2 en total",
+                "n_cruces" => "2t"
             ];
         }
         if($n_viajes > 160 && $n_viajes <= 500){
             return [
                 "imiv" => "Intermedio",
-                "cruces" => "3 por ruta"
+                "cruces" => "3 por ruta",
+                "n_cruces" => 3
             ];
         }
         if($n_viajes > 500 && $n_viajes <= 2000){
             return [
                 "imiv" => "Mayor",
-                "cruces" => "6 por ruta"
+                "cruces" => "6 por ruta",
+                "n_cruces" => 6
             ];
         }
         if($n_viajes > 2000){
             return [
                 "imiv" => "Mayor",
-                "cruces" => "8 por ruta"
+                "cruces" => "8 por ruta",
+                "n_cruces" => 8
             ];
         }
     }
@@ -276,5 +291,70 @@ class FuncionesCalculos extends Model
         }elseif($sup_util_vivienda > 140){
             return 30;
         }
-    } 
+    }
+    
+    public static function comparaIMIVCruces($imiv_t_privado, $imiv_t_otros)
+    {
+        switch ($imiv_t_privado['imiv']) {
+            case 'No requiere estudio':
+                if($imiv_t_otros['imiv'] == "Intermedio" || $imiv_t_otros['imiv'] == "Mayor" ){
+                    return $imiv_t_otros;
+                }
+                if($imiv_t_otros['imiv'] == "No requiere estudio" ){
+                    return $imiv_t_privado;
+                }
+                if($imiv_t_otros['imiv'] == "Básico" ){
+                    return $imiv_t_otros;
+                }
+                break;
+            case 'Básico':
+                if($imiv_t_otros['imiv'] == "Intermedio" || $imiv_t_otros['imiv'] == "Mayor" ){
+                    return $imiv_t_otros;
+                }
+                if($imiv_t_otros['imiv'] == "No requiere estudio" ){
+                    return $imiv_t_privado;
+                }
+                if($imiv_t_otros['imiv'] == "Básico" ){
+                    return $imiv_t_privado;
+                }
+                break;
+            case 'Intermedio':
+                if($imiv_t_otros['imiv'] == "No requiere estudio" || $imiv_t_otros['imiv'] == "Básico" ){
+                    return $imiv_t_privado;
+                }
+                if($imiv_t_otros['imiv'] == "Intermedio" ){
+                    if($imiv_t_otros['n_cruces'] > $imiv_t_privado['n_cruces'] ){
+                        return $imiv_t_otros;
+                    }else{
+                        return $imiv_t_privado;
+                    }
+                }
+                if($imiv_t_otros['imiv'] == "Mayor" ){
+                    return $imiv_t_otros;
+                }
+                break;
+            case 'Mayor':
+                if($imiv_t_otros['imiv'] == "No requiere estudio" || $imiv_t_otros['imiv'] == "Básico" ){
+                    return $imiv_t_privado;
+                }
+                if($imiv_t_otros['imiv'] == "Mayor" ){
+                    if($imiv_t_privado['n_cruces'] == 'n'){
+                        return $imiv_t_privado;
+                    }
+                    if($imiv_t_otros['n_cruces'] > $imiv_t_privado['n_cruces'] ){
+                        return $imiv_t_otros;
+                    }else{
+                        return $imiv_t_privado;
+                    }
+                }
+                if($imiv_t_otros['imiv'] == "Intermedio" ){
+                    return $imiv_t_privado;
+                }
+                break;
+            
+            default:
+                return $imiv_t_privado;
+                break;
+        }
+    }
 }

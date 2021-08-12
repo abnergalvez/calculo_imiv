@@ -27,11 +27,11 @@
                             @foreach($attributes['sumatoria'] as $key => $value)
                             <tr>
                                 <td>{{ $periodos[$key] }}</td>
-                                <td>{{ $value["transporte_privado"] }}</td>
-                                <td>{{ $value["transporte_publico"] }}</td>
-                                <td>{{ $value["peatones_viajes"] }}</td>
-                                <td>{{ $value["ciclos_viajes"] }}</td>
-                                <td><?php echo $attributes['suma_otros'][$key]  ?></td>
+                                <td>{{ round($value["transporte_privado"],2) }}</td>
+                                <td>{{ round($value["transporte_publico"],2) }}</td>
+                                <td>{{ round($value["peatones_viajes"],2) }}</td>
+                                <td>{{ round($value["ciclos_viajes"],2) }}</td>
+                                <td>{{ round($attributes['suma_otros'][$key],2) }}</td>
                             </tr>
                             @endforeach
                         </tbody>

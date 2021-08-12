@@ -15,14 +15,18 @@
         :sumatoria="$sumatoria"
         :suma_otros="$suma_otros"
     />
-
-    <x-resultados.estudio_imiv 
-        :max_t_privado="$max_t_privado"
-        :imiv_t_privado="$imiv_t_privado "
-        :max_t_otros="$max_t_otros"
-        :imiv_t_otros="$imiv_t_otros"
-    />
-
+    <br>
+	<div class="row">
+        <x-resultados.estudio_imiv 
+            :max_t_privado="$max_t_privado"
+            :imiv_t_privado="$imiv_t_privado "
+            :max_t_otros="$max_t_otros"
+            :imiv_t_otros="$imiv_t_otros"
+        />
+        <x-resultados.resultado_imiv 
+            :datos_comparacion="$datos_comparacion"
+        />   
+    </div>
 	<x-resultados.btn_volver_mixto 
 
         tipo_calculo=mixto

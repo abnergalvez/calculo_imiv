@@ -1,4 +1,4 @@
-<br>
+<div class="col-md-6">
 <h4>Maximo Valor: 
     <span class="badge bg-dark">
         transporte privado
@@ -8,7 +8,7 @@
     </span>
 </h4>
 
-<p>
+<!--<p>
     Estudio IMIV requerido:  
     <span class="badge bg-primary">
         {{ $attributes['imiv_t_privado']['imiv'] }} <br>
@@ -19,7 +19,7 @@
     <span class="badge bg-secondary">
         {{ $attributes['imiv_t_privado']['cruces'] }}
     </span>
-</p>
+</p>-->
        
 <h4>Maximo Valor: 
     <span class="badge bg-dark">
@@ -30,7 +30,7 @@
     </span>
 </h4>
 
-<p>
+<!--<p>
     Estudio IMIV requerido: 
     <span class="badge bg-primary">
         {{ $attributes['imiv_t_otros']['imiv']  }}<br>
@@ -41,4 +41,5 @@ Cantidad Intersecciones:
     <span class="badge bg-secondary">
         {{ $attributes['imiv_t_otros']['cruces']  }}
     </span>
-</p>
+</p>-->
+</div>

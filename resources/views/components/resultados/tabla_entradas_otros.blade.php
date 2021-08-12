@@ -26,10 +26,10 @@
                             @foreach($attributes['entradas'] as $key => $value)
                             <tr>
                                 <td>{{ $periodos[$key] }}</td>
-                                <td>{{ $value["transporte_privado"] }}</td>
-                                <td>{{ $value["transporte_publico"] }}</td>
-                                <td>{{ $value["peatones_viajes"] }}</td>
-                                <td>{{ $value["ciclos_viajes"] }}</td>
+                                <td>{{ round($value["transporte_privado"],2) }}</td>
+                                <td>{{ round($value["transporte_publico"],2) }}</td>
+                                <td>{{ round($value["peatones_viajes"],2) }}</td>
+                                <td>{{ round($value["ciclos_viajes"],2) }}</td>
                             </tr>
                             @endforeach
                         </tbody>

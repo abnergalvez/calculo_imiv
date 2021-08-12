@@ -28,11 +28,11 @@
               ?>
               <tr>
                 <td><?php  echo $periodos[$key]; ?></td>
-                <td><?php  echo $value["viajes_h_por_vivienda"];  ?></td>
-                <td><?php  echo $value["transporte_privado"];         ?></td>
-                <td><?php  echo $value["transporte_publico"];         ?></td>
-                <td><?php  echo $value["peatones_viajes"];         ?></td>
-                <td><?php  echo $value["ciclos_viajes"];         ?></td>
+                <td><?php  echo round($value["viajes_h_por_vivienda"],2);  ?></td>
+                <td><?php  echo round($value["transporte_privado"],2);         ?></td>
+                <td><?php  echo round($value["transporte_publico"],2);         ?></td>
+                <td><?php  echo round($value["peatones_viajes"],2);         ?></td>
+                <td><?php  echo round($value["ciclos_viajes"],2);         ?></td>
               </tr>
               <?php
                }

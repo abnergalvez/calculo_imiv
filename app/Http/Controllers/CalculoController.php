@@ -62,8 +62,8 @@ class CalculoController extends Controller
                 $salida_resultado = $this->calcular_unitario($items_salida,$request->cantidad);
             }
             $sumatoria = FuncionesCalculos::sum_total_otros_flujos($entrada_resultado,$salida_resultado);
-            $maximo_t_privado = FuncionesCalculos::buscar_mayor_columna($sumatoria,"transporte_privado");
-            $maximo_t_otros = FuncionesCalculos::busca_mayor_otras_columnas($sumatoria); 
+            $maximo_t_privado = round(FuncionesCalculos::buscar_mayor_columna($sumatoria,"transporte_privado"));
+            $maximo_t_otros = round(FuncionesCalculos::busca_mayor_otras_columnas($sumatoria)); 
 
             // datos en texto calculo 
             $escala_text = $request->escala ? ' - Escala: '.$request->escala : '';
@@ -77,9 +77,12 @@ class CalculoController extends Controller
             $datos_text = $tex1.' |'.$text2;
             // datos en texto calculo 
             $suma_otros = FuncionesCalculos::sumar_columnas_otros($sumatoria);
+            $imiv_t_privado =  FuncionesCalculos::categoria_imiv_t_privado($maximo_t_privado);
+            $imiv_t_otros =  FuncionesCalculos::categoria_imiv_t_otros($maximo_t_otros);
+            $datos_comparacion = FuncionesCalculos::comparaIMIVCruces($imiv_t_privado, $imiv_t_otros);
             
-
             return view('otros_proyectos.index')
+                ->with('datos_comparacion', $datos_comparacion)
                 ->with('suma_otros', $suma_otros)
                 ->with('datos_calculo', $datos_text)
                 ->with('sumatoria', $sumatoria)
@@ -90,8 +93,8 @@ class CalculoController extends Controller
                 ->with('cantidad', $tipoCalculo == 'cantidad' ? $request->cantidad : 0 )
                 ->with('max_t_privado',$maximo_t_privado)
                 ->with('max_t_otros', $maximo_t_otros)
-                ->with('imiv_t_privado', FuncionesCalculos::categoria_imiv_t_privado($maximo_t_privado))
-                ->with('imiv_t_otros', FuncionesCalculos::categoria_imiv_t_otros($maximo_t_otros))
+                ->with('imiv_t_privado',$imiv_t_privado)
+                ->with('imiv_t_otros',$imiv_t_otros)
                 ->with('proyecto',$request->proyecto)
                 ->with('modelo', FuncionesCalculos::fullProyectos()[$request->proyecto]['modelo'] )
                 ->with('subproyecto_key', $request->subproyecto)
