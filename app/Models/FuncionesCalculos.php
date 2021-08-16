@@ -214,7 +214,7 @@ class FuncionesCalculos extends Model
         if($n_viajes > 1000){
             return [
                 "imiv" => "Mayor",
-                "cruces" => "Consultar al administrador *",
+                "cruces" => "Consultar a info@gysingenieria.cl (administrador)",
                 "n_cruces" => "n"
             ];
         }

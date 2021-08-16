@@ -6,7 +6,7 @@
     </li>
     <li class="nav-item ">
         <a class="nav-link {{ Request::is('calculo_cesion*') ? 'active':'' }}" href="{{ route('inicio.cesion') }}">
-            Densidad Ocupación & Cesión 
+            Calculo Aporte Vial
         </a>
     </li>
 </ul>
