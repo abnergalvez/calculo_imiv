@@ -1,4 +1,7 @@
 <div>
+        @if($proyecto_seleccionado == "casas" || $proyecto_seleccionado == "departamentos")
+            <x-inicio.tipos_vivienda  />
+        @endif
     <form class="needs-validation" id="formulario_inicial" action="{{ $ruta }}" name="formulario_inicial" method="post">
     @csrf
     <div class="row g-3">

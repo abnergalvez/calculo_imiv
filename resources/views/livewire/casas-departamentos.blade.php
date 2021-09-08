@@ -1,6 +1,5 @@
 <div>
     <div class="col-md-12 my-2">
-        <hr>
         <button class="col-md-2 btn btn-success" wire:click="add" title="Agregar otro tipo" type="button">
             Agregar <i class="bi bi-plus-circle"></i>
         </button>
@@ -40,4 +39,6 @@
         </div>
     </span>
     @endforeach
+
+    
 </div>

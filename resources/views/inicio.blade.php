@@ -11,7 +11,6 @@
 
         @livewire('proyectos-mixto')
 
-
     <div class="row g-5">
         <div class="col-md-7 col-lg-12">
             <hr class="my-4">
