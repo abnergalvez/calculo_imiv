@@ -27,14 +27,13 @@
 	/>
 	<br>
 	<div class="row">
-		<x-resultados.estudio_imiv 
-			:max_t_privado="$max_t_privado"
-			:imiv_t_privado="$imiv_t_privado "
-			:max_t_otros="$max_t_otros"
-			:imiv_t_otros="$imiv_t_otros"
-		/>
+
 		<x-resultados.resultado_imiv 
 			:datos_comparacion="$datos_comparacion"
+			:imiv_t_privado="$imiv_t_privado"
+			:imiv_t_otros="$imiv_t_otros"
+			:max_t_otros="$max_t_otros"
+			:max_t_privado="$max_t_privado"
 		/>   	
 	</div>  
 	<x-resultados.btn_volver 

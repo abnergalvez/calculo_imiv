@@ -12,7 +12,7 @@
         </div>
         <div class="col-md-3 form-floating ">
             <input placeholder="Superficie" type="number" min="1" placeholder="0.00" step="any" class="form-control" name="superficies[]" id="superficie1" required>
-            <label class="px-4" for="superficie1">Superficie m<sup>2</sup> </label>
+            <label class="px-4" for="superficie1">Superficie Promedio en m<sup>2</sup> </label>
         </div>
         <div class="col-md-3 form-floating ">
             <input placeholder="Cantidad Construida" min="1" type="number" class="form-control" name="cantidades[]" id="cantidad1" required>
@@ -27,7 +27,7 @@
  
         <div class="col-md-3 form-floating ">
             <input placeholder="Superficie" type="number" min="1" class="form-control" placeholder="0.00" step="any" name="superficies[]" id="superficie{{ $item+2 }}" required>
-            <label class="px-4" for="superficie{{ $item+2  }}" >Superficie m<sup>2</sup> </label>
+            <label class="px-4" for="superficie{{ $item+2  }}" >Superficie Promedio en m<sup>2</sup> </label>
         </div>
         <div class="col-md-3 form-floating " >
             <input placeholder="Cantidad Construida" type="number" min="1" class="form-control" name="cantidades[]" id="cantidad{{ $item+2  }}" required>

@@ -151,7 +151,7 @@ class FuncionesCalculos extends Model
         if($n_viajes < 20){
             return [
                 "imiv" => "No requiere estudio",
-                "cruces" => "2 en total",
+                "cruces" => "-",
                 "n_cruces" => "2t"
             ];
         }
@@ -226,7 +226,7 @@ class FuncionesCalculos extends Model
         if($n_viajes < 40){
             return [
                 "imiv" => "No requiere estudio",
-                "cruces" => "2 en total",
+                "cruces" => "-",
                 "n_cruces" => "2t"
             ];
         }
