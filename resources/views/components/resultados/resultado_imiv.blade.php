@@ -21,7 +21,7 @@ de transporte privado y transporte público</p>
             <td>{{ $attributes['imiv_t_privado']['cruces'] }} </td>
         </tr>
         <tr>
-            <td>Público</td>
+            <td>Otros medios de transporte</td>
             <td>{{ $attributes['max_t_otros'] }}</td>
             <td>{{ $attributes['imiv_t_otros']['imiv'] }} </td>
             <td>{{ $attributes['imiv_t_otros']['cruces'] }} </td>
