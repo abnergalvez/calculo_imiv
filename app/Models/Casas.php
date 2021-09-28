@@ -13,7 +13,7 @@ class Casas extends Model
 
     public static function entradas($PTL_entrada,$items_entrada,$rango,$cantidad)
     {
-        $factor_ap = 1.2;  //Auto Privado
+        $factor_ap = 1;  //Auto Privado
 
         if($rango == '1_50' || $rango == '281_n'){  
             foreach ($items_entrada as $key => $value) {
@@ -46,7 +46,7 @@ class Casas extends Model
 
     public static function salidas($PML_salida,$items_salida,$rango,$cantidad)
     {
-        $factor_ap = 1.2;  //Auto Privado
+        $factor_ap = 1;  //Auto Privado
 
         if($rango == '1_50' || $rango == '281_n'){  
             foreach ($items_salida as $key => $value) {

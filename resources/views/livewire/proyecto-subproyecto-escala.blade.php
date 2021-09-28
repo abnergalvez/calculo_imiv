@@ -1,6 +1,6 @@
 <div>
         @if($proyecto_seleccionado == "casas" || $proyecto_seleccionado == "departamentos")
-            <x-inicio.tipos_vivienda  />
+            <!--<x-inicio.tipos_vivienda  />-->
         @endif
     <form class="needs-validation" id="formulario_inicial" action="{{ $ruta }}" name="formulario_inicial" method="post">
     @csrf
@@ -15,7 +15,20 @@
                 @endforelse
             </select>
         </div>
+        @if($proyecto_seleccionado == "casas" || $proyecto_seleccionado == "departamentos")
+        
+        <div class="col-md-4">
+            <label class="form-label fw-bold" for="superficie1">Superficie Util Construida en m<sup>2</sup> </label>
+            <input placeholder="Superficie" type="number" min="1" placeholder="0.00" step="any" class="form-control" name="superficies[]" id="superficie1" required>
+        </div>
+        <div class="col-md-4">
+            <label class="form-label fw-bold" for="cantidad1">Cantidad Construida</label>
+            <input placeholder="Cantidad Construida" min="1" type="number" class="form-control" name="cantidades[]" id="cantidad1" required>
+            
+        </div>
 
+        @endif
+        
         @if (!empty($proyecto_seleccionado) && empty($casasDeptos))
             <div class="col-md-6">
                 <label for="subproyecto" class="form-label fw-bold">{{ __('Proyecto') }}</label>
@@ -58,9 +71,9 @@
         @endif
     </div>
 
-    @if($proyecto_seleccionado == "casas" || $proyecto_seleccionado == "departamentos")
+    {{-- @if($proyecto_seleccionado == "casas" || $proyecto_seleccionado == "departamentos")
         @livewire('casas-departamentos')
-    @endif
+    @endif --}}
     
     <input  type="hidden" class="" value="{{ $modelo }}" name="modelo" required>
 

@@ -3,8 +3,8 @@
  <p> Los resultados se obtienen a partir del procesado de los datos y 
 la elección de la exigencia máxima (Estudio IMIV e Intersecciones ) segun la comparación 
 de transporte privado y transporte público</p>
-<table class="table table-striped table-bordered nowrap" cellspacing="0" width="100%">
-    <thead>
+<table class="table table-striped table-bordered nowrap" cellspacing="0" width="100%" style="width:auto !important;">
+    <thead class="table-dark">
         <tr>
             <th>Tipo Transporte</th>
             <th>Máximo Valor</th>
@@ -13,7 +13,7 @@ de transporte privado y transporte público</p>
 
         </tr>
     </thead>
-    <tbody>
+    <tbody style="font-weight: bold;">
         <tr>
             <td>Privado</td>
             <td>{{ $attributes['max_t_privado'] }}</td>
