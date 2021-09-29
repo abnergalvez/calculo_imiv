@@ -158,7 +158,7 @@ class FuncionesCalculos extends Model
         if($n_viajes >= 20 && $n_viajes <= 80){
             return [
                 "imiv" => "Básico",
-                "cruces" => "2 en total",
+                "cruces" => "1 en total",
                 "n_cruces" => "2t"
             ];
         }
@@ -233,7 +233,7 @@ class FuncionesCalculos extends Model
         if($n_viajes >= 40 && $n_viajes <= 160){
             return [
                 "imiv" => "Básico",
-                "cruces" => "2 en total",
+                "cruces" => "1 en total",
                 "n_cruces" => "2t"
             ];
         }
