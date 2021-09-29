@@ -26,8 +26,8 @@ class CalculoMixtoController extends Controller
     public function calcular()
     {
         $sumatoria_final = FuncionesCalculos::sum_flujos_mixto(Session::get('calculo_mixto.sumatoria'));
-        $maximo_t_privado = round(FuncionesCalculos::buscar_mayor_columna($sumatoria_final,"transporte_privado"));
-        $maximo_t_otros = round(FuncionesCalculos::busca_mayor_otras_columnas($sumatoria_final)); 
+        $maximo_t_privado = floor(FuncionesCalculos::buscar_mayor_columna($sumatoria_final,"transporte_privado"));
+        $maximo_t_otros = floor(FuncionesCalculos::busca_mayor_otras_columnas($sumatoria_final)); 
         $suma_otros = FuncionesCalculos::sumar_columnas_otros($sumatoria_final);
         $imiv_t_privado= FuncionesCalculos::categoria_imiv_t_privado($maximo_t_privado);
         $imiv_t_otros = FuncionesCalculos::categoria_imiv_t_otros($maximo_t_otros);

@@ -10,8 +10,10 @@
 <ul>
     @foreach($attributes['superficies'] as $key => $value) 
     <li>
-        {{ $attributes['cantidades'][$key] }}Construcciones de
-         {{ $value }} MT<sup>2</sup>
+        {{ $attributes['cantidades'][$key] }} Contrucciones
+    </li> 
+    <li>
+       Total de  {{ $value }} MT<sup>2</sup>
     </li> 
     @endforeach
 </ul>
