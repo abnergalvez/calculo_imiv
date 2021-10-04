@@ -12,8 +12,22 @@ class HomeController extends Controller
 {
     public function index()
     {
-        
-        return view('inicio');
+        if(\Auth::user()){
+            
+            if(\Auth::user()->profile == "admin"){
+            
+                return redirect()->route('admin.index');
+            }
+            
+            if(\Auth::user()->profile == "normal"){
+    
+                return redirect()->route('normal.index');
+                
+            }
+        }else{
+            return view('inicio');
+        }
+
     }
 
 }

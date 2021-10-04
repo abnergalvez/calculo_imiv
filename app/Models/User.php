@@ -19,6 +19,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'profile',
         'password',
     ];
 
@@ -40,4 +41,20 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function isProfileCustomer()
+    {
+        return $this->profile == 'customer' ? true : false;
+    }
+
+    public function isProfileAdmin()
+    {
+        return $this->profile == 'admin' ? true : false;
+    }
+
+    public function isProfileNormal()
+    {
+        return $this->profile == 'normal' ? true : false;
+    }
 }
