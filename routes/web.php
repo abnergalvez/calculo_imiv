@@ -46,7 +46,11 @@ Route::group(
         Route::resource('proyectos', 'ProjectController')->names('admin.projects'); 
         Route::get('por_vencer', 'ProjectController@soonExpire')->name('admin.projects.soonExpire'); 
         Route::get('vencidos', 'ProjectController@expired')->name('admin.projects.expired'); 
-
+        
+        Route::get('proyectos/{proyecto}/cambio_estado', 'ProjectController@editStatus')->name('admin.projects.editStatus'); 
+        Route::put('proyectos/{proyecto}/cambio_estado', 'ProjectController@updateStatus')->name('admin.projects.updateStatus');
+        Route::get('proyectos/{proyecto}/reingreso', 'ProjectController@editReEntry')->name('admin.projects.editReEntry'); 
+        Route::put('proyectos/{proyecto}/reingreso', 'ProjectController@updateReEntry')->name('admin.projects.updateReEntry');
 
         Route::get('home', 'ProfileController@index')->name('admin.index'); 
         Route::get('perfil', 'ProfileController@profile')->name('admin.profile');

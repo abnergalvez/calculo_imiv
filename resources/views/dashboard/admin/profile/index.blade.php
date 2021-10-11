@@ -60,8 +60,10 @@
                         </div>
                     </div>
                     <div class="mt-3">
-                        <button type="submit" class="btn btn-gray-800 mt-2 animate-up-2">Guardar</button>
+                        <button type="submit" class="btn btn-gray-800 mt-2 animate-up-2">
+                        <i class="fas fa-save"></i> Guardar</button>
                     </div>
+                    <small class="mt-2">* Campos Obligatorios</small>
                 </div>
             </div>
             <div class="col-12 col-xl-4">

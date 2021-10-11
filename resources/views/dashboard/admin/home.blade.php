@@ -197,7 +197,7 @@
         labels: [
 			'Sin Estado', 
 			@foreach($status as $stat)
-			  '{{ \App\Models\Project::statusForHummans($stat->status) }}' ,
+			  '{{ \App\Models\Project::statusLabel($stat->status) }}' ,
 			  @endforeach
 			
 		],

@@ -73,7 +73,20 @@ class ProjectController extends Controller
 
     public function show(Project $proyecto)
     {
+        $title_section = [
+            'title' => 'Ficha Proyecto',
+            'description' => 'Detalle de toda la informacion del proyecto.', 
+        ];
+
+        $breadcrumbs = collect([
+            ['title' => 'home', 'href' => route('home')],
+            ['title' => 'Lista Proyectos', 'href' => route('admin.projects.index')],
+            ['title' => 'Ficha Proyecto', 'active' => true]
+        ]);
+
         return view('dashboard.admin.projects.show')
+            ->with('title_section',$title_section)
+            ->with('breadcrumbs',$breadcrumbs)
             ->with('project', $proyecto);
     }
 
@@ -165,6 +178,63 @@ class ProjectController extends Controller
             ->with('breadcrumbs',$breadcrumbs)
             ->with('projects', $projects);
     }
+
+
+    public function editStatus(Project $proyecto)
+    {
+        $title_section = [
+            'title' => 'Editar Estado Proyecto',
+            'description' => '.', 
+        ];
+
+        $breadcrumbs = collect([
+            ['title' => 'home', 'href' => route('home')],
+            ['title' => 'Lista Proyectos', 'href' => route('admin.projects.index')],
+            ['title' => 'Editar Estado Proyecto ID#'.$proyecto->id , 'active' => true]
+        ]);
+
+        return view('dashboard.admin.projects.changeStatus')
+            ->with('title_section',$title_section)
+            ->with('breadcrumbs',$breadcrumbs)
+            ->with('project', $proyecto);
+    }
+
+
+    public function updateStatus(Request $request, Project $proyecto)
+    {
+        $updateStatus = Project::statusUpdate($request, $proyecto);
+        return redirect()->route('admin.projects.index');
+        
+    }
+
+
+    public function editReEntry(Project $proyecto)
+    {
+        $title_section = [
+            'title' => 'Re-Ingreso de Proyecto ID#'.$proyecto->id,
+            'description' => '.', 
+        ];
+
+        $breadcrumbs = collect([
+            ['title' => 'home', 'href' => route('home')],
+            ['title' => 'Lista Proyectos', 'href' => route('admin.projects.index')],
+            ['title' => 'Re-Ingreso Proyecto ID#'.$proyecto->id , 'active' => true]
+        ]);
+
+        return view('dashboard.admin.projects.reEntry')
+            ->with('title_section',$title_section)
+            ->with('breadcrumbs',$breadcrumbs)
+            ->with('project', $proyecto);
+    }
+
+
+    public function updateReEntry(Request $request, Project $proyecto)
+    {
+        $updateReEntry = Project::reEntryUpdate($request, $proyecto);
+        return redirect()->route('admin.projects.index');
+    }
+
+
 
 
 }

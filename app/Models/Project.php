@@ -100,7 +100,7 @@ class Project extends Model
 
     public static function updateProject($request, $project)
     {
-        $dir = 'public/project/'.$project.'/entry_doc_path';
+        $dir = 'public/project/'.$project->id.'/entry_doc_path';
 
         if ($request->hasFile('entry_doc')){
             
@@ -171,7 +171,66 @@ class Project extends Model
         
     }
 
-    public static function statusForHummans($status_in)
+    public static function statusUpdate($request, $project)
+    {
+        $project->status = $request->status;
+        $projectUpdateStatus = $project->save();
+        if($projectUpdateStatus){
+            $status = array(
+                'time' => 4,
+                'type' => "success",
+                'message' => "El estado del proyecto se ha actualizado correctamente.",
+            );
+            request()->session()->put('status', $status);
+
+        }else{
+            $status = array(
+                'time' => 4,
+                'type' => "danger",
+                'message' => "Hay un problema para actualizar el estado del proyecto",
+            );
+            request()->session()->put('status', $status);
+        }
+
+        return $projectUpdateStatus;
+    }
+
+    public static function reEntryUpdate($request, $project)
+    {
+        
+        $dir = 'public/project/'.$project->id.'/re_entry_doc_path';
+       
+        if ($request->hasFile('entry_doc')){
+            $file = $request->entry_doc;
+            $path = $file->storeAs($dir, $file->getClientOriginalName());
+            $project->re_entry_doc_path = $path;
+        
+        }
+        
+        $project->re_entry_date = Carbon::createFromFormat('d-m-Y', $request->re_entry_date)->format('Y-m-d');
+        $project->status = $request->status;
+        $projectUpdateStatus = $project->save();
+        if($projectUpdateStatus){
+            $status = array(
+                'time' => 4,
+                'type' => "success",
+                'message' => "El re-ingreso se ha realizado correctamente.",
+            );
+            request()->session()->put('status', $status);
+
+        }else{
+            $status = array(
+                'time' => 4,
+                'type' => "danger",
+                'message' => "Hay un problema para re-ingresar el proyecto",
+            );
+            request()->session()->put('status', $status);
+        }
+
+        return $projectUpdateStatus;
+    }
+
+    public static function statusLabel($status_in)
     {
        if($status_in){
             $status = [
@@ -188,6 +247,45 @@ class Project extends Model
        return ' - ';
 
     }
+
+    public function statusForHummans()
+    {
+       if($this->status){
+            $status = [
+                'registered' => 'Ingresado',
+                'in_evaluation' => 'En Evaluación',
+                're_entered' => 'Re-Ingresado',
+                'acepted' => 'Aceptado',
+                'rejected' => 'Rechazado',
+            ];
+        
+            return $status[$this->status];
+       }
+
+       return ' - ';
+
+    }
+
+    public function statusClassBadge()
+    {
+       
+        if($this->status){
+            $statusBadge = [
+                'registered' => 'info',
+                'in_evaluation' => 'warning text-dark',
+                're_entered' => 'info',
+                'acepted' => 'success',
+                'rejected' => 'danger',
+            ];
+        
+            return $statusBadge[$this->status];
+       }
+
+       return 'secondary';
+
+    }
+
+
 
     
 }
