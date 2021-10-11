@@ -173,15 +173,20 @@ class Project extends Model
 
     public static function statusForHummans($status_in)
     {
-       $status = [
-        'registered' => 'Ingresado',
-        'in_evaluation' => 'En Evaluación',
-        're_entered' => 'Re-Ingresado',
-        'acepted' => 'Aceptado',
-        'rejected' => 'Rechazado',
-       ];
+       if($status_in){
+            $status = [
+                'registered' => 'Ingresado',
+                'in_evaluation' => 'En Evaluación',
+                're_entered' => 'Re-Ingresado',
+                'acepted' => 'Aceptado',
+                'rejected' => 'Rechazado',
+            ];
+        
+            return $status[$status_in];
+       }
 
-       return $status[$status_in];
+       return ' - ';
+
     }
 
     
