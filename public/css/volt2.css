@@ -20139,6 +20139,11 @@ label {
     height: auto;
 }
 
+.avatar-xl2 {
+    width: 8rem;
+    height: 8rem;
+}
+
 @media (max-width: 991.98px) {
     .avatar-xl {
         width: 4.5rem;

@@ -17,11 +17,13 @@ class CustomerTableSeeder extends Seeder
 
             [
                 'name' => 'Cliente1',
-                'rut' => '777.777.777-7'            
+                'rut' => '77777777-7',
+                'created_at' => '2021-08-11 10:00:00'            
             ],
             [
                 'name' => 'Cliente2',
-                'rut' => '222.222.222-2'            
+                'rut' => '22222222-2',
+                'created_at' => '2021-10-10 10:00:00'            
             ]
             
         ]);

@@ -17,14 +17,14 @@ class CreateProjectsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('code')->nullable();
-            $table->string('entry_numer')->nullable();
+            $table->string('entry_number')->nullable();
             $table->text('description')->nullable();
             $table->string('address')->nullable();
-            $table->string('commune')->nullable();
-            $table->dateTime('entry_date');
-            $table->dateTime('limit_re_entry_date')->nullable();
-            $table->dateTime('re_entry_date')->nullable();
-            $table->string('status')->nullable();
+            $table->integer('commune_id')->nullable(); //tabla comuna
+            $table->date('entry_date');
+            $table->date('limit_re_entry_date')->nullable();
+            $table->date('re_entry_date')->nullable();
+            $table->string('status')->nullable();// registered, in_evaluation, re_entered, acepted, rejected
             $table->string('entry_doc_path')->nullable();
             $table->string('re_entry_doc_path')->nullable();
 

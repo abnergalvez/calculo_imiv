@@ -20,19 +20,25 @@ class UsersTableSeeder extends Seeder
                 'name' => 'Admin GYS',
                 'email' => 'admin@mail.cl',
                 'profile' => 'admin',
-                'password' => Hash::make('123123')
+                'gender' => 'female',
+                'password' => Hash::make('123123'),
+                'created_at' => '2021-08-11 10:00:00'
             ],
             [
                 'name' => 'Usuario Normal GYS',
                 'email' => 'normal@mail.cl',
                 'profile' => 'normal',
-                'password' => Hash::make('123123')
+                'gender' => 'male',
+                'password' => Hash::make('123123'),
+                'created_at' => '2021-08-11 10:00:00'
             ],
             [
                 'name' => 'Cliente GYS',
                 'email' => 'cliente@mail.cl',
                 'profile' => 'customer',
-                'password' => Hash::make('123123')
+                'gender' => NULL,
+                'password' => Hash::make('123123'),
+                'created_at' => '2021-10-10 10:00:00'
             ]
 
         ]);

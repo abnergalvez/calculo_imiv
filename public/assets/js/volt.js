@@ -99,7 +99,9 @@ d.addEventListener("DOMContentLoaded", function(event) {
     var datepickers = [].slice.call(d.querySelectorAll('[data-datepicker]'))
     var datepickersList = datepickers.map(function(el) {
         return new Datepicker(el, {
-            buttonClass: 'btn'
+            buttonClass: 'btn',
+            format: 'dd-mm-yyyy',
+            language: 'es',
         });
     })
 

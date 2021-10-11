@@ -20,6 +20,9 @@ Route::post('/resultado_cesion', 'CalculoCesionController@calculo')->name('calcu
 
 
 
+
+/**  DASHBOARD  **/
+
 /*
 |--------------------------------------------------------------------------
 |  Admin 
@@ -33,8 +36,21 @@ Route::group(
         'middleware' =>['auth','admin']
     ]
     ,function () { 
-           
-        Route::get('home', 'ProfileController@index')->name('admin.index');        
+        
+        Route::group(['prefix' => 'mantenedores'], function(){
+            
+            Route::resource('usuarios', 'UserController')->names('admin.users'); 
+            Route::resource('clientes', 'CustomerController')->names('admin.customers'); 
+            Route::resource('tipos_proyectos', 'TypeProjectController')->names('admin.type_projects'); 
+        });
+        Route::resource('proyectos', 'ProjectController')->names('admin.projects'); 
+        Route::get('por_vencer', 'ProjectController@soonExpire')->name('admin.projects.soonExpire'); 
+        Route::get('vencidos', 'ProjectController@expired')->name('admin.projects.expired'); 
+
+
+        Route::get('home', 'ProfileController@index')->name('admin.index'); 
+        Route::get('perfil', 'ProfileController@profile')->name('admin.profile');
+        Route::put('perfil', 'ProfileController@update')->name('admin.profile.update');         
 
 });
 /*
