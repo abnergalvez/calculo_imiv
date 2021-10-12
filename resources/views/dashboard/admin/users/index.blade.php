@@ -39,13 +39,13 @@
 					<td>
 						<a href="{{ route('admin.users.edit', $user) }}" title="Editar Usuario">
 							<i class="fas fa-user-edit"></i>
-						</a>
+						</a>&nbsp;&nbsp;
 						<a 
 							title="Eliminar Usuario"
 							onclick="confirm('Estas seguro de eliminar al usuario?') ? document.getElementById('delete-user-{{ $user->id }}').submit() : ''" 
 							class="text-danger ">
 							<span class="fas fa-user-times me-2"></span>
-						</a>
+						</a>&nbsp;&nbsp;
 
 						<form id="delete-user-{{ $user->id }}" method="POST" action="{{ route('admin.users.destroy', $user->id ) }}">
 							{{ csrf_field() }}

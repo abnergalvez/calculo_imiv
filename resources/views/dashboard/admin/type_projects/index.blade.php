@@ -33,7 +33,7 @@
 					<td>
 						<a href="{{ route('admin.type_projects.edit', $tp) }}" title="Editar Tipo de Proyecto">
 							<i class="fas fa-edit"></i>
-						</a>
+						</a>&nbsp;&nbsp;
 						<a 
 							title="Eliminar tipo Proyecto"
 							onclick="confirm('Estas seguro de eliminar el Tipo de Proyecto, ?') ? document.getElementById('delete-tp-{{ $tp->id }}').submit() : ''" 

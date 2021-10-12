@@ -34,7 +34,7 @@
 					<td>
 						<a href="{{ route('admin.customers.edit', $customer) }}" title="Editar CLiente">
 							<i class="fas fa-edit"></i>
-						</a>
+						</a>&nbsp;&nbsp;
 						<a 
 							title="Eliminar Cliente"
 							onclick="confirm('Estas seguro de eliminar al Cliente?') ? document.getElementById('delete-customer-{{ $customer->id }}').submit() : ''" 

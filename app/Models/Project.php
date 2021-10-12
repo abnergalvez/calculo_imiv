@@ -248,6 +248,23 @@ class Project extends Model
 
     }
 
+
+    public static function statusColor($status_in)
+    {
+       if($status_in){
+            $status = [
+                'registered' => '#2361ce',
+                'in_evaluation' => '#FBA918',
+                're_entered' => '#fb503b',
+                'acepted' => '#10B981',
+                'rejected' => '#E11D48',
+            ];
+        
+            return $status[$status_in];
+       }
+       return '#374151';
+    }
+
     public function statusForHummans()
     {
        if($this->status){

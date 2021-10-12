@@ -144,6 +144,22 @@
     </div>
 </div>
 <div class="row">
+    <div class="col-12 col-sm-6 col-xl-3 mb-4">
+		<div class="card border-0 shadow">
+            <div class="card-body">
+				<h2 class="h6 text-gray-600 mb-0 text-center"> Proyectos por Cliente</h2>
+				<div id="projectByCustomer"></div>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-sm-6 col-xl-5 mb-4">
+		<div class="card border-0 shadow">
+            <div class="card-body">
+				<h2 class="h6 text-gray-600 mb-0 text-center"> Proyectos por Tipo</h2>
+				<div id="projectByType"></div>
+			</div>
+		</div>
+	</div>
 	<div class="col-12 col-sm-6 col-xl-4 mb-4">
 		<div class="card border-0 shadow">
             <div class="card-body">
@@ -153,23 +169,6 @@
 		</div>
 	</div>
 
-	<div class="col-12 col-sm-6 col-xl-4 mb-4">
-		<div class="card border-0 shadow">
-            <div class="card-body">
-				<h2 class="h6 text-gray-600 mb-0 text-center"> Proyectos por Tipo</h2>
-				<div id="projectByType"></div>
-			</div>
-		</div>
-	</div>
-
-	<div class="col-12 col-sm-6 col-xl-4 mb-4">
-		<div class="card border-0 shadow">
-            <div class="card-body">
-				<h2 class="h6 text-gray-600 mb-0 text-center"> Proyectos por Cliente</h2>
-				<div id="projectByCustomer"></div>
-			</div>
-		</div>
-	</div>
 
 </div>
 
@@ -201,6 +200,12 @@
 			  @endforeach
 			
 		],
+        colors:[
+            '#D1D5DB',
+            @foreach($status as $stat)
+			  '{{ \App\Models\Project::statusColor($stat->status) }}' ,
+			@endforeach
+        ],
         responsive: [{
           breakpoint: 480,
           options: {
@@ -211,13 +216,7 @@
               position: 'bottom'
             }
           }
-        }],
-        theme: {
-            monochrome: {
-                enabled: true,
-                color: '#FB503B',
-            }
-        }
+        }]
         }
 		);
         chart1.render();
@@ -275,8 +274,6 @@
         chart2.render();
       
 
-
-
         var chart3 = new ApexCharts(document.querySelector("#projectByCustomer"), 
 		{
           series: [{
@@ -303,7 +300,7 @@
           categories: [
 			@foreach($customers as $customer)
 			  '{{ $customer->name }}',
-			  @endforeach
+			@endforeach
           ],
         }
 		,
