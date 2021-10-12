@@ -224,6 +224,7 @@
 		
         var chart2 = new ApexCharts(document.querySelector("#projectByType"), {
           series: [{
+            name: "Cantidad",
           data: [
 			  @foreach($types as $type)
 			  {{ count($type->projects) }},
@@ -277,6 +278,7 @@
         var chart3 = new ApexCharts(document.querySelector("#projectByCustomer"), 
 		{
           series: [{
+            name: "Cantidad",
           data: [
 			@foreach($customers as $customer)
 			  {{ count($customer->projects) }},

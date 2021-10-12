@@ -29,14 +29,14 @@
 					<td>{{ $project->code }}</td>
 					<td>{{ $project->commune ? $project->commune->label : '-' }}</td>
 					<td>
-						<strong>Ingresado</strong> : {{ \Carbon\Carbon::createFromFormat('Y-m-d', $project->entry_date)->format('d-m-Y') }} <br>
-						<strong>Limite Re-Ingreso</strong> : {{ \Carbon\Carbon::createFromFormat('Y-m-d', $project->limit_re_entry_date)->format('d-m-Y') }} <br>
-						<strong>Re-ingresado</strong>: {{ $project->re_entry_date ? \Carbon\Carbon::createFromFormat('Y-m-d', $project->re_entry_date)->format('d-m-Y') : '-' }}
+						<strong class="badge bg-success">Ingresado</strong> : <span class="badge bg-light text-dark"> {{ \Carbon\Carbon::createFromFormat('Y-m-d', $project->entry_date)->locale('es_ES')->isoFormat('D MMM YYYY') }} </span> <br>
+						<strong class="badge bg-danger">Limite Re-Ingreso</strong> : <span class="badge bg-light text-dark"> {{ \Carbon\Carbon::createFromFormat('Y-m-d', $project->limit_re_entry_date)->locale('es_ES')->isoFormat('D MMM YYYY') }} </span><br>
+						<strong class="badge bg-success">Re-ingresado</strong> : <span class="badge bg-light text-dark"> {{ $project->re_entry_date ? \Carbon\Carbon::createFromFormat('Y-m-d', $project->re_entry_date)->locale('es_ES')->isoFormat('D MMM YYYY') : '-' }} </span>
 						&nbsp;&nbsp; <a href="{{ route('admin.projects.editReEntry', $project) }}" title="Re-Ingresar Proyecto"><i class="far fa-calendar-plus"></i> </a>
 
 					</td>
 					<td>
-						<a href="{{ route('admin.projects.show', $project) }}" class="text-info" title="Ver Ficha del Proyecto">
+						<a href="{{ route('admin.projects.show', $project) }}" class="" title="Ver Ficha del Proyecto">
 							<i class="fas fa-eye"></i>
 						</a>&nbsp;&nbsp;
 						<a href="{{ route('admin.projects.edit', $project) }}" title="Editar Proyecto">
