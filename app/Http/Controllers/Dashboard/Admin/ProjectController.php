@@ -33,12 +33,33 @@ class ProjectController extends Controller
             ['title' => 'home', 'href' => route('home')],
             ['title' => 'Lista Proyectos', 'active' => true],
         ]);
+        $now = Carbon::now()->format('Y-m-d');
+        
+        //proyectos por reingresar - no vencidos
+        $projects_for_reentry = Project::where('limit_re_entry_date', '>=', $now )
+            ->whereNull('re_entry_date')
+            ->orderBy('limit_re_entry_date', 'asc')->get(); 
+        
+        //proyectos por reingresar - vencidos   
+        $projects_expired_reentry = Project::where('limit_re_entry_date', '<', $now )
+            ->whereNull('re_entry_date')
+            ->orderBy('limit_re_entry_date', 'desc')->get();
+
+        //proyectos reingresados 
+        $projects_reentry = Project::whereNotNull('re_entry_date')
+            ->orderBy('limit_re_entry_date', 'desc')->get();
+        
+        //concatenacion de proyectos
+        $fullProjects_tmp = $projects_expired_reentry->merge($projects_for_reentry);
+        $fullProjects = $fullProjects_tmp->merge($projects_reentry);
 
         return view('dashboard.admin.projects.index')
             ->with('title_section',$title_section)
             ->with('button_create',$button_create)
             ->with('breadcrumbs',$breadcrumbs)
-            ->with('projects', Project::all());
+            ->with('now',$now)
+            ->with('projects', $fullProjects);
+
     }
 
 

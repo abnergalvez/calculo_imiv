@@ -13,11 +13,12 @@
 					<th>Codigo</th>
 					<th>Comuna</th>
 					<th>Fechas</th>
+					<th>Limite <br> Re-Ingreso</th>
 					<th></th>
 				</tr>
           	</thead>
           	<tbody>
-			  	@foreach($projects as $project)
+			  	@forelse($projects as $project)
 			  	<tr>
 				  	<td>{{ $project->name }} <br>
 						<small>({{ $project->customer ? $project->customer->name : '-' }})</small>
@@ -34,6 +35,24 @@
 						<strong class="badge bg-success">Re-ingresado</strong> : <span class="badge bg-light text-dark"> {{ $project->re_entry_date ? \Carbon\Carbon::createFromFormat('Y-m-d', $project->re_entry_date)->locale('es_ES')->isoFormat('D MMM YYYY') : '-' }} </span>
 						&nbsp;&nbsp; <a href="{{ route('admin.projects.editReEntry', $project) }}" title="Re-Ingresar Proyecto"><i class="far fa-calendar-plus"></i> </a>
 
+					</td>
+					<td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $project->limit_re_entry_date)->locale('es_ES')->isoFormat('D MMM YYYY') }}
+					<br>	
+					
+						@if($project->re_entry_date)
+							<strong class="badge bg-success">Re-Ingresado</strong><br>
+								@if($project->re_entry_date > $project->limit_re_entry_date )
+									<strong class="badge bg-primary">Fuera de fecha</strong>
+								@endif
+
+						@else
+								@if($project->limit_re_entry_date >= $now )
+									<strong class="badge bg-warning">por Ingresar</strong>
+								@else
+									<strong class="badge bg-danger">Vencido - No Re-Ingresado</strong>
+								@endif
+						
+						@endif
 					</td>
 					<td>
 						<a href="{{ route('admin.projects.show', $project) }}" class="" title="Ver Ficha del Proyecto">
@@ -55,7 +74,9 @@
 						</form>
 					</td>
 				</tr>
-				@endforeach
+				@empty
+				@endforelse
+
 			<tbody>	
         </table>
       </div>
