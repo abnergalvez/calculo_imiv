@@ -15,13 +15,19 @@
                 <div class="card card-body shadow-sm mb-4">
                     <h2 class="h5 mb-4">Información General</h2>
                     <div class="row">
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-4 mb-3">
                             <div>
                                 <label for="first_name">Nombre *</label>
                                 <input name="name" class="form-control " id="first_name" type="text" placeholder="Ingrese nombre completo" required>
                             </div>
                         </div>
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-4 mb-3">
+                            <div>
+                                <label for="prefix">Prefijo/Codigo *</label>
+                                <input name="prefix" class="form-control " id="prefix" type="text" placeholder="Ingrese Prefijo"  required>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
                             <div class="form-group">
                                 <label for="rut">RUT *</label>
                                 <input name="rut" class="form-control" id="rut" type="text" placeholder="11111111-1" required>

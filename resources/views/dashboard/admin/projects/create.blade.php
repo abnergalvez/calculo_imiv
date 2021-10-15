@@ -9,6 +9,7 @@
 <div class="row">
     <form action="{{ route('admin.projects.store') }}" method="POST"  enctype="multipart/form-data">
         @csrf
+        <input name="code_number" id="code_number" type="hidden" >
         <div class="row">
             <div class="col-12 col-xl-12">
                 <div class="card card-body shadow-sm mb-4">
@@ -19,22 +20,32 @@
                                 <input name="name" class="form-control " id="name" type="text" placeholder="Ingrese nombre proyecto" required>
                             </div>
                         </div>
-                        <div class="col-md-3 mb-3">
-                            <div class="form-group">
-                                <label for="code">Codigo</label>
-                                <input name="code" class="form-control" id="code" type="text" >
-                            </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="customer_id">Cliente</label>
+                            <select name="customer_id" class="form-select mb-0 select2" id="customer_id" aria-label="seleccione cliente" placeholder="Seleccione...">
+                                <option value="" >Seleccione...</option>     
+                                @foreach ($customers as $customer )
+								<option value="{{ $customer->id }}">{{ $customer->name }}</option>
+								@endforeach
+                                
+                            </select>
                         </div>
-						<div class="col-md-3 mb-3">
+                        <div class="col-md-2 mb-3">
                             <div class="form-group">
-                                <label for="entry_number">N° Ingreso</label>
-                                <input name="entry_number" class="form-control" id="entry_number" type="text" >
+                                <label for="code">Codigo *</label>
+                                <input name="code" class="form-control" id="code" type="text" readonly>
                             </div>
                         </div>
                     </div>
 
 					<div class="row">
-						<div class="col-md-12 mb-3">
+                        <div class="col-md-3 mb-3">
+                            <div class="form-group">
+                                <label for="entry_number">N° Ingreso</label>
+                                <input name="entry_number" class="form-control" id="entry_number" type="text" >
+                            </div>
+                        </div>
+						<div class="col-md-9 mb-3">
                             <div class="form-group">
                                 <label for="description">Descripción</label>
                                 <input name="description" class="form-control" id="description" type="text" >
@@ -43,7 +54,7 @@
 					</div>
 
 					<div class="row">
-						<div class="col-md-4 mb-3">
+						<div class="col-md-6 mb-3">
                             <label for="status">Estado</label>
                             <select name="status" class="form-select mb-0 select2" id="status" aria-label="seleccione el estado" placeholder="Seleccione...">
                                 <option value="" >Seleccione...</option>
@@ -54,17 +65,8 @@
 								<option value="rejected">Rechazado</option>
                             </select>
                         </div>
-						<div class="col-md-4 mb-3">
-                            <label for="customer_id">Cliente</label>
-                            <select name="customer_id" class="form-select mb-0 select2" id="customer_id" aria-label="seleccione cliente" placeholder="Seleccione...">
-                                <option value="" >Seleccione...</option>     
-                                @foreach ($customers as $customer )
-								<option value="{{ $customer->id }}">{{ $customer->name }}</option>
-								@endforeach
-                                
-                            </select>
-                        </div>
-						<div class="col-md-4 mb-3">
+
+						<div class="col-md-6 mb-3">
                             <label for="type_project_id">Tipo Proyecto *</label>
                             <select name="type_project_id" class="form-select mb-0 select2" id="type_project_id" aria-label="seleccione tipo proyecto" placeholder="Seleccione..." required>
                                 <option value="" >Seleccione...</option>    
@@ -133,7 +135,28 @@
             $(".select2").select2({
                 theme: "bootstrap-5",
             });
+
+            $('#customer_id').change( function() {
+                
+                $.ajax({
+                    type: "POST",
+                    url: '/api/projectCodeCreate',
+                    data: {"customer_id": $('#customer_id :selected').val() },
+                    success: function(resp){
+                        if(resp['code'] != ''){
+                            $('#code').val(resp['code']);
+                            $('#code_number').val(resp['max_code_number']);
+                        }else{
+                            $('#code').val('');
+                            $('#code_number').val(null);
+                        }
+                    }
+                });
+
+            });
         });
+
+        
 
     </script>
 @endsection

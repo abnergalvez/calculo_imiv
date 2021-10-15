@@ -11,6 +11,7 @@
 				<tr>
 
 					<th>Nombre</th>
+					<th>Prefijo/Codigo</th>
 					<th>RUT</th>
 					<th>Proyectos</th>
 					<th>Acciones</th>
@@ -21,6 +22,9 @@
 			  	<tr>
 				  	<td>
 						{{ $customer->name }}
+					</td>
+					<td>
+						{{ $customer->prefix }}
 					</td>
 					
 					<td>{{ $customer->rut }}</td>

@@ -12,6 +12,7 @@ class Customer extends Model
     protected $fillable = [
         'name',
         'rut',
+        'prefix',
     ];
 
     public function projects()

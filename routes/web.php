@@ -4,9 +4,10 @@ use Illuminate\Support\Facades\Route;
 
 //Auth::routes();
 Auth::routes(['register' => false]);
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@home')->name('dashboard');
 Route::get('/inicio', 'HomeController@index')->name('inicio');
 Route::post('/calcular', 'CalculoController@calculo')->name('calculo_otros');
 Route::post('/calcular_deptos', 'CalculoDepartamentosController@calculo')->name('calculo_deptos');
@@ -18,7 +19,10 @@ Route::post('/enviar_resultados', 'EmailController@enviarResultados')->name('res
 Route::get('/calculo_cesion', 'CalculoCesionController@index')->name('inicio.cesion');
 Route::post('/resultado_cesion', 'CalculoCesionController@calculo')->name('calculo.cesion');
 
-
+Route::get('/salir', function(){
+    auth()->logout();
+    return redirect('/');
+})->name('salir');
 
 
 /**  DASHBOARD  **/
@@ -52,7 +56,7 @@ Route::group(
         Route::get('proyectos/{proyecto}/reingreso', 'ProjectController@editReEntry')->name('admin.projects.editReEntry'); 
         Route::put('proyectos/{proyecto}/reingreso', 'ProjectController@updateReEntry')->name('admin.projects.updateReEntry');
 
-        Route::get('home', 'ProfileController@index')->name('admin.index'); 
+        Route::get('home', 'ProfileController@index')->name('admin.home'); 
         Route::get('perfil', 'ProfileController@profile')->name('admin.profile');
         Route::put('perfil', 'ProfileController@update')->name('admin.profile.update');         
 
@@ -71,5 +75,5 @@ Route::group(
     ]
     ,function () { 
            
-        Route::get('home', 'ProfileController@index')->name('normal.index'); 
+        Route::get('home', 'ProfileController@index')->name('normal.home'); 
 });

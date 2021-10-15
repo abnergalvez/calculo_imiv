@@ -27,13 +27,15 @@ class CustomerRequest extends FormRequest
             case 'POST':
                 return [
                     'name' => 'required|string|max:100',
-                    'rut' => 'required',                
+                    'rut' => 'required',
+                    'prefix' => 'required|unique:customers'                   
                 ];
                 break;
             case 'PUT':
                 return [
                     'name' => 'required|string|max:100',
                     'rut' => 'required',
+                    'prefix' => 'required|unique:customers,prefix,'.$this->id
                 ];
                 break;
             
@@ -48,6 +50,8 @@ class CustomerRequest extends FormRequest
         return [
             'name.required' => 'El Nombre es obligatorio.',
             'rut.required' => 'El RUT es obligatorio.',
+            'prefix.required' => 'El prefijo es obligatorio.',
+            'prefix.unique' => 'El prefijo debe ser diferente a los demas Clientes.',
         ];
     }
 }
