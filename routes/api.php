@@ -65,7 +65,7 @@ Route::post('/projectCodeUpdate',function (Request $request){
                 $code = $prefix.'1';
                 $max_code_number = 1;
             }else{
-                $code = $prefix.$max;
+                $code = $prefix.strval($max);
                 $max_code_number = $max;
             }
         }else{
