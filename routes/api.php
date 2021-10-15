@@ -32,7 +32,7 @@ Route::post('/projectCodeCreate',function (Request $request){
             $code = $prefix.'1';
             $max_code_number = 1;
         }else{
-            $code = $prefix.''.$max_code_number+1;
+            $code = $prefix.$max_code_number+1;
             $max_code_number = $max_code_number+1;
         }
 
@@ -59,13 +59,13 @@ Route::post('/projectCodeUpdate',function (Request $request){
         if($project->customer_id != $request->customer_id){
             $prefix = Customer::find($request->customer_id)->prefix;
             $max_code_number = Project::where('customer_id', $request->customer_id)->max('code_number'); 
-
+            $max = $max_code_number+1;
             if(empty($max_code_number)){
                 $code = $prefix.'1';
                 $max_code_number = 1;
             }else{
-                $code = $prefix.''.$max_code_number+1;
-                $max_code_number = $max_code_number+1;
+                $code = $prefix.$max;
+                $max_code_number = $max;
             }
         }else{
 
