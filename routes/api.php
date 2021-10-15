@@ -26,14 +26,15 @@ Route::post('/projectCodeCreate',function (Request $request){
 
         $prefix = Customer::find($request->customer_id)->prefix;
         $max_code_number = Project::where('customer_id', $request->customer_id)->max('code_number'); 
-
+        
+        $max = $max_code_number+1;
 
         if(empty($max_code_number)){
             $code = $prefix.'1';
             $max_code_number = 1;
         }else{
-            $code = $prefix.$max_code_number+1;
-            $max_code_number = $max_code_number+1;
+            $code = $prefix.strval($max);
+            $max_code_number = $max;
         }
 
     }else{
