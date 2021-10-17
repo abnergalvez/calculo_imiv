@@ -39,15 +39,23 @@
                                 <option value="female" {{ $user->gender == 'female' ? 'selected="selected"' : '' }}>Femenino</option>
                             </select>
                         </div>
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-3 mb-3">
                             <label for="role">Rol *</label>
                             <select name="profile" class="form-select mb-0 " id="role" aria-label="seleccione el Rol" required>
-                                <option selected="">Seleccione...</option>
+                                <!--<option selected="">Seleccione...</option>-->
                                 <option value="admin" {{ $user->profile == 'admin' ? 'selected="selected"' : '' }}>Administrador</option>
-                                <option value="normal" {{ $user->profile == 'normal' ? 'selected="selected"' : '' }}>Usuario Normal</option>
-                                <option value="customer" {{ $user->profile == 'customer' ? 'selected="selected"' : '' }}>Cliente</option>
                             </select>
                         </div>
+                        <div class="col-md-2 mb-3 pt-4" >
+                            <div class="form-check form-switch"  >
+                                <label class="form-check-label" for="super"> <small>Super</small> </label>
+                                <input class="form-check-input" type="checkbox" id="super" name="super_admin" {{ $user->super ? 'checked' : '' }}>
+                            </div>
+                        </div>
+                        <div class="col-md-1 pt-4">
+                            <i class="fas fa-question-circle" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Al ser Super Administrador se tiene acceso a la gestion de Usuarios, Facturas y Cotizaciones..."></i>
+                        </div>
+
                     </div>
                     <div class="row">
                         <div class="col-md-6 form-group mb-4">

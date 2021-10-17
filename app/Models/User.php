@@ -22,6 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'profile',
+        'super',
         'password',
         'photo_path',
         'gender',
@@ -52,6 +53,11 @@ class User extends Authenticatable
         return $this->profile == 'customer' ? true : false;
     }
 
+    public function isSuper()
+    {
+        return $this->super ? true : false;
+    }
+
     public function isProfileAdmin()
     {
         return $this->profile == 'admin' ? true : false;
@@ -74,13 +80,17 @@ class User extends Authenticatable
 
     public static function storeUser($request)
     {
+        
         $dir = 'public/avatars';
         if ($request->hasFile('avatar')){
             $file = $request->avatar;
             $path = $file->storeAs($dir, $file->getClientOriginalName());
             //$path = $request->avatar->store('avatars');
-            $request->request->add(['photo_path'=> $path]);
+            
         }
+
+        $request->super_admin== 'on' ? $super = true : $super = false;
+        $request->request->add(['super'=> $super]);
         
         $newPassword = Hash::make($request->password);
         
@@ -131,8 +141,10 @@ class User extends Authenticatable
         }else{
             $request->request->remove('password');
         }
-        
-        
+        if($request->super_admin){
+            $request->super_admin == 'on' ? $super = true : $super = false;
+            $request->request->add(['super'=> $super]);
+        }
         
         if( $user->update($request->all())){
             

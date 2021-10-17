@@ -27,7 +27,6 @@ class UserRequest extends FormRequest
             case 'POST':
                 return [
                     'name' => 'required|string|max:100',
-                    'profile' => 'required',
                     'avatar' => 'file|mimes:png,gif,bmp,jpg|max:3000',
                     'email' => 'required|string|email|max:45|unique:users',
                     'password' => 'required|string|min:6',                   
@@ -36,7 +35,6 @@ class UserRequest extends FormRequest
             case 'PUT':
                 return [
                     'name' => 'required|string|max:100',
-                    'profile' => 'required',
                     'avatar' => 'file|mimes:png,gif,bmp,jpg|max:3000',
                     'email' => 'required|string|email|max:45|unique:users,email,'.$this->id,
                     'password' => $this->password ? 'string|min:6' :'',
@@ -53,7 +51,6 @@ class UserRequest extends FormRequest
     {
         return [
             'name.required' => 'El Nombre es obligatorio.',
-            'profile.required' => 'El Rol es obligatorio.',
             'email.required' => 'El Email es obligatorio.',
             'avatar.max' => 'La foto de perfil no debe ser mayor que 2000 kilobytes.',
             'avatar.mimes' => 'La archivo de foto de perfil debe ser .png, .gif, .bmp, .jpg .',

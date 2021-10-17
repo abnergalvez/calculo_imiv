@@ -19,6 +19,7 @@
         <div class="multi-level collapse {{ Request::segment(2) == 'mantenedores' ? 'show' : '' }}" role="list"
           id="submenu-app" aria-expanded="false">
           <ul class="flex-column nav">
+            @if(auth()->user()->super)
             <li class="nav-item {{ Request::segment(3) == 'usuarios' ? 'active' : '' }}">
               <a class="nav-link" href="{{ route('admin.users.index') }}">
                 <span class="sidebar-text-contracted">
@@ -27,6 +28,7 @@
                 <span class="sidebar-text">Usuarios</span>
               </a>
             </li>
+            @endif
             <li class="nav-item {{ Request::segment(3) == 'clientes' ? 'active' : '' }}">
               <a class="nav-link" href="{{ route('admin.customers.index') }}">
               <span class="sidebar-text-contracted">

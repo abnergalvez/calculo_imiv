@@ -34,7 +34,10 @@
 						</span>	  
 					</td>
 					
-					<td>{{ $user->profileForHumans() }}</td>
+					<td>
+						{{ $user->profileForHumans() }} <br>
+						<small>({{ $user->super ? 'Super' : 'Normal' }})</small>
+					</td>
 					<td>{{ $user->created_at ? $user->created_at : ' - '}}</td>
 					<td>
 						<a href="{{ route('admin.users.edit', $user) }}" title="Editar Usuario">

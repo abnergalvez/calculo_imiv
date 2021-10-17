@@ -43,7 +43,7 @@ Route::group(
         
         Route::group(['prefix' => 'mantenedores'], function(){
             
-            Route::resource('usuarios', 'UserController')->names('admin.users'); 
+            Route::resource('usuarios', 'UserController')->names('admin.users')->middleware('super'); 
             Route::resource('clientes', 'CustomerController')->names('admin.customers'); 
             Route::resource('tipos_proyectos', 'TypeProjectController')->names('admin.type_projects'); 
         });
@@ -56,9 +56,12 @@ Route::group(
         Route::get('proyectos/{proyecto}/reingreso', 'ProjectController@editReEntry')->name('admin.projects.editReEntry'); 
         Route::put('proyectos/{proyecto}/reingreso', 'ProjectController@updateReEntry')->name('admin.projects.updateReEntry');
 
+        Route::resource('proyectos/{proyecto}/facturas', 'InvoiceController')->names('admin.projects.invoices'); 
+
         Route::get('home', 'ProfileController@index')->name('admin.home'); 
         Route::get('perfil', 'ProfileController@profile')->name('admin.profile');
         Route::put('perfil', 'ProfileController@update')->name('admin.profile.update');         
+
 
 });
 /*

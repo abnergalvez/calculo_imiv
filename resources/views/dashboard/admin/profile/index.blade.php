@@ -39,17 +39,6 @@
                                 <option value="female" {{ $user->gender == 'female' ? 'selected="selected"' : '' }}>Femenino</option>
                             </select>
                         </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="role">Rol *</label>
-                            <select name="profile" class="form-select mb-0 " id="role" aria-label="seleccione el Rol" required>
-                                <option selected="">Seleccione...</option>
-                                <option value="admin" {{ $user->profile == 'admin' ? 'selected="selected"' : '' }}>Administrador</option>
-                                <option value="normal" {{ $user->profile == 'normal' ? 'selected="selected"' : '' }}>Usuario Normal</option>
-                                <option value="customer" {{ $user->profile == 'customer' ? 'selected="selected"' : '' }}>Cliente</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row">
                         <div class="col-md-6 form-group mb-4">
                             <label for="password">Contraseña </label>
                             <div class="input-group">

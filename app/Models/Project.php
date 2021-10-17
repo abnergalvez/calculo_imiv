@@ -54,6 +54,11 @@ class Project extends Model
         return $this->belongsTo(Commune::class);
     }
 
+    public function invoices()
+    {
+        return $this->hasMany(Invoice::class);
+    }
+
     public static function createProject($request)
     {
         $newEntryDate = Carbon::createFromFormat('d-m-Y', $request->entry_date);
