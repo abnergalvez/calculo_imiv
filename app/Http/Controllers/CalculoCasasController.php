@@ -93,7 +93,8 @@ class CalculoCasasController extends Controller
             ->with('max_t_otros', $maximo_t_otros)
             ->with('suma_otros', $suma_otros)
             ->with('imiv_t_privado', $imiv_t_privado)
-            ->with('imiv_t_otros', $imiv_t_otros);
+            ->with('imiv_t_otros', $imiv_t_otros)
+            ->with('tipo', 'casas');
     }
     
 }

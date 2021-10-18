@@ -99,7 +99,8 @@ class CalculoController extends Controller
                 ->with('modelo', FuncionesCalculos::fullProyectos()[$request->proyecto]['modelo'] )
                 ->with('subproyecto_key', $request->subproyecto)
                 ->with('subproyecto', $request->modelo::subproyectos()[$request->subproyecto])
-                ->with('escala', $request->escala ? $request->modelo::escalas($request->subproyecto)[$request->escala] : '' );
+                ->with('escala', $request->escala ? $request->modelo::escalas($request->subproyecto)[$request->escala] : '' )
+                ->with('tipo', 'otros');
         }
     }
 

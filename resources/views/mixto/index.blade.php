@@ -24,6 +24,7 @@
 			:imiv_t_otros="$imiv_t_otros"
 			:max_t_otros="$max_t_otros"
 			:max_t_privado="$max_t_privado"
+			:tipo="$tipo"
         />   
     </div>
 	<x-resultados.btn_volver_mixto 

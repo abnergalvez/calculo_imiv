@@ -37,6 +37,12 @@
 			:imiv_t_otros="$imiv_t_otros"
 			:max_t_otros="$max_t_otros"
 			:max_t_privado="$max_t_privado"
+			:subproyecto="$subproyecto"
+        	:superficie="$superficie"
+        	:cantidad="$cantidad"
+        	:modelo="$modelo"
+        	:subproyecto_key="$subproyecto_key"
+			:tipo="$tipo"
         />   
     </div> 
     <x-resultados.btn_volver 

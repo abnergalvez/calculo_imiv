@@ -42,7 +42,8 @@ class CalculoMixtoController extends Controller
             ->with('max_t_privado', $maximo_t_privado)
             ->with('max_t_otros', $maximo_t_otros)
             ->with('imiv_t_privado',$imiv_t_privado)
-            ->with('imiv_t_otros', $imiv_t_otros);
+            ->with('imiv_t_otros', $imiv_t_otros)
+            ->with('tipo', 'mixto');
     }
 
     public function borrar()
