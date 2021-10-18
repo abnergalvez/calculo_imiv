@@ -56,7 +56,9 @@ Route::group(
         Route::get('proyectos/{proyecto}/reingreso', 'ProjectController@editReEntry')->name('admin.projects.editReEntry'); 
         Route::put('proyectos/{proyecto}/reingreso', 'ProjectController@updateReEntry')->name('admin.projects.updateReEntry');
 
-        Route::resource('proyectos/{proyecto}/facturas', 'InvoiceController')->names('admin.projects.invoices'); 
+        Route::resource('proyectos/{proyecto}/facturas', 'InvoiceController')->names('admin.projects.invoices')->middleware('super'); 
+        Route::get('proyectos/{proyecto}/facturas/{factura}/cambio_estado', 'InvoiceController@editStatus')->name('admin.projects.invoices.editStatus')->middleware('super'); 
+        Route::put('proyectos/{proyecto}/facturas/{factura}/cambio_estado', 'InvoiceController@updateStatus')->name('admin.projects.invoices.updateStatus')->middleware('super'); 
 
         Route::get('home', 'ProfileController@index')->name('admin.home'); 
         Route::get('perfil', 'ProfileController@profile')->name('admin.profile');

@@ -141,12 +141,13 @@ class User extends Authenticatable
         }else{
             $request->request->remove('password');
         }
-        if($request->super_admin){
-            $request->super_admin == 'on' ? $super = true : $super = false;
-            $request->request->add(['super'=> $super]);
-        }
         
-        if( $user->update($request->all())){
+        $request->super_admin && $request->super_admin == 'on' ? $super = true : $super = false;
+        $request->request->add(['super'=> $super]);
+
+        $user_update = $user->update($request->all());
+
+        if($user_update ){
             
             $status = array(
                 'time' => 4,

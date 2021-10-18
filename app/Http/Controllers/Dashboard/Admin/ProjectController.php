@@ -211,7 +211,7 @@ class ProjectController extends Controller
         $breadcrumbs = collect([
             ['title' => 'home', 'href' => route('home')],
             ['title' => 'Lista Proyectos', 'href' => route('admin.projects.index')],
-            ['title' => 'Editar Estado Proyecto ID#'.$proyecto->id , 'active' => true]
+            ['title' => 'Editar Estado Proyecto #'.$proyecto->code , 'active' => true]
         ]);
 
         return view('dashboard.admin.projects.changeStatus')
@@ -232,14 +232,14 @@ class ProjectController extends Controller
     public function editReEntry(Project $proyecto)
     {
         $title_section = [
-            'title' => 'Re-Ingreso de Proyecto ID#'.$proyecto->id,
+            'title' => 'Re-Ingreso de Proyecto #'.$proyecto->code,
             'description' => '.', 
         ];
 
         $breadcrumbs = collect([
             ['title' => 'home', 'href' => route('home')],
             ['title' => 'Lista Proyectos', 'href' => route('admin.projects.index')],
-            ['title' => 'Re-Ingreso Proyecto ID#'.$proyecto->id , 'active' => true]
+            ['title' => 'Re-Ingreso Proyecto #'.$proyecto->code , 'active' => true]
         ]);
 
         return view('dashboard.admin.projects.reEntry')

@@ -29,16 +29,6 @@ class Project extends Model
         'type_project_id',
     ];
 
-    // public function setEntryDateAttribute($entry_date)
-    // {
-    //     return $this->attributes['entry_date'] = Carbon::createFromFormat('d-m-Y', $entry_date)->format('Y-m-d');
-    // }
-
-    // public function getEntryDateAttribute($entry_date)
-    // {
-    //     return $this->attributes['entry_date'] = Carbon::parse($entry_date)->format('d-m-Y');
-    // }
-
     public function type_project()
     {
         return $this->belongsTo(TypeProject::class);
