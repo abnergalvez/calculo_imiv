@@ -142,6 +142,7 @@ class User extends Authenticatable
             $request->request->remove('password');
         }
         
+        
         $request->super_admin && $request->super_admin == 'on' ? $super = true : $super = false;
         $request->request->add(['super'=> $super]);
 
@@ -161,6 +162,53 @@ class User extends Authenticatable
                 'time' => 4,
                 'type' => "danger",
                 'message' => "Hay un problema para actualizar al usuario",
+            );
+            request()->session()->put('status', $status);
+        }
+
+        return $user;
+    }
+
+    public static function updateProfile($request, $id)
+    {
+        $user = User::find($id);
+        $dir = 'public/avatars';
+
+        if ($request->hasFile('avatar')){
+            
+            if($user->photo_path){
+                Storage::delete($user->photo_path);
+            }
+            $file = $request->avatar;
+            $path = $file->storeAs($dir, $file->getClientOriginalName());
+            $request->request->add(['photo_path'=> $path]);
+        }
+        
+        if(isset($request->password)){
+            $newPassword = Hash::make($request->password);
+            $request->request->remove('password');
+            $request->request->add(['password'=> $newPassword]);
+        }else{
+            $request->request->remove('password');
+        }
+        
+
+        $user_update = $user->update($request->all());
+
+        if($user_update ){
+            
+            $status = array(
+                'time' => 4,
+                'type' => "success",
+                'message' => "El perfil se ha actualizado correctamente.",
+            );
+            request()->session()->put('status', $status);
+
+        }else{
+            $status = array(
+                'time' => 4,
+                'type' => "danger",
+                'message' => "Hay un problema para actualizar el perfil",
             );
             request()->session()->put('status', $status);
         }

@@ -61,8 +61,9 @@
 								<option value="registered" selected>Ingresado</option>
 								<option value="in_evaluation">En Evaluacion</option>
 								<option value="re_entered">Re-Ingresado</option>
-								<option value="acepted">Aceptado</option>
+								<option value="accepted">Aceptado</option>
 								<option value="rejected">Rechazado</option>
+                                <option value="in_budget">En Presupuesto</option>
                             </select>
                         </div>
 

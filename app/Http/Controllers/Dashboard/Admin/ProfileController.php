@@ -111,7 +111,7 @@ class ProfileController extends Controller
 
     public function update(UserRequest $request)
     {
-        $user_update = User::updateUser( $request, $request->id);
+        $user_update = User::updateProfile( $request, $request->id);
         return redirect()->route('admin.profile');
     }
 }

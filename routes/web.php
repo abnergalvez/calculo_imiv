@@ -46,6 +46,8 @@ Route::group(
             Route::resource('usuarios', 'UserController')->names('admin.users')->middleware('super'); 
             Route::resource('clientes', 'CustomerController')->names('admin.customers'); 
             Route::resource('tipos_proyectos', 'TypeProjectController')->names('admin.type_projects'); 
+            Route::resource('revisores', 'ReviserController')->names('admin.revisers'); 
+
         });
         Route::resource('proyectos', 'ProjectController')->names('admin.projects'); 
         Route::get('por_vencer', 'ProjectController@soonExpire')->name('admin.projects.soonExpire'); 
@@ -62,7 +64,12 @@ Route::group(
 
         Route::get('home', 'ProfileController@index')->name('admin.home'); 
         Route::get('perfil', 'ProfileController@profile')->name('admin.profile');
-        Route::put('perfil', 'ProfileController@update')->name('admin.profile.update');         
+        Route::put('perfil', 'ProfileController@update')->name('admin.profile.update'); 
+        
+        Route::resource('presupuestos', 'BudgetController')->names('admin.budgets')->middleware('super'); 
+        Route::get('presupuestos/{presupuesto}/cambio_estado', 'BudgetController@editStatus')->name('admin.budgets.editStatus')->middleware('super'); 
+        Route::put('presupuestos/{presupuesto}/cambio_estado', 'BudgetController@updateStatus')->name('admin.budgets.updateStatus')->middleware('super'); 
+
 
 
 });

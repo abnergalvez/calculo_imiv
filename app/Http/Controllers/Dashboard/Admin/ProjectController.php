@@ -49,9 +49,14 @@ class ProjectController extends Controller
         $projects_reentry = Project::whereNotNull('re_entry_date')
             ->orderBy('limit_re_entry_date', 'desc')->get();
         
+        //proyectos en presupuesto 
+        $projects_budgets = Project::whereNull('entry_date')
+        ->orderBy('created_at', 'desc')->get();
+
         //concatenacion de proyectos
         $fullProjects_tmp = $projects_expired_reentry->merge($projects_for_reentry);
-        $fullProjects = $fullProjects_tmp->merge($projects_reentry);
+        $fullProjects_tmp2 = $fullProjects_tmp->merge($projects_reentry);
+        $fullProjects = $fullProjects_tmp2->merge($projects_budgets);
 
         return view('dashboard.admin.projects.index')
             ->with('title_section',$title_section)

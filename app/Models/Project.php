@@ -49,6 +49,16 @@ class Project extends Model
         return $this->hasMany(Invoice::class);
     }
 
+    public function reviser()
+    {
+        return $this->belongsTo(Reviser::class);
+    }
+
+    public function budget()
+    {
+        return $this->hasOne(Budget::class);
+    }
+
     public static function createProject($request)
     {
         $newEntryDate = Carbon::createFromFormat('d-m-Y', $request->entry_date);
@@ -226,6 +236,13 @@ class Project extends Model
         return $projectUpdateStatus;
     }
 
+
+    public static function createProjectFromBudget($request)
+    {
+        $project = Project::create($request); 
+        return $project;   
+    }
+
     public static function statusLabel($status_in)
     {
        if($status_in){
@@ -233,8 +250,9 @@ class Project extends Model
                 'registered' => 'Ingresado',
                 'in_evaluation' => 'En Evaluación',
                 're_entered' => 'Re-Ingresado',
-                'acepted' => 'Aceptado',
+                'accepted' => 'Aceptado',
                 'rejected' => 'Rechazado',
+                'in_budget' => 'En Presupuesto'
             ];
         
             return $status[$status_in];
@@ -252,8 +270,9 @@ class Project extends Model
                 'registered' => '#2361ce',
                 'in_evaluation' => '#FBA918',
                 're_entered' => '#fb503b',
-                'acepted' => '#10B981',
+                'accepted' => '#10B981',
                 'rejected' => '#E11D48',
+                'in_budget' => '#63b1bd'
             ];
         
             return $status[$status_in];
@@ -268,8 +287,9 @@ class Project extends Model
                 'registered' => 'Ingresado',
                 'in_evaluation' => 'En Evaluación',
                 're_entered' => 'Re-Ingresado',
-                'acepted' => 'Aceptado',
+                'accepted' => 'Aceptado',
                 'rejected' => 'Rechazado',
+                'in_budget' => 'En Presupuesto'
             ];
         
             return $status[$this->status];
@@ -287,8 +307,9 @@ class Project extends Model
                 'registered' => 'info',
                 'in_evaluation' => 'warning text-dark',
                 're_entered' => 'info',
-                'acepted' => 'success',
+                'accepted' => 'success',
                 'rejected' => 'danger',
+                'in_budget' => 'primary',
             ];
         
             return $statusBadge[$this->status];

@@ -8,7 +8,7 @@
 @include('components.dashboard.form_errors')
 
 <div class="row">
-    <form action="{{ route('admin.projects.updateStatus', $project) }}" method="POST"  enctype="multipart/form-data">
+    <form action="{{ route('admin.budgets.updateStatus', $budget) }}" method="POST"  enctype="multipart/form-data">
 		<input type="hidden" name="_method" value="put">
         @csrf
         <div class="row">
@@ -19,17 +19,13 @@
 						<div class="col-md-4 mb-3">
                             <label for="status">Estado</label>
                             <select name="status" class="form-select mb-0 select2" id="status" aria-label="seleccione el estado" placeholder="Seleccione...">
-                                <option value="">Seleccione...</option>
-								<option value="registered" {{ $project->status == 'registered' ? 'selected="selected"':'' }}>Ingresado</option>
-								<option value="in_evaluation" {{ $project->status == 'in_evaluation' ? 'selected="selected"':'' }}>En Evaluacion</option>
-								<option value="re_entered" {{ $project->status == 're_entered' ? 'selected="selected"':'' }}>Re-Ingresado</option>
-								<option value="accepted" {{ $project->status == 'accepted' ? 'selected="selected"':'' }}>Aceptado</option>
-								<option value="rejected" {{ $project->status == 'rejected' ? 'selected="selected"':'' }}>Rechazado</option>
-                                <option value="in_budget" {{ $project->status == 'in_budget' ? 'selected="selected"':'' }}>En Presupuesto</option>
-
+                                <option value="" >Seleccione...</option>
+                                <option value="sent_customer" {{ $budget->status == 'sent_customer' ?  'selected="selected"' : ''}}>Enviado al Cliente</option>
+                                <option value="accepted" {{ $budget->status == 'accepted' ?  'selected="selected"' : ''}}>Aceptado</option>
+                                <option value="entered" {{ $budget->status == 'entered' ?  'selected="selected"' : ''}}>Ingresado</option>
+                                <option value="rejected" {{ $budget->status == 'rejected' ?  'selected="selected"' : ''}}>Rechazado</option>
                             </select>
                         </div>
-
                     </div>
                     <div class="mt-2">
                         <button type="submit" class="btn btn-gray-800 mt-2 animate-up-2">

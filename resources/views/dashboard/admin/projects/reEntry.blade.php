@@ -21,8 +21,10 @@
 								<option value="registered" {{ $project->status == 'registered' ? 'selected="selected"':'' }}>Ingresado</option>
 								<option value="in_evaluation" {{ $project->status == 'in_evaluation' ? 'selected="selected"':'' }}>En Evaluacion</option>
 								<option value="re_entered" {{ $project->status == 're_entered' ? 'selected="selected"':'' }}>Re-Ingresado</option>
-								<option value="acepted" {{ $project->status == 'acepted' ? 'selected="selected"':'' }}>Aceptado</option>
+								<option value="accepted" {{ $project->status == 'accepted' ? 'selected="selected"':'' }}>Aceptado</option>
 								<option value="rejected" {{ $project->status == 'rejected' ? 'selected="selected"':'' }}>Rechazado</option>
+                                <option value="in_budget" {{ $project->status == 'in_budget' ? 'selected="selected"':'' }}>En Presupuesto</option>
+
                             </select>
                         </div>
 

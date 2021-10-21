@@ -43,10 +43,24 @@
                 <span class="sidebar-text">Tipos de Proyectos</span>
               </a>
             </li>
+            <li class="nav-item {{ Request::segment(3) == 'revisores' ? 'active' : '' }}">
+              <a class="nav-link" href="{{ route('admin.revisers.index') }}" >
+              <span class="sidebar-text-contracted">E</span>
+                <span class="sidebar-text">Entidades Revisoras</span>
+              </a>
+            </li>
           </ul>
         </div>
       </li>
-     
+      <li class="nav-item {{ Request::segment(2) == 'presupuestos' ? 'active' : '' }}">
+        <a href="{{ route('admin.budgets.index') }}" class="nav-link">
+          <span class="sidebar-icon"> 
+            <i class="fas fa-file-invoice-dollar icon icon-xs me-2" fill="currentColor"></i>
+          </span></span>
+          <span class="sidebar-text">Presupuestos</span>
+        </a>
+      </li>
+
       <li class="nav-item {{ Request::segment(2) == 'proyectos' ? 'active' : '' }}">
         <a href="{{ route('admin.projects.index') }}" class="nav-link">
           <span class="sidebar-icon"> 

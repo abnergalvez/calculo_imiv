@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Http\Controllers\Dashboard\Admin;
-use App\Models\Customer;
+
 use App\Http\Controllers\Controller;
+use App\Models\Customer;
 use Illuminate\Http\Request;
 use App\Http\Requests\CustomerRequest;
 

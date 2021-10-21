@@ -49,10 +49,14 @@
                     <tr>
                         <th class="table-active"><strong>Fechas</strong></th>
                         <td>
+                            @if($project->entry_date)
                             {{ \Carbon\Carbon::createFromFormat('Y-m-d', $project->entry_date)->locale('es_ES')->isoFormat('D MMMM  YYYY') }} ( F. Ingreso) <br>
 							 <br>
 							 {{ \Carbon\Carbon::createFromFormat('Y-m-d', $project->limit_re_entry_date)->locale('es_ES')->isoFormat('D MMMM  YYYY') }} ( F. Limite Re-Ingreso) <br><br>
 							 {{ $project->re_entry_date ? \Carbon\Carbon::createFromFormat('Y-m-d', $project->re_entry_date)->locale('es_ES')->isoFormat('D MMMM  YYYY').' ' : ' - ' }}( F. Re-Ingreso)  <br>	
+                            @else
+                            -
+                            @endif
                         </td>
                     </tr>
 

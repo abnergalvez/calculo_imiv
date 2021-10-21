@@ -34,7 +34,7 @@
                                     <option value="" >Seleccione...</option>
 								    <option value="to_pay" selected>Por Pagar</option>
 								    <option value="paid">Pagado</option>
-								    <option value="acepted">Aceptado</option>
+								    <option value="accepted">Aceptado</option>
 								    <option value="rejected">Rechazado</option>
                                 </select>
                             </div>
