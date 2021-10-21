@@ -14,7 +14,18 @@ class AddNewFillsToProjectsTable extends Migration
     public function up()
     {
         Schema::table('projects', function (Blueprint $table) {
-            //
+            //ingreso  
+            
+            //observaciones
+            $table->date('limit_observation_date')->nullable(); //luego del ingreso
+            $table->date('observation_date')->nullable();
+
+            //reingreso
+
+            //estado final
+            $table->date('limit_final_status_date')->nullable(); //luego del re-ingreso
+            $table->date('final_status_date')->nullable(); //accepted o rejected
+
         });
     }
 
