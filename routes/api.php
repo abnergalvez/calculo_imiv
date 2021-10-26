@@ -20,6 +20,19 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::post('/dateNamesFromStatus',function(Request $request){
+    $statusDate = [
+        'registered_for_observation' => 'Ingreso para Observacion',
+        'in_correction' => 'Llegada Observación (Revisor)',
+        're_entered' => 'Re-Ingreso (Corrección)',
+        'accepted' => 'Llegada Estado Final (Revisor)',
+        'rejected' => 'Llegada Estado Final (Revisor)',
+        'in_budget' => null,
+    ];
+    
+    return $statusDate[$request->status];
+});
+
 Route::post('/projectCodeCreate',function (Request $request){
 	
     if(!empty($request->customer_id)){

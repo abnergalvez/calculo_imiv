@@ -16,7 +16,7 @@
                 <div class="card card-body shadow-sm mb-4">
 
 					<div class="row">
-						<div class="col-md-4 mb-3">
+						<div class="col-md-6 mb-3">
                             <label for="status">Estado</label>
                             <select name="status" class="form-select mb-0 select2" id="status" aria-label="seleccione el estado" placeholder="Seleccione...">
                                 <option value="">Seleccione...</option>
@@ -28,6 +28,21 @@
                                 <option value="in_budget" {{ $project->status == 'in_budget' ? 'selected="selected"':'' }}>En Presupuesto</option>
 
                             </select>
+                        </div>
+                        <div class="col-md-6 mb-3" id="dateStatus">
+							<label for="status_date"> Fecha <span id="dateName"></span> </label>
+                            <div class="input-group">
+								<span class="input-group-text">
+                                    <i class="fas fa-calendar-check icon icon-xs" fill="currentColor"></i>
+								</span>
+								<input data-datepicker="" 
+                                    name="status_date" 
+                                    class="form-control" 
+                                    id="status_date" 
+                                    value="" 
+                                >
+							</div>
+                            <small class="text-dark mb-0 text-wrap fw-lighter" style="font-size:.8125rem">Ingresar si se desea cambiar la fecha</small>
                         </div>
 
                     </div>
@@ -49,10 +64,29 @@
 
     <script>
         $(document).ready(function() {
-            $(".select2").select2({
-                theme: "bootstrap-5",
+
+            $('#status').change( function() {
+                
+                $.ajax({
+                    type: "POST",
+                    url: '/api/dateNamesFromStatus',
+                    data: {"status": $('#status :selected').val() },
+                    success: function(resp){
+                        if(resp != ''){
+                            $('#dateName').html(resp);
+                            $('#dateStatus').css('display','block');
+                        }else{
+                            $('#dateName').html('');
+                            $('#dateStatus').css('display','none');
+
+                        }
+                    }
+                });
+
             });
         });
+
+        
 
     </script>
 @endsection

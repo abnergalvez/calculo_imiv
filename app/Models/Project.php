@@ -127,14 +127,6 @@ class Project extends Model
             $request->request->add(['entry_doc_path'=> $path]);
         }
 
-        // entry_date
-        // limit_observation_date
-        // observation_date
-        // limit_re_entry_date
-        // re_entry_date
-        // limit_final_status_date
-        // final_status_date
-
         if($request->entry_date){
             $newEntryDate = Carbon::createFromFormat('d-m-Y', $request->entry_date);
             $request->request->remove('entry_date');
@@ -223,12 +215,32 @@ class Project extends Model
     public static function statusUpdate($request, $project)
     {
         $project->status = $request->status;
+
+        if($request->status_date){
+            $requestDate = Carbon::createFromFormat('d-m-Y', $request->status_date);
+            $date = Project::statusDateChange($request->status)['date'];
+            $days = Project::statusDateChange($request->status)['days'];
+            $limit = Project::statusDateChange($request->status)['limit'];
+            
+            if(isset($date)){
+                $project->$date = $requestDate->format('Y-m-d');
+            }
+
+            if(isset($days)){
+                $daysLimit = \App\Models\TypeProject::find($project->type_project_id)->$days;
+            }
+
+            if(isset($limit)){
+                $project->$limit =  $requestDate->addDays($daysLimit)->format('Y-m-d');
+            }
+        }
+
         $projectUpdateStatus = $project->save();
         if($projectUpdateStatus){
             $status = array(
                 'time' => 4,
                 'type' => "success",
-                'message' => "El estado del proyecto se ha actualizado correctamente.",
+                'message' => "El estado + fechas del proyecto se ha actualizado correctamente.",
             );
             request()->session()->put('status', $status);
 
@@ -357,12 +369,63 @@ class Project extends Model
         
             return $statusBadge[$this->status];
        }
-
        return 'secondary';
 
     }
 
 
+    public static function statusDateChange($status)
+    {
+       
+        if($status){
+            $statusDate = [
+                'registered_for_observation' => 
+                [
+                    'date' => 'entry_date' ,
+                    'limit' => 'limit_observation_date',
+                    'days' => 'observation_days_limit',
+                ],
+
+                'in_correction' => 
+                [
+                    'date' => 'observation_date',
+                    'limit' => 'limit_re_entry_date',
+                    'days' => 're_entry_days_limit',
+                ],
+                
+                're_entered' => 
+                [
+                    'date' => 're_entry_date' ,
+                    'limit' => 'limit_final_status_date',
+                    'days' => 'final_status_days_limit',
+                ],
+                
+                'accepted' => 
+                [
+                    'date' => 'final_status_date' ,
+                    'limit' => null,
+                    'days' => null,
+                ],
+                
+                'rejected' => 
+                [
+                    'date' => 'final_status_date' ,
+                    'limit' => null,
+                    'days' => null,
+                ],
+                
+                'in_budget' => 
+                [
+                    'date' => null ,
+                    'limit' => null,
+                    'days' => null,
+                ],
+            ];
+        
+            return $statusDate[$status];
+       }
+       return null;
+    }
 
     
 }
