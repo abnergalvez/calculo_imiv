@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\FuncionesCalculos;
 
+use App\Models\Project;
+
 
 
 
@@ -32,6 +34,16 @@ class HomeController extends Controller
         }else{
             return view('inicio');
         }
+    }
+
+    public function detailProject($code)
+    {
+        $codeDecript = base64_decode(strtr($code, '-_','+/='));
+        
+        //encript     strtr(base64_encode($p->code), '+/=', '-_'));
+        
+        return view('detail_project')
+            ->with('project', Project::where('code', $codeDecript)->first());
     }
 
 }

@@ -18,47 +18,95 @@ class TypeProjectTableSeeder extends Seeder
             [
                 'name' => 'IMIV Básico',
                 'description' => '',
-                're_entry_days_limit' => 65
+                'budget_entry_days_limit' => 30,
+
+                'observation_days_limit' => 45,
+                're_entry_days_limit' => 20,
+                'final_status_days_limit' => 20,
+                
             ],
             [
-                'name' => 'IMIV Intermedio - Mayor',
+                'name' => 'IMIV Intermedio',
                 'description' => '',
-                're_entry_days_limit' => 90
+                'budget_entry_days_limit' => 30,
+
+                'observation_days_limit' => 60,
+                're_entry_days_limit' => 30,
+                'final_status_days_limit' => 30,
+                
+            ],
+            [
+                'name' => 'IMIV Mayor',
+                'description' => '',
+                'budget_entry_days_limit' => 60,
+
+                'observation_days_limit' => 60,
+                're_entry_days_limit' => 30,
+                'final_status_days_limit' => 30,
+                
             ],
             [
                 'name' => 'Proyecto Pavimentación',
                 'description' => '',
-                're_entry_days_limit' => 90
+                'budget_entry_days_limit' => 30,
+
+                'observation_days_limit' => 30,
+                're_entry_days_limit' => 30,
+                'final_status_days_limit' => 30,
             ],
             [
                 'name' => 'Proyecto UOCT',
                 'description' => '',
-                're_entry_days_limit' => 45
+                'budget_entry_days_limit' => 30,
+
+                'observation_days_limit' => 30,
+                're_entry_days_limit' => 30,
+                'final_status_days_limit' => 30,
             ],
             [
                 'name' => 'Proyecto de Señalización',
                 'description' => '',
-                're_entry_days_limit' => 45
+                'budget_entry_days_limit' => 30,
+
+                'observation_days_limit' => 30,
+                're_entry_days_limit' => 30,
+                'final_status_days_limit' => 30,
             ],
             [
                 'name' => 'TEP',
                 'description' => '',
-                're_entry_days_limit' => 45
+                'budget_entry_days_limit' => 30,
+
+                'observation_days_limit' => 30,
+                're_entry_days_limit' => 30,
+                'final_status_days_limit' => 30,
             ],
             [
                 'name' => 'Proyecto Paraderos',
                 'description' => '',
-                're_entry_days_limit' => 45
+                'budget_entry_days_limit' => 30,
+
+                'observation_days_limit' => 30,
+                're_entry_days_limit' => 30,
+                'final_status_days_limit' => 30,
             ],
             [
                 'name' => 'Proyecto Iluminación',
                 'description' => '',
-                're_entry_days_limit' => 45
+                'budget_entry_days_limit' => 30,
+
+                'observation_days_limit' => 30,
+                're_entry_days_limit' => 30,
+                'final_status_days_limit' => 30,
             ],
             [
                 'name' => 'Otros',
                 'description' => '',
-                're_entry_days_limit' => 45
+                'budget_entry_days_limit' => 30,
+                
+                'observation_days_limit' => 30,
+                're_entry_days_limit' => 30,
+                'final_status_days_limit' => 30,
             ]
             
         ]);

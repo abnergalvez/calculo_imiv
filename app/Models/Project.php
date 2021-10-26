@@ -20,12 +20,21 @@ class Project extends Model
         'address',
         'commune_id',
         'entry_date',
+        
+        'limit_observation_date',
+        'observation_date',
+
         'limit_re_entry_date',
         're_entry_date',
+
+        'limit_final_status_date',
+        'final_status_date',
+
         'status',
         'entry_doc_path',
         're_entry_doc_path',
         'customer_id',
+        'reviser_id',
         'type_project_id',
     ];
 
@@ -61,11 +70,13 @@ class Project extends Model
 
     public static function createProject($request)
     {
-        $newEntryDate = Carbon::createFromFormat('d-m-Y', $request->entry_date);
-        $request->request->remove('entry_date');
-        $request->request->add(['entry_date' => $newEntryDate->format('Y-m-d')]);
-        $daysLimit = \App\Models\TypeProject::find($request->type_project_id)->re_entry_days_limit;
-        $request->request->add(['limit_re_entry_date' => $newEntryDate->addDays($daysLimit)->format('Y-m-d')]);
+        if($request->entry_date){
+            $newEntryDate = Carbon::createFromFormat('d-m-Y', $request->entry_date);
+            $request->request->remove('entry_date');
+            $request->request->add(['entry_date' => $newEntryDate->format('Y-m-d')]);
+            $daysLimit = \App\Models\TypeProject::find($request->type_project_id)->observation_days_limit;
+            $request->request->add(['limit_observation_date' => $newEntryDate->addDays($daysLimit)->format('Y-m-d')]);
+        }
 
         $project = Project::create($request->all());
 
@@ -79,8 +90,6 @@ class Project extends Model
             $project->save();
 
         }
-
-        
 
         if($project){
             $status = array(
@@ -118,11 +127,45 @@ class Project extends Model
             $request->request->add(['entry_doc_path'=> $path]);
         }
 
-        $newEntryDate = Carbon::createFromFormat('d-m-Y', $request->entry_date);
-        $request->request->remove('entry_date');
-        $request->request->add(['entry_date' => $newEntryDate->format('Y-m-d')]);
-        $daysLimit = \App\Models\TypeProject::find($request->type_project_id)->re_entry_days_limit;
-        $request->request->add(['limit_re_entry_date' => $newEntryDate->addDays($daysLimit)->format('Y-m-d')]);
+        // entry_date
+        // limit_observation_date
+        // observation_date
+        // limit_re_entry_date
+        // re_entry_date
+        // limit_final_status_date
+        // final_status_date
+
+        if($request->entry_date){
+            $newEntryDate = Carbon::createFromFormat('d-m-Y', $request->entry_date);
+            $request->request->remove('entry_date');
+            $request->request->add(['entry_date' => $newEntryDate->format('Y-m-d')]);
+            $daysLimit = \App\Models\TypeProject::find($request->type_project_id)->observation_days_limit;
+            $request->request->add(['limit_observation_date' => $newEntryDate->addDays($daysLimit)->format('Y-m-d')]);
+        }
+
+        if($request->observation_date){
+            $newObservationDate = Carbon::createFromFormat('d-m-Y', $request->observation_date);
+            $request->request->remove('observation_date');
+            $request->request->add(['observation_date' => $newObservationDate->format('Y-m-d')]);
+            $daysLimit = \App\Models\TypeProject::find($request->type_project_id)->re_entry_days_limit;
+            $request->request->add(['limit_re_entry_date' => $newObservationDate->addDays($daysLimit)->format('Y-m-d')]);
+        }
+
+        if($request->re_entry_date){
+            $newReEntryDate = Carbon::createFromFormat('d-m-Y', $request->re_entry_date);
+            $request->request->remove('re_entry_date');
+            $request->request->add(['re_entry_date' => $newReEntryDate->format('Y-m-d')]);
+            $daysLimit = \App\Models\TypeProject::find($request->type_project_id)->final_status_days_limit;
+            $request->request->add(['limit_final_status_date' => $newReEntryDate->addDays($daysLimit)->format('Y-m-d')]);
+        }
+
+        if($request->final_status_date){
+            $newFinalStatusDate = Carbon::createFromFormat('d-m-Y', $request->final_status_date);
+            $request->request->remove('final_status_date');
+            $request->request->add(['final_status_date' => $newFinalStatusDate->format('Y-m-d')]);
+        }
+
+
         
         $project_update = $project->update($request->all());
 
@@ -247,8 +290,8 @@ class Project extends Model
     {
        if($status_in){
             $status = [
-                'registered' => 'Ingresado',
-                'in_evaluation' => 'En Evaluación',
+                'registered_for_observation' => 'Ingresado para observación',
+                'in_correction' => 'En Corrección',
                 're_entered' => 'Re-Ingresado',
                 'accepted' => 'Aceptado',
                 'rejected' => 'Rechazado',
@@ -267,8 +310,8 @@ class Project extends Model
     {
        if($status_in){
             $status = [
-                'registered' => '#2361ce',
-                'in_evaluation' => '#FBA918',
+                'registered_for_observation' => '#2361ce',
+                'in_correction' => '#FBA918',
                 're_entered' => '#fb503b',
                 'accepted' => '#10B981',
                 'rejected' => '#E11D48',
@@ -284,8 +327,8 @@ class Project extends Model
     {
        if($this->status){
             $status = [
-                'registered' => 'Ingresado',
-                'in_evaluation' => 'En Evaluación',
+                'registered_for_observation' => 'Ingresado para observación',
+                'in_correction' => 'En Corrección',
                 're_entered' => 'Re-Ingresado',
                 'accepted' => 'Aceptado',
                 'rejected' => 'Rechazado',
@@ -304,8 +347,8 @@ class Project extends Model
        
         if($this->status){
             $statusBadge = [
-                'registered' => 'info',
-                'in_evaluation' => 'warning text-dark',
+                'registered_for_observation' => 'info',
+                'in_correction' => 'warning text-dark',
                 're_entered' => 'info',
                 'accepted' => 'success',
                 'rejected' => 'danger',

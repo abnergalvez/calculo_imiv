@@ -9,7 +9,7 @@ use App\Models\TypeProject;
 use App\Models\Customer;
 use App\Models\Project;
 use Illuminate\Http\Request;
-
+use Carbon\Carbon;
 use App\Http\Requests\BudgetStoreRequest;
 use App\Http\Requests\BudgetUpdateRequest;
 
@@ -164,6 +164,63 @@ class BudgetController extends Controller
     {
         $updateStatus = Budget::statusUpdate($request, $presupuesto);
         return redirect()->route('admin.budgets.index');
+    }
+
+    public function soonExpire()
+    {
+        $title_section = [
+            'title' => 'Presupuestos por vencer Ingreso',
+            'description' => '', 
+        ];
+
+        $breadcrumbs = collect([
+            ['title' => 'home', 'href' => route('home')],
+            ['title' => 'Lista Presupuestos', 'href' => route('admin.budgets.index')],
+            ['title' => 'Por Vencer Ingreso', 'active' => true],
+        ]);
+
+        $now = Carbon::today();
+
+        $budgets = Budget::all()->filter(function ($value, $key) use ($now) {
+            $limite = Carbon::parse($value->limit_entry_date);
+            if($limite >= $now && $now->diffInDays($limite) <= 2 && !isset($value->entry_date)){
+                return $value; 
+            }});
+            
+        return view('dashboard.admin.budgets.index')
+            ->with('title_section',$title_section)
+            ->with('breadcrumbs',$breadcrumbs)
+            ->with('now',$now)
+            ->with('budgets', $budgets);
+    }
+
+
+    public function expired()
+    {
+        $title_section = [
+            'title' => 'Proyectos Vencidos en Re-Ingreso',
+            'description' => '', 
+        ];
+
+        $breadcrumbs = collect([
+            ['title' => 'home', 'href' => route('home')],
+            ['title' => 'Lista Proyectos', 'href' => route('admin.projects.index')],
+            ['title' => 'Vencidos', 'active' => true],
+        ]);
+
+        $now = Carbon::today();
+
+        $projects = Project::all()->filter(function ($value, $key) use ($now) {
+            
+            if($value->limit_re_entry_date < $now && !isset($value->re_entry_date)){
+                return $value; 
+            }});
+
+        return view('dashboard.admin.projects.index')
+            ->with('title_section',$title_section)
+            ->with('breadcrumbs',$breadcrumbs)
+            ->with('now',$now)
+            ->with('projects', $projects);
     }
 
 }

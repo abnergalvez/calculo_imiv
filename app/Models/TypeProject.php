@@ -12,7 +12,10 @@ class TypeProject extends Model
     protected $fillable = [
         'name',
         'description',
+        'budget_entry_days_limit',
+        'observation_days_limit',
         're_entry_days_limit',
+        'final_status_days_limit',
     ];
 
     public function projects()

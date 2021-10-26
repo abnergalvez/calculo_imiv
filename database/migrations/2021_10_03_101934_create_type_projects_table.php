@@ -17,7 +17,7 @@ class CreateTypeProjectsTable extends Migration
             $table->id();
             $table->string('name');
             $table->text('description')->nullable();
-            $table->integer('re_entry_days_limit'); //cantidad de dias limite para el reingreso
+            $table->integer('re_entry_days_limit'); //cantidad de dias limite para el reingreso luego de observacion
             $table->timestamps();
         });
     }

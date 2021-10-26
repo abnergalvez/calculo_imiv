@@ -7,6 +7,32 @@
 @section('content_dashboard')
 
 <div class="row">
+<!-- ALERTAS PRESUPUESTOS  -->
+    @if(count($budgetSoonExpired) > 0)
+	<div class="col-12 col-sm-12 col-xl-12 mb-0">
+		<div class="alert alert-warning alert-dismissible fade show" role="alert">
+			
+			<p><strong class="">Atención!</strong> Tienes {{ count($budgetSoonExpired) }} ingresos de <strong><a href="{{ route('admin.budgets.soonExpire')}}">presupuestos por vencer</a></strong> en 3 dias mas.</p>
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+	</div>
+	@endif
+<!-- --------  -->
+
+
+<!-- ALERTAS OBSERVACIONES PROYECTOS  -->
+@if(count($projectObservationSoonExpired) > 0)
+	<div class="col-12 col-sm-12 col-xl-12 mb-0">
+		<div class="alert alert-warning alert-dismissible fade show" role="alert">
+			
+			<p><strong class="">Atención! </strong>La entidad revisora aun no entrega las Observaciones de <strong><a href="{{ route('admin.projects.soonObservationExpire')}}"> {{ count($projectObservationSoonExpired) }} proyectos </a></strong> a vencer en 3 dias mas.</p>
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+	</div>
+	@endif
+<!-- --------  -->
+
+<!--ALERTAS REINGRESOS PROYECTOS  -->
 	@if(count($projectSoonExpired) > 0)
 	<div class="col-12 col-sm-12 col-xl-12 mb-0">
 		<div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -25,10 +51,23 @@
 		</div>
 	</div>
 	@endif
+<!-- --------  -->
+
+<!-- ALERTAS ESTADO FINAL PROYECTOS  -->
+@if(count($projectFinalStatusSoonExpire) > 0)
+	<div class="col-12 col-sm-12 col-xl-12 mb-0">
+		<div class="alert alert-warning alert-dismissible fade show" role="alert">
+			
+			<p><strong class="">Atención! </strong>La entidad revisora aun no entrega el Estado Final de <strong><a href="{{ route('admin.projects.finalStatusSoonExpire')}}"> {{ count($projectFinalStatusSoonExpire) }} proyectos </a></strong> a vencer en 3 dias mas.</p>
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+	</div>
+	@endif
+<!-- --------  -->
 </div>
 
 <div class="row">
-<div class="col-12 col-sm-6 col-xl-3 mb-2">
+<div class="col-12 col-sm-6 col-xl-4 mb-2">
         <div class="card border-0 shadow">
             <div class="card-body">
                 <div class="row d-block d-xl-flex align-items-center">
@@ -58,7 +97,7 @@
             </div>
         </div>
     </div>
-    <div class="col-12 col-sm-6 col-xl-3 mb-2">
+    <div class="col-12 col-sm-6 col-xl-4 mb-2">
         <div class="card border-0 shadow">
             <div class="card-body">
                 <div class="row d-block d-xl-flex align-items-center">
@@ -87,7 +126,7 @@
             </div>
         </div>
     </div>
-    <div class="col-12 col-sm-6 col-xl-3 mb-2">
+    <div class="col-12 col-sm-6 col-xl-4 mb-2">
         <div class="card border-0 shadow">
             <div class="card-body">
                 <div class="row d-block d-xl-flex align-items-center">
@@ -121,18 +160,102 @@
                 <div class="row d-block d-xl-flex align-items-center">
                     <div class="col-12 col-xl-5 text-xl-center mb-3 mb-xl-0 d-flex align-items-center justify-content-xl-center">
                         <div class="icon-shape icon-shape-warning rounded me-4 me-sm-0">
-							<svg class="icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                        <i class="fas fa-file-invoice-dollar icon" fill="currentColor" style="font-size: 2rem;"></i>
+						            </div>
+                        
+						            <div class="d-sm-none">
+                            <h2 class="fw-extrabold h5"><a href="{{ route('admin.budgets.soonExpire')}}">Presupuestos (Ingresos) <br> por Vencer</a></h2>
+                            <h3 class="mb-1">{{ count($budgetSoonExpired) }}</h3>
+                        </div>
+                    </div>
+                    <div class="col-12 col-xl-7 px-xl-0">
+                        <div class="d-none d-sm-block">
+                            <h2 class="h6 text-warning mb-0"><a href="{{ route('admin.budgets.soonExpire')}}">Presupuestos (Ingresos) <br>  por Vencer</a></h2>
+                            <h3 class="fw-extrabold mb-2">{{ count($budgetSoonExpired) }}</h3>
+                        </div>
+                        <small class="d-flex align-items-center text-gray-500">
+                            a 3 días de vencer
+                        </small> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-sm-6 col-xl-3 mb-2">
+        <div class="card border-0 shadow">
+            <div class="card-body">
+                <div class="row d-block d-xl-flex align-items-center">
+                    <div class="col-12 col-xl-5 text-xl-center mb-3 mb-xl-0 d-flex align-items-center justify-content-xl-center">
+                        <div class="icon-shape icon-shape-warning rounded me-4 me-sm-0">
+                        <i class="fas fa-comment-dots icon" fill="currentColor" style="font-size: 2rem;"></i>
 						</div>
                         
 						<div class="d-sm-none">
-                            <h2 class="fw-extrabold h5"><a href="{{ route('admin.projects.soonExpire')}}">Re-Ingresos por Vencer</a></h2>
+                            <h2 class="fw-extrabold h5"><a href="{{ route('admin.projects.soonObservationExpire')}}">Observaciones (Proyectos) <br>por Vencer</a></h2>
+                            <h3 class="mb-1">{{ count($projectObservationSoonExpired) }}</h3>
+                        </div>
+                    </div>
+                    <div class="col-12 col-xl-7 px-xl-0">
+                        <div class="d-none d-sm-block">
+                            <h2 class="h6 text-warning mb-0"><a href="{{ route('admin.projects.soonObservationExpire')}}">Observaciones (Proyectos) <br>por Vencer</a></h2>
+                            <h3 class="fw-extrabold mb-2">{{ count($projectObservationSoonExpired) }}</h3>
+                        </div>
+                        <small class="d-flex align-items-center text-gray-500">
+                            a 3 días de vencer
+                        </small> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-sm-6 col-xl-3 mb-2">
+        <div class="card border-0 shadow">
+            <div class="card-body">
+                <div class="row d-block d-xl-flex align-items-center">
+                    <div class="col-12 col-xl-5 text-xl-center mb-3 mb-xl-0 d-flex align-items-center justify-content-xl-center">
+                        <div class="icon-shape icon-shape-warning rounded me-4 me-sm-0">
+                        <i class="fas fa-file-upload icon" fill="currentColor" style="font-size: 2rem;"></i>
+						</div>
+                        
+						<div class="d-sm-none">
+                            <h2 class="fw-extrabold h5"><a href="{{ route('admin.projects.soonExpire')}}">Re-Ingresos (Proyectos) <br> por Vencer</a></h2>
                             <h3 class="mb-1">10</h3>
                         </div>
                     </div>
                     <div class="col-12 col-xl-7 px-xl-0">
                         <div class="d-none d-sm-block">
-                            <h2 class="h6 text-warning mb-0"><a href="{{ route('admin.projects.soonExpire')}}">Re-Ingresos por Vencer</a></h2>
+                            <h2 class="h6 text-warning mb-0"><a href="{{ route('admin.projects.soonExpire')}}">Re-Ingresos (Proyectos) <br> por Vencer</a></h2>
                             <h3 class="fw-extrabold mb-2">{{ count($projectSoonExpired) }}</h3>
+                        </div>
+                        <small class="d-flex align-items-center text-gray-500">
+                            a 3 días de vencer
+                        </small> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-sm-6 col-xl-3 mb-2">
+        <div class="card border-0 shadow">
+            <div class="card-body">
+                <div class="row d-block d-xl-flex align-items-center">
+                    <div class="col-12 col-xl-5 text-xl-center mb-3 mb-xl-0 d-flex align-items-center justify-content-xl-center">
+                        <div class="icon-shape icon-shape-warning rounded me-4 me-sm-0">
+                        <i class="fas fa-calendar-check icon" fill="currentColor" style="font-size: 2rem;"></i>
+						</div>
+                        
+						<div class="d-sm-none">
+                            <h2 class="fw-extrabold h5"><a href="{{ route('admin.projects.finalStatusSoonExpire')}}">Estado Final (Proyectos) <br> por Vencer</a></h2>
+                            <h3 class="mb-1">{{ count($projectFinalStatusSoonExpire) }}</h3>
+                        </div>
+                    </div>
+                    <div class="col-12 col-xl-7 px-xl-0">
+                        <div class="d-none d-sm-block">
+                            <h2 class="h6 text-warning mb-0"><a href="{{ route('admin.projects.finalStatusSoonExpire')}}">Estado Final (Proyectos) <br> por Vencer</a></h2>
+                            <h3 class="fw-extrabold mb-2">{{ count($projectFinalStatusSoonExpire) }}</h3>
                         </div>
                         <small class="d-flex align-items-center text-gray-500">
                             a 3 días de vencer

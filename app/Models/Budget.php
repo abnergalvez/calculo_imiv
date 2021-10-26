@@ -17,8 +17,10 @@ class Budget extends Model
         'status',
         'doc_path',
         'accepted_date',
+        'limit_entry_date',
         'entry_date',
         'project_id',
+        
     ];
 
     public function project()
@@ -28,14 +30,17 @@ class Budget extends Model
 
     public static function storeBudget($request)
     {
-        if($request['entry_date']){
+
+        if($request['accepted_date']!== null){
+            $newAceptedDate = Carbon::createFromFormat('d-m-Y', $request['accepted_date']);
+            $request['accepted_date'] = $newAceptedDate->format('Y-m-d');
+            $daysLimit = Project::find($request['project_id'])->type_project->budget_entry_days_limit;
+            $request['limit_entry_date'] = $newAceptedDate->addDays($daysLimit)->format('Y-m-d');
+        }
+        
+        if($request['entry_date']!== null){
             $newEntryDate = Carbon::createFromFormat('d-m-Y', $request['entry_date']);
             $request['entry_date'] = $newEntryDate->format('Y-m-d');
-        }
-
-        if($request['accepted_date']){
-            $newAcceptedDate = Carbon::createFromFormat('d-m-Y', $request['accepted_date']);
-            $request['accepted_date'] = $newAcceptedDate->format('Y-m-d');
         }
 
         $budget = Budget::create($request->all());
@@ -70,18 +75,19 @@ class Budget extends Model
 
     public static function updateBudget($request, $budget)
     {
+        if($request->accepted_date){
+            $newAcceptedDate = Carbon::createFromFormat('d-m-Y', $request->accepted_date);
+            $request->request->remove('accepted_date');
+            $request->request->add(['accepted_date' => $newAcceptedDate->format('Y-m-d')]);
+            $daysLimit = $budget->project->type_project->budget_entry_days_limit;
+            $request->request->add(['limit_entry_date' => $newAcceptedDate->addDays($daysLimit)->format('Y-m-d')]);
+        }
+
         if($request->entry_date){
             $newEntryDate = Carbon::createFromFormat('d-m-Y', $request->entry_date);
             $request->request->remove('entry_date');
             $request->request->add(['entry_date' => $newEntryDate->format('Y-m-d')]);
         }
-
-        if($request->accepted_date){
-            $newAcceptedDate = Carbon::createFromFormat('d-m-Y', $request->accepted_date);
-            $request->request->remove('accepted_date');
-            $request->request->add(['accepted_date' => $newAcceptedDate->format('Y-m-d')]);
-        }
-
 
         if($request->hasFile('doc')){
             $dir = 'public/project/'.$budget->project_id.'/budget';

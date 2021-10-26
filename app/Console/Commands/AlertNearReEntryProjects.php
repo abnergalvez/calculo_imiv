@@ -44,14 +44,14 @@ class AlertNearReEntryProjects extends Command
     {
         $projects = Project::all();
         $projectSoonExpired = $projects->filter(function ($value, $key) {
-            $ahora = now();
+            $ahora = Carbon::today();
             $limite = Carbon::parse($value->limit_re_entry_date);
-            if($limite >= now() && $ahora->diffInDays($limite) <= 2 && !isset($value->re_entry_date)){
+            if($limite >= $ahora && $ahora->diffInDays($limite) <= 3 && !isset($value->re_entry_date)){
                 return $value; 
             }
         });
 
-        $this->info(count($projectSoonExpired). ' to expired in 3 days');
+        $this->info(count($projectSoonExpired). ' to expired re-entry in 3 days');
 
         if(count($projectSoonExpired) > 0 ){
             

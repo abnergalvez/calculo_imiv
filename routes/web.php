@@ -19,6 +19,8 @@ Route::post('/enviar_resultados', 'EmailController@enviarResultados')->name('res
 Route::get('/calculo_cesion', 'CalculoCesionController@index')->name('inicio.cesion');
 Route::post('/resultado_cesion', 'CalculoCesionController@calculo')->name('calculo.cesion');
 
+Route::get('/detalle_proyecto/{code}', 'HomeController@detailProject')->name('detail_project.customer');
+
 Route::get('/salir', function(){
     auth()->logout();
     return redirect('/');
@@ -50,9 +52,11 @@ Route::group(
 
         });
         Route::resource('proyectos', 'ProjectController')->names('admin.projects'); 
-        Route::get('por_vencer', 'ProjectController@soonExpire')->name('admin.projects.soonExpire'); 
-        Route::get('vencidos', 'ProjectController@expired')->name('admin.projects.expired'); 
-        
+        Route::get('reingresos_proyectos_por_vencer', 'ProjectController@soonExpire')->name('admin.projects.soonExpire'); 
+        Route::get('reingresos_proyectos_vencidos', 'ProjectController@expired')->name('admin.projects.expired'); 
+        Route::get('observaciones_proyectos_por_vencer', 'ProjectController@soonObservationExpire')->name('admin.projects.soonObservationExpire'); 
+        Route::get('estado_final_proyectos_por_vencer', 'ProjectController@finalStatusSoonExpire')->name('admin.projects.finalStatusSoonExpire');
+
         Route::get('proyectos/{proyecto}/cambio_estado', 'ProjectController@editStatus')->name('admin.projects.editStatus'); 
         Route::put('proyectos/{proyecto}/cambio_estado', 'ProjectController@updateStatus')->name('admin.projects.updateStatus');
         Route::get('proyectos/{proyecto}/reingreso', 'ProjectController@editReEntry')->name('admin.projects.editReEntry'); 
@@ -67,6 +71,9 @@ Route::group(
         Route::put('perfil', 'ProfileController@update')->name('admin.profile.update'); 
         
         Route::resource('presupuestos', 'BudgetController')->names('admin.budgets')->middleware('super'); 
+        Route::get('ingresos_presupuestos_por_vencer', 'BudgetController@soonExpire')->name('admin.budgets.soonExpire')->middleware('super'); 
+        Route::get('ingresos_presupuestos_vencidos', 'BudgetController@expired')->name('admin.projects.budgets')->middleware('super'); 
+
         Route::get('presupuestos/{presupuesto}/cambio_estado', 'BudgetController@editStatus')->name('admin.budgets.editStatus')->middleware('super'); 
         Route::put('presupuestos/{presupuesto}/cambio_estado', 'BudgetController@updateStatus')->name('admin.budgets.updateStatus')->middleware('super'); 
 

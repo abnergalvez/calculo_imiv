@@ -26,6 +26,11 @@ class ProfileController extends Controller
         
         $actual = ucfirst($date->isoFormat('MMM D'));
 
+        $budgets['total'] = \App\Models\Budget::all();
+        $budgets['actual'] = \App\Models\Budget::whereMonth('created_at', date('m'))->whereYear('created_at', date('Y'))->get(['number','created_at']);
+        $budgets['inicial'] = ucfirst(Carbon::parse($budgets['total']->min('created_at'))->isoFormat('MMM D'));
+        $budgets['final'] = ucfirst(Carbon::parse($budgets['total']->max('created_at'))->isoFormat('MMM D'));
+
         $projects['total'] = \App\Models\Project::all();
         $projects['actual'] = \App\Models\Project::whereMonth('entry_date', date('m'))->whereYear('entry_date', date('Y'))->get(['name','entry_date']);
         $projects['inicial'] = ucfirst(Carbon::parse($projects['total']->min('entry_date'))->isoFormat('MMM D'));
@@ -61,12 +66,46 @@ class ProfileController extends Controller
                 return $value; 
             }
         });
+
         $projectSoonExpired = $projects['total']->filter(function ($value, $key) {
-                $ahora = now();
+                $ahora = Carbon::today();
                 $limite = Carbon::parse($value->limit_re_entry_date);
-                if($limite >= now() && $ahora->diffInDays($limite) <= 2 && !isset($value->re_entry_date)){
+                if($limite >= $ahora 
+                && $ahora->diffInDays($limite) <= 3 
+                && !isset($value->re_entry_date)
+                && isset($value->limit_re_entry_date)){
                     return $value; 
                 }});
+
+        $projectObservationSoonExpired = $projects['total']->filter(function ($value, $key) {
+            $ahora = Carbon::today();
+            $limite = Carbon::parse($value->limit_observation_date);
+            if($limite >= $ahora 
+            && $ahora->diffInDays($limite) <= 3 
+            && !isset($value->observation_date) 
+            && isset($value->limit_observation_date)){
+                return $value; 
+            }});
+
+        $projectFinalStatusSoonExpire = $projects['total']->filter(function ($value, $key) {
+            $ahora = Carbon::today();
+            $limite = Carbon::parse($value->limit_final_status_date);
+            if($limite >= $ahora 
+            && $ahora->diffInDays($limite) <= 3 
+            && !isset($value->final_status_date) 
+            && isset($value->limit_final_status_date)){
+                return $value; 
+            }});
+
+        $budgetSoonExpired = $budgets['total']->filter(function ($value, $key) {
+            $ahora = Carbon::today();
+            $limite = Carbon::parse($value->limit_entry_date);
+            if($limite >= $ahora 
+            && $ahora->diffInDays($limite) <= 3 
+            && !isset($value->entry_date)
+            && isset($value->limit_entry_date)){
+                return $value; 
+            }});
         
         $projectExpired = $projects['total']->filter(function ($value, $key) {
             
@@ -78,6 +117,7 @@ class ProfileController extends Controller
 
         return view('dashboard.admin.home')
             ->with('projectStats',$projects)
+            ->with('budgetStats',$budgets)
             ->with('customerStats',$customers)
             ->with('userStats',$users)
             ->with('now',$actual)
@@ -86,6 +126,9 @@ class ProfileController extends Controller
             ->with('customers',$customers_filter)
             ->with('statusCountNull',$statusCountNull)
             ->with('projectSoonExpired',$projectSoonExpired)
+            ->with('projectObservationSoonExpired',$projectObservationSoonExpired)
+            ->with('projectFinalStatusSoonExpire',$projectFinalStatusSoonExpire)
+            ->with('budgetSoonExpired',$budgetSoonExpired)
             ->with('projectExpired',$projectExpired)
             ->with('title_section', $title_section);
     }

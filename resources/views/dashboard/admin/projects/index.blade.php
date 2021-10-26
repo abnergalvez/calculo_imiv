@@ -107,8 +107,26 @@ use Illuminate\Support\Str;
 									Gestión de Facturas
 								</a>
 								@endif
+								<a class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#modalLinkProject{{ $project->id }}">
+									<i class="fas fa-link dropdown-icon text-dark me-2"></i>	
+									Link Externo
+								</a>
 							</div>
 						</div>
+
+						
+						<!-- Modal -->
+						<div class="modal fade" id="modalLinkProject{{ $project->id }}" tabindex="-1" aria-labelledby="modalLinkProject{{ $project->id }}" aria-hidden="true">
+							<div class="modal-dialog modal-lg">
+								<div class="modal-content">
+									<div class="modal-body">
+										Link : <input class="col-md-8 "id="inputProject{{ $project->id }}" type="text" value="{{ route('detail_project.customer', strtr(base64_encode($project->code), '+/=', '-_')) }}">
+										<button class="btn btn-primary btn-sm" onclick="copyToClipboard('inputProject{{ $project->id }}')">Copiar Link</button>
+									</div>
+								</div>
+							</div>
+						</div>
+
 						<form id="delete-project-{{ $project->id }}" method="POST" action="{{ route('admin.projects.destroy', $project->id ) }}">
 							{{ csrf_field() }}
 							{{ method_field('DELETE') }}
@@ -128,4 +146,10 @@ use Illuminate\Support\Str;
 @endsection
 @section('scripts')
 	@parent
+	<script>
+	function copyToClipboard(id) {
+        document.getElementById(id).select();
+        document.execCommand('copy');
+    }
+	</script>
 @endsection

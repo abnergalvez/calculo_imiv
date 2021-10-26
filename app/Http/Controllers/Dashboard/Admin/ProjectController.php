@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard\Admin;
 
 use App\Models\Project;
 use App\Models\TypeProject;
+use App\Models\Reviser;
 use App\Models\Customer;
 use App\Models\Commune;
 use Carbon\Carbon;
@@ -86,6 +87,7 @@ class ProjectController extends Controller
             ->with('breadcrumbs',$breadcrumbs)
             ->with('communes', Commune::all())
             ->with('type_projects', TypeProject::all())
+            ->with('revisers', Reviser::all())
             ->with('customers', Customer::all());
     }
 
@@ -136,6 +138,7 @@ class ProjectController extends Controller
             ->with('communes', Commune::all())
             ->with('type_projects', TypeProject::all())
             ->with('customers', Customer::all())
+            ->with('revisers', Reviser::all())
             ->with('project', $proyecto);
     }
 
@@ -153,6 +156,68 @@ class ProjectController extends Controller
         return redirect()->route('admin.projects.index');
     }
 
+    public function soonObservationExpire()
+    {
+        $title_section = [
+            'title' => 'Proyectos por Vencer Observacion Entidad Revisora',
+            'description' => '', 
+        ];
+
+        $breadcrumbs = collect([
+            ['title' => 'home', 'href' => route('home')],
+            ['title' => 'Lista Proyectos', 'href' => route('admin.projects.index')],
+            ['title' => 'Por Vencer Observacion', 'active' => true],
+        ]);
+
+        $now = Carbon::today();
+
+        $projects = Project::all()->filter(function ($value, $key) use ($now) {
+            $limite = Carbon::parse($value->limit_observation_date);
+            if($limite >= $now 
+            && $now->diffInDays($limite) <= 3 
+            && !isset($value->observation_date)
+            && isset($value->limit_observation_date)){
+                return $value; 
+            }});
+            
+        return view('dashboard.admin.projects.index')
+            ->with('title_section',$title_section)
+            ->with('breadcrumbs',$breadcrumbs)
+            ->with('now',$now)
+            ->with('projects', $projects);
+    }
+
+    public function finalStatusSoonExpire()
+    {
+        $title_section = [
+            'title' => 'Proyectos por vencer Estado Final Entidad Revisora',
+            'description' => '', 
+        ];
+
+        $breadcrumbs = collect([
+            ['title' => 'home', 'href' => route('home')],
+            ['title' => 'Lista Proyectos', 'href' => route('admin.projects.index')],
+            ['title' => 'Por Vencer Estado Final', 'active' => true],
+        ]);
+
+        $now = Carbon::today();
+
+        $projects = Project::all()->filter(function ($value, $key) use ($now) {
+            $limite = Carbon::parse($value->limit_final_status_date);
+            if($limite >= $now 
+            && $now->diffInDays($limite) <= 3 
+            && !isset($value->final_status_date)
+            && isset($value->limit_final_status_date)){
+                return $value; 
+            }});
+            
+        return view('dashboard.admin.projects.index')
+            ->with('title_section',$title_section)
+            ->with('breadcrumbs',$breadcrumbs)
+            ->with('now',$now)
+            ->with('projects', $projects);
+    }
+
     public function soonExpire()
     {
         $title_section = [
@@ -166,19 +231,23 @@ class ProjectController extends Controller
             ['title' => 'Por Vencer Re-Ingreso', 'active' => true],
         ]);
 
-        $projects = Project::all()->filter(function ($value, $key) {
-            $ahora = now();
+        $now = Carbon::today();
+
+        $projects = Project::all()->filter(function ($value, $key) use ($now) {
             $limite = Carbon::parse($value->limit_re_entry_date);
-            if($limite >= now() && $ahora->diffInDays($limite) <= 2 && !isset($value->re_entry_date)){
+            if($limite >= $now 
+            && $now->diffInDays($limite) <= 3 
+            && !isset($value->re_entry_date)
+            && isset($value->limit_re_entry_date)){
                 return $value; 
             }});
-
-        return view('dashboard.admin.projects.soonExpire')
+            
+        return view('dashboard.admin.projects.index')
             ->with('title_section',$title_section)
             ->with('breadcrumbs',$breadcrumbs)
+            ->with('now',$now)
             ->with('projects', $projects);
     }
-
 
     public function expired()
     {
@@ -193,15 +262,18 @@ class ProjectController extends Controller
             ['title' => 'Vencidos', 'active' => true],
         ]);
 
-        $projects = Project::all()->filter(function ($value, $key) {
+        $now = Carbon::today();
+
+        $projects = Project::all()->filter(function ($value, $key) use ($now) {
             
-            if($value->limit_re_entry_date < now() && !isset($value->re_entry_date)){
+            if($value->limit_re_entry_date < $now && !isset($value->re_entry_date)){
                 return $value; 
             }});
 
-        return view('dashboard.admin.projects.expired')
+        return view('dashboard.admin.projects.index')
             ->with('title_section',$title_section)
             ->with('breadcrumbs',$breadcrumbs)
+            ->with('now',$now)
             ->with('projects', $projects);
     }
 

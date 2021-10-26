@@ -11,9 +11,11 @@
 				<tr>
 
 					<th>Nombre</th>
-					<th>Descripcion</th>
-					<th>Limite Días Re-Ingreso</th>
-					<th>Proyectos Asociados</th>
+					<th>Límite <br> Ingreso <br> Presupuesto</th>
+					<th>Límite <br> Observación</th>
+					<th>Límite <br> Re-Ingreso</th>
+					<th>Límite <br> Estado Final</th>
+					<th>Proyectos Asoc. (Código)</th>
 					<th>Acciones</th>
 				</tr>
           	</thead>
@@ -21,11 +23,13 @@
 			  	@foreach($type_projects as $tp)
 			  	<tr>
 				  	<td>{{ $tp->name }}</td>
-					<td>{{ $tp->description }}</td>
-					<td>{{ $tp->re_entry_days_limit }}</td>
+					<td>{{ $tp->budget_entry_days_limit }} días</td>
+					<td>{{ $tp->observation_days_limit }} días</td>
+					<td>{{ $tp->re_entry_days_limit }} días</td>
+					<td>{{ $tp->final_status_days_limit }} días</td>
 					<td>
 						 @forelse($tp->projects as $project)
-						 {{ $project->name }}
+						 {{ $project->code }}
 						 @empty
 						 -
 						 @endforelse

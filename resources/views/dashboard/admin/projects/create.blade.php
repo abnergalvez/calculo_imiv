@@ -54,12 +54,12 @@
 					</div>
 
 					<div class="row">
-						<div class="col-md-6 mb-3">
+						<div class="col-md-4 mb-3">
                             <label for="status">Estado</label>
                             <select name="status" class="form-select mb-0 select2" id="status" aria-label="seleccione el estado" placeholder="Seleccione...">
                                 <option value="" >Seleccione...</option>
-								<option value="registered" selected>Ingresado</option>
-								<option value="in_evaluation">En Evaluacion</option>
+								<option value="registered_for_observation" selected>Ingresado para Observación</option>
+								<option value="in_correction">En Corrección</option>
 								<option value="re_entered">Re-Ingresado</option>
 								<option value="accepted">Aceptado</option>
 								<option value="rejected">Rechazado</option>
@@ -67,7 +67,7 @@
                             </select>
                         </div>
 
-						<div class="col-md-6 mb-3">
+						<div class="col-md-4 mb-3">
                             <label for="type_project_id">Tipo Proyecto *</label>
                             <select name="type_project_id" class="form-select mb-0 select2" id="type_project_id" aria-label="seleccione tipo proyecto" placeholder="Seleccione..." required>
                                 <option value="" >Seleccione...</option>    
@@ -75,6 +75,16 @@
 								<option value="{{ $type_project->id }}">{{ $type_project->name }}</option>
 								@endforeach
                                 
+                            </select>
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label for="reviser_id">Entidad Revisora</label>
+                            <select name="reviser_id" class="form-select mb-0 select2" id="reviser_id" aria-label="seleccione revisor" placeholder="Seleccione..." >
+                                <option value="" >Seleccione...</option>    
+                                @foreach ($revisers as $reviser )
+								<option value="{{ $reviser->id }}">{{ $reviser->name }}</option>
+								@endforeach
                             </select>
                         </div>
                     </div>
