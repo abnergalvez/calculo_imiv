@@ -59,7 +59,7 @@
                                     @if($project->limit_observation_date)
                                     <small class="mx-8 float-end">Fecha Limite : 
                                         <span class="badge bg-warning">
-                                            {{  \Carbon\Carbon::createFromFormat('Y-m-d', $project->observation_date)->locale('es_ES')->isoFormat('D MMMM  YYYY') }}
+                                            {{  $project->observation_date ? \Carbon\Carbon::createFromFormat('Y-m-d', $project->observation_date)->locale('es_ES')->isoFormat('D MMMM  YYYY') : '-' }}
                                         </span>
                                     </small>
                                     @endif
@@ -70,7 +70,7 @@
                                     @if($project->limit_re_entry_date)
                                     <small class="mx-8 float-end">Fecha Limite : 
                                         <span class="badge bg-warning">
-                                            {{  \Carbon\Carbon::createFromFormat('Y-m-d', $project->limit_re_entry_date)->locale('es_ES')->isoFormat('D MMMM  YYYY') }}
+                                            {{ $project->limit_re_entry_date ?  \Carbon\Carbon::createFromFormat('Y-m-d', $project->limit_re_entry_date)->locale('es_ES')->isoFormat('D MMMM  YYYY') : ' - ' }}
                                         </span>
                                     </small>
                                     @endif
@@ -80,7 +80,7 @@
                                     @if($project->limit_final_status_date)
                                     <small class="mx-8 float-end">Fecha Limite : 
                                         <span class="badge bg-warning">
-                                            {{  \Carbon\Carbon::createFromFormat('Y-m-d', $project->limit_final_status_date)->locale('es_ES')->isoFormat('D MMMM  YYYY') }}
+                                            {{ $project->limit_final_status_date ? \Carbon\Carbon::createFromFormat('Y-m-d', $project->limit_final_status_date)->locale('es_ES')->isoFormat('D MMMM  YYYY'): ' - ' }}
                                         </span>
                                     </small>
                                     @endif
