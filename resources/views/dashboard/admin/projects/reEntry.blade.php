@@ -18,8 +18,8 @@
                             <label for="status">Estado *</label>
                             <select name="status" class="form-select mb-0 select2" id="status" aria-label="seleccione el estado" placeholder="Seleccione..." required>
                                 <option value="">Seleccione...</option>
-								<option value="registered_for_observation" {{ $project->status == 'registered' ? 'selected="selected"':'' }}>Ingresado para Observación</option>
-								<option value="in_correction" {{ $project->status == 'in_evaluation' ? 'selected="selected"':'' }}>En Corrección</option>
+								<option value="registered_for_observation" {{ $project->status == 'registered_for_observation' ? 'selected="selected"':'' }}>Ingresado para Observación</option>
+								<option value="in_correction" {{ $project->status == 'in_correction' ? 'selected="selected"':'' }}>En Corrección</option>
 								<option value="re_entered" {{ $project->status == 're_entered' ? 'selected="selected"':'' }}>Re-Ingresado</option>
 								<option value="accepted" {{ $project->status == 'accepted' ? 'selected="selected"':'' }}>Aceptado</option>
 								<option value="rejected" {{ $project->status == 'rejected' ? 'selected="selected"':'' }}>Rechazado</option>
