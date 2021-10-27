@@ -54,13 +54,14 @@ class BudgetController extends Controller
             ['title' => 'Lista Presupuestos', 'href' => route('admin.budgets.index')],
             ['title' => 'Crear Presupuesto', 'active' => true]
         ]);
-
+        $project_used = implode(', ', array_column(\DB::table('budgets')->select('project_id')->get()->toArray(),'project_id'));
+        
         return view('dashboard.admin.budgets.create')
             ->with('title_section',$title_section)
             ->with('breadcrumbs',$breadcrumbs)
             ->with('communes', Commune::all())
             ->with('type_projects', TypeProject::all())
-            ->with('projects', Project::all())
+            ->with('projects', Project::whereNotIn('id',[$project_used])->get())
             ->with('customers', Customer::all());
     }
 

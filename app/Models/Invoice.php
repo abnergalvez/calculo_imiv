@@ -172,7 +172,8 @@ class Invoice extends Model
             'accepted' => ['label'=> 'Aceptada', 'class' =>'info'] ,
             'rejected' => ['label'=> 'Rechazada','class' =>'danger'],
             'to_pay' => ['label'=> 'Por Pagar','class' =>'warning'],
-            'paid' => ['label'=> 'Pagada','class' =>'success']
+            'paid' => ['label'=> 'Pagada','class' =>'success'],
+            '' => ['label'=> '','class' =>'']
         ];
 
         return $status[$this->status];
