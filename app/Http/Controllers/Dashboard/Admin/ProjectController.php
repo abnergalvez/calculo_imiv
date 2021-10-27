@@ -52,12 +52,25 @@ class ProjectController extends Controller
         
         //proyectos en presupuesto 
         $projects_budgets = Project::whereNull('entry_date')
-        ->orderBy('created_at', 'desc')->get();
+            ->orderBy('created_at', 'desc')->get();
+
+        $p_for_reentry_ids = array_column($projects_for_reentry->toArray(),'id');
+        $p_expired_reentry_ids = array_column($projects_expired_reentry->toArray(),'id');
+        $p_reentry_ids = array_column($projects_reentry->toArray(),'id');
+        $p_budget_ids = array_column($projects_budgets->toArray(),'id');
+
+        $merge_projects_ids = array_merge($p_for_reentry_ids,$p_expired_reentry_ids,$p_reentry_ids,$p_budget_ids);
+        
+        
+        //demas proyectos
+        $projects_entry = Project::whereNotIn('id',[implode(', ',$merge_projects_ids)])
+            ->orderBy('created_at', 'desc')->get();
 
         //concatenacion de proyectos
         $fullProjects_tmp = $projects_expired_reentry->merge($projects_for_reentry);
         $fullProjects_tmp2 = $fullProjects_tmp->merge($projects_reentry);
-        $fullProjects = $fullProjects_tmp2->merge($projects_budgets);
+        $fullProjects_tmp3 = $fullProjects_tmp2->merge($projects_entry);
+        $fullProjects = $fullProjects_tmp3->merge($projects_budgets);
 
         return view('dashboard.admin.projects.index')
             ->with('title_section',$title_section)

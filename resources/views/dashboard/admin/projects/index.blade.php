@@ -52,9 +52,11 @@ use Illuminate\Support\Str;
 					<td>
 					@if ($project->entry_date)	
 						<strong class="badge bg-success">Ingresado</strong> : <span class="badge bg-light text-dark"> {{ \Carbon\Carbon::createFromFormat('Y-m-d', $project->entry_date)->locale('es_ES')->isoFormat('D MMM YYYY') }} </span> <br>
-
+					@endif
+					@if ($project->limit_re_entry_date)
 						<strong class="badge bg-danger">Limite Re-Ingreso</strong> : <span class="badge bg-light text-dark"> {{ \Carbon\Carbon::createFromFormat('Y-m-d', $project->limit_re_entry_date)->locale('es_ES')->isoFormat('D MMM YYYY') }} </span><br>
-					
+					@endif
+					@if ($project->re_entry_date)
 						<strong class="badge bg-success">Re-ingresado</strong> : <span class="badge bg-light text-dark"> {{ $project->re_entry_date ? \Carbon\Carbon::createFromFormat('Y-m-d', $project->re_entry_date)->locale('es_ES')->isoFormat('D MMM YYYY') : '-' }} </span>
 						&nbsp;&nbsp; <a href="{{ route('admin.projects.editReEntry', $project) }}" title="Re-Ingresar Proyecto"><i class="far fa-calendar-plus"></i> </a>
 					@endif
@@ -62,7 +64,8 @@ use Illuminate\Support\Str;
 					
 					<td>
 					@if ($project->entry_date)	
-						{{ \Carbon\Carbon::createFromFormat('Y-m-d', $project->limit_re_entry_date)->locale('es_ES')->isoFormat('D MMM YYYY') }}
+
+						{{ $project->limit_re_entry_date ? \Carbon\Carbon::createFromFormat('Y-m-d', $project->limit_re_entry_date)->locale('es_ES')->isoFormat('D MMM YYYY') : '-' }}
 					
 						<br>	
 					
@@ -73,12 +76,13 @@ use Illuminate\Support\Str;
 								@endif
 
 						@else
+							@if($project->limit_re_entry_date)
 								@if($project->limit_re_entry_date >= $now )
 									<strong class="badge bg-warning">por Ingresar</strong>
 								@else
 									<strong class="badge bg-danger">Vencido <br> No Re-Ingresado</strong>
 								@endif
-						
+							@endif
 						@endif
 					@endif
 					</td>
