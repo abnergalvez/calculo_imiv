@@ -13,8 +13,8 @@
 					<th>Numero <br> Presupuesto</th>
 					<th>Estado</th>
 					<th>Código<br>Proyecto</th>
-					<th>F. Aceptación</th>
-					<th>F. Ingreso</th>
+					<th>Fechas</th>
+					<th>Limite <br> Ingreso</th>
 					<th></th>
 				</tr>
           	</thead>
@@ -33,28 +33,62 @@
 					  <td>
 						@if($budget->status)
                     	<span class="badge super-badge bg-{{ $budget->statusLabels()['class'] }}">{{ $budget->statusLabels()['label'] }}</span>&nbsp;&nbsp;
+						@else
+						-
+						@endif
 						<a href="{{ route('admin.budgets.editStatus', $budget->id) }}" title="Cambiar Estado"><i class="fas fa-sync-alt"></i> </a>
+
+					</td>
+					<td>
+						@if($budget->project)
+						<a href="{{ route('admin.projects.show', $budget->project->id )}}">{{ $budget->project->code }}</a>
 						@else
 						-
 						@endif
 					</td>
-					<td>{{$budget->project ? $budget->project->code : '-'}}</td>
-				  	<td>@if($budget->accepted_date)
-						<small>
-							{{ \Carbon\Carbon::parse($budget->accepted_date)->locale('es_ES')->isoFormat('D MMM YYYY')}}
-					  	</small>
-						  @else
-						-
+				  	<td>
+
+						@if($budget->accepted_date)
+							@if( $budget->status == "accepted" || $budget->status == "entered" )
+							<i class="far fa-calendar-check text-success"></i>
+							@endif	
+							<strong class="badge bg-primary">Aceptación</strong> : <span class="badge bg-light text-dark"> {{ \Carbon\Carbon::createFromFormat('Y-m-d', $budget->accepted_date)->locale('es_ES')->isoFormat('D MMM YYYY') }} </span><br>
+							@if($budget->entry_date)
+								@if( $budget->status == "entered" )
+								<i class="far fa-calendar-check text-success"></i>
+								@endif	
+								<strong class="badge bg-primary">Ingreso</strong> : <span class="badge bg-light text-dark"> {{ \Carbon\Carbon::createFromFormat('Y-m-d', $budget->entry_date)->locale('es_ES')->isoFormat('D MMM YYYY') }} </span><br> 
+							@endif
+						@else
+							-
 						@endif
 					</td> 	
 				  	
-					<td>@if($budget->entry_date)
+					<td>
+
+
+					@if($budget->accepted_date)		
 						<small>
 							{{ \Carbon\Carbon::parse($budget->entry_date)->locale('es_ES')->isoFormat('D MMM YYYY')}}
-					  	</small>
-						@else
-						-
+					  	</small>					
+						<br>
+						@if($budget->entry_date < \Carbon\Carbon::today() &&
+								($budget->status == "accepted" || !$budget->status)
+							)
+							<strong class="badge bg-danger">Vencido <br> No Ingresado</strong><br>
 						@endif
+
+						@if($budget->entry_date && $budget->status == "entered")
+							<strong class="badge bg-success">Ingresado</strong><br>
+						@else
+							@if($budget->entry_date >= \Carbon\Carbon::today()  &&  $budget->status == "accepted")
+							<strong class="badge bg-warning">por Ingresar</strong><br>
+							@endif
+						@endif
+					@else
+					 sin datos
+					@endif
+						
 					</td> 
 
 					<td>

@@ -36,11 +36,7 @@ class Budget extends Model
             $request['accepted_date'] = $newAceptedDate->format('Y-m-d');
             $daysLimit = Project::find($request['project_id'])->type_project->budget_entry_days_limit;
             $request['limit_entry_date'] = $newAceptedDate->addDays($daysLimit)->format('Y-m-d');
-        }
-        
-        if($request['entry_date']!== null){
-            $newEntryDate = Carbon::createFromFormat('d-m-Y', $request['entry_date']);
-            $request['entry_date'] = $newEntryDate->format('Y-m-d');
+            $request['entry_date'] = $newAceptedDate->addDays($daysLimit)->format('Y-m-d');
         }
 
         $budget = Budget::create($request->all());
@@ -75,18 +71,35 @@ class Budget extends Model
 
     public static function updateBudget($request, $budget)
     {
-        if($request->accepted_date){
-            $newAcceptedDate = Carbon::createFromFormat('d-m-Y', $request->accepted_date);
-            $request->request->remove('accepted_date');
-            $request->request->add(['accepted_date' => $newAcceptedDate->format('Y-m-d')]);
-            $daysLimit = $budget->project->type_project->budget_entry_days_limit;
-            $request->request->add(['limit_entry_date' => $newAcceptedDate->addDays($daysLimit)->format('Y-m-d')]);
+        $budget->number = $request->number;
+        $budget->amount = $request->amount;
+        $budget->status = $request->status;
+
+        $requestAcceptedDate = $request->accepted_date ? Carbon::createFromFormat('d-m-Y',$request->accepted_date) :null;
+        $budgetAceptedDate = $budget->accepted_date ? Carbon::createFromFormat('Y-m-d',$budget->accepted_date) : null;
+
+        $requestEntryDate = $request->entry_date ? Carbon::createFromFormat('d-m-Y',$request->entry_date): null;
+        $budgetEntryDate = $budget->entry_date ? Carbon::createFromFormat('Y-m-d',$budget->entry_date): null;
+
+        if($requestAcceptedDate){
+            if($requestAcceptedDate != $budgetAceptedDate){
+            
+                $budget->accepted_date = $requestAcceptedDate->format('Y-m-d');
+                $daysLimit = $budget->project->type_project->budget_entry_days_limit;
+                $budget->limit_entry_date = $requestAcceptedDate->addDays($daysLimit)->format('Y-m-d');
+                $budget->entry_date = $requestAcceptedDate->addDays($daysLimit)->format('Y-m-d');
+            }
         }
 
-        if($request->entry_date){
-            $newEntryDate = Carbon::createFromFormat('d-m-Y', $request->entry_date);
-            $request->request->remove('entry_date');
-            $request->request->add(['entry_date' => $newEntryDate->format('Y-m-d')]);
+        if($requestEntryDate){
+            if($requestEntryDate != $budgetEntryDate){
+                $budget->entry_date = $requestEntryDate->format('Y-m-d');
+            }
+        }
+
+        if(!isset($request->accepted_date) && !isset($request->entry_date)){
+            $budget->accepted_date = null;
+            $budget->entry_date = null;
         }
 
         if($request->hasFile('doc')){
@@ -96,10 +109,10 @@ class Budget extends Model
             }
             $file = $request->doc;
             $path = $file->storeAs($dir, $file->getClientOriginalName());
-            $request->request->add(['doc_path' => $path]);
+            $budget->doc_path = $path;
         }
-
-        $budget_update = $budget->update($request->all());
+        
+        $budget_update = $budget->save();
 
         if($budget_update){
             $status = array(
@@ -172,9 +185,8 @@ class Budget extends Model
     public function statusLabels()
     {
         $status = [
-            'sent_customer' => ['label'=> 'Enviado al Cliente', 'class' =>'info'] ,
             'accepted' => ['label'=> 'Aceptado','class' =>'success'],
-            'entered' => ['label'=> 'Ingresado','class' =>'warning'],
+            'entered' => ['label'=> 'Ingresado','class' =>'info'],
             'rejected' => ['label'=> 'Rechazado','class' =>'danger']
         ];
 

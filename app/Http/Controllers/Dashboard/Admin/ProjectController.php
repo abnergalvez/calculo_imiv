@@ -34,43 +34,57 @@ class ProjectController extends Controller
             ['title' => 'home', 'href' => route('home')],
             ['title' => 'Lista Proyectos', 'active' => true],
         ]);
-        $now = Carbon::now()->format('Y-m-d');
+        $now = Carbon::today();
         
         //proyectos por reingresar - no vencidos
-        $projects_for_reentry = Project::where('limit_re_entry_date', '>=', $now )
-            ->whereNull('re_entry_date')
-            ->orderBy('limit_re_entry_date', 'asc')->get(); 
+        $projects_for_reentry = Project::where('re_entry_date', '>=', $now )
+            ->where(function($q){
+                $q->where('status', 'registered_for_observation')->orWhere('status','in_correction');
+            })->orderBy('re_entry_date', 'asc')->get(); 
         
         //proyectos por reingresar - vencidos   
-        $projects_expired_reentry = Project::where('limit_re_entry_date', '<', $now )
-            ->whereNull('re_entry_date')
-            ->orderBy('limit_re_entry_date', 'desc')->get();
+        $projects_expired_reentry = Project::where('re_entry_date', '<', $now )
+            ->where(function($q){
+                $q->where('status', 'registered_for_observation')->orWhere('status','in_correction');
+            })->orderBy('re_entry_date', 'asc')->get();
 
         //proyectos reingresados 
-        $projects_reentry = Project::whereNotNull('re_entry_date')
-            ->orderBy('limit_re_entry_date', 'desc')->get();
-        
-        //proyectos en presupuesto 
-        $projects_budgets = Project::whereNull('entry_date')
-            ->orderBy('created_at', 'desc')->get();
+        $projects_reentry = Project::where('re_entry_date', '<', $now )
+            ->where(function($q){
+                $q->where('status', 're_entered');
+            })
+            ->orderBy('limit_re_entry_date', 'asc')->get();
+
+        //proyectos en Presupuesto    
+        $projects_budgets = Project::where('status','in_budget')->orderBy('created_at', 'asc')->get();
+
+        //proyectos Aceptados /Rechazados
+        $projects_final_status = Project::where('re_entry_date', '<', $now )
+        ->where(function($q){
+            $q->where('status','accepted')
+                ->orWhere('status','rejected');
+        })
+        ->orderBy('created_at', 'desc')->get();
 
         $p_for_reentry_ids = array_column($projects_for_reentry->toArray(),'id');
         $p_expired_reentry_ids = array_column($projects_expired_reentry->toArray(),'id');
         $p_reentry_ids = array_column($projects_reentry->toArray(),'id');
         $p_budget_ids = array_column($projects_budgets->toArray(),'id');
+        $p_final_status_ids = array_column($projects_final_status->toArray(),'id');
 
-        $merge_projects_ids = array_merge($p_for_reentry_ids,$p_expired_reentry_ids,$p_reentry_ids,$p_budget_ids);
+        $merge_projects_ids = array_merge($p_for_reentry_ids,$p_expired_reentry_ids,$p_reentry_ids,$p_budget_ids,$p_final_status_ids);
         
         
         //demas proyectos
         $projects_entry = Project::whereNotIn('id',[implode(', ',$merge_projects_ids)])
-            ->orderBy('created_at', 'desc')->get();
+            ->orderBy('created_at', 'asc')->get();
 
         //concatenacion de proyectos
         $fullProjects_tmp = $projects_expired_reentry->merge($projects_for_reentry);
         $fullProjects_tmp2 = $fullProjects_tmp->merge($projects_reentry);
         $fullProjects_tmp3 = $fullProjects_tmp2->merge($projects_entry);
-        $fullProjects = $fullProjects_tmp3->merge($projects_budgets);
+        $fullProjects_tmp4 = $fullProjects_tmp3->merge($projects_budgets);
+        $fullProjects = $fullProjects_tmp4->merge($projects_final_status);
 
         return view('dashboard.admin.projects.index')
             ->with('title_section',$title_section)

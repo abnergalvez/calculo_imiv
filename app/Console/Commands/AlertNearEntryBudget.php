@@ -46,8 +46,13 @@ class AlertNearEntryBudget extends Command
         $budgets = Budget::all();
         $budgetEntrySoonExpired = $budgets->filter(function ($value, $key) {
             $ahora = Carbon::today();
-            $limite = Carbon::parse($value->limit_entry_date);
-            if($limite >= $ahora && $ahora->diffInDays($limite) <= 3 && !isset($value->entry_date)){
+            $limite = Carbon::parse($value->entry_date);
+            if( 
+                $limite >= $ahora && 
+                $ahora->diffInDays($limite) <= 3 && 
+                isset($value->entry_date) && 
+                ( $value->status == 'accepted' || $value->status == NULL)
+            ){
                 return $value; 
             }
         });

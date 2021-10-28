@@ -283,11 +283,11 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-12 col-sm-6 col-xl-4 mb-4">
+	<div class="col-12 col-sm-6 col-xl-6 mb-4" >
 		<div class="card border-0 shadow">
             <div class="card-body">
 				<h2 class="h6 text-gray-600 mb-0 text-center"> Proyectos por Estado</h2>
-				<div id="projectByState"></div>
+				<div id="projectByState" ></div>
 			</div>
 		</div>
 	</div>
@@ -333,7 +333,8 @@
           breakpoint: 480,
           options: {
             chart: {
-              width: 200
+              width: 200,
+
             },
             legend: {
               position: 'bottom'

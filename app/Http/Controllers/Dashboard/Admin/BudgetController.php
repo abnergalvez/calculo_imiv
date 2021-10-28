@@ -32,13 +32,45 @@ class BudgetController extends Controller
             ['title' => 'home', 'href' => route('home')],
             ['title' => 'Lista Presupuestos', 'active' => true],
         ]);
+        $now = Carbon::today();
+
+        //Presupuestos por ingresar - vencidos   
+        $budgets_expired_entry = Budget::where('entry_date', '<', $now )
+            ->where(function($q){
+                $q->where('status', 'accepted')->orWhere('status',NULL);
+            })->orderBy('entry_date', 'asc')->get();
+
+        //Presupuestos por ingresar - no vencidos
+        $budgets_for_entry = Budget::where('entry_date', '>=', $now )
+            ->where('status', 'accepted')
+            ->orderBy('entry_date', 'asc')->get(); 
+            
+        //Presupuestos rechazados
+        $budgets_rejected = Budget::where('status', 'rejected')
+            ->orderBy('entry_date', 'asc')->get(); 
+
+        $p_expired_entry_ids = array_column($budgets_expired_entry->toArray(),'id');
+        $p_for_entry_ids = array_column($budgets_for_entry->toArray(),'id');
+        $p_rejected_ids = array_column($budgets_rejected->toArray(),'id');
+
+        $merge_budgets_ids = array_merge($p_expired_entry_ids,$p_for_entry_ids,$p_rejected_ids);
+
+        // Demas Presupuestos Sin Estado o sin Fechas
+        $other_budgets = Budget::whereNotIn('id',[implode(', ',$merge_budgets_ids)])
+            ->orderBy('created_at', 'asc')->get(); 
+        
+ 
+        $fullBudgets_tmp = $budgets_expired_entry->merge($budgets_for_entry);
+        $fullBudgets_tmp2 = $fullBudgets_tmp->merge($budgets_rejected);
+        $fullBudget = $fullBudgets_tmp2->merge($other_budgets);
+
 
 
         return view('dashboard.admin.budgets.index')
             ->with('title_section',$title_section)
             ->with('button_create',$button_create)
             ->with('breadcrumbs',$breadcrumbs)
-            ->with('budgets', Budget::all());
+            ->with('budgets', $fullBudget);
     }
 
 

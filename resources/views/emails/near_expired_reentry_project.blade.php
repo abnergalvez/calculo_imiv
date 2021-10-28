@@ -20,8 +20,8 @@
     <ul>
     @foreach($projectsSoonExpired as $project)
         <li>
-            <strong>Proyecto :</strong> {{ $project->name }}  -  <strong>vence el :</strong> &nbsp; 
-            {{ \Carbon\Carbon::createFromFormat('Y-m-d', $project->limit_re_entry_date)->locale('es_ES')->isoFormat('D MMM YYYY') }}
+            <strong>Proyecto :</strong> {{ $project->name ? $project->name : ' - ' }}  -  Codigo ( {{$project->code }} ) <strong>vence el :</strong> &nbsp; 
+            {{ \Carbon\Carbon::createFromFormat('Y-m-d', $project->re_entry_date)->locale('es_ES')->isoFormat('D MMM YYYY') }}
             
         </li>
     @endforeach

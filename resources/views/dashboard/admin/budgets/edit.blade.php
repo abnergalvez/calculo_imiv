@@ -34,7 +34,6 @@
                                 <label for="status">Estado</label>
                                 <select name="status" class="form-select mb-0 select2" id="status" aria-label="seleccione el estado" placeholder="Seleccione...">
                                     <option value="" >Seleccione...</option>
-                                    <option value="sent_customer" {{ $budget->status == 'sent_customer' ?  'selected="selected"' : ''}}>Enviado al Cliente</option>
                                     <option value="accepted" {{ $budget->status == 'accepted' ?  'selected="selected"' : ''}}>Aceptado</option>
                                     <option value="entered" {{ $budget->status == 'entered' ?  'selected="selected"' : ''}}>Ingresado</option>
                                     <option value="rejected" {{ $budget->status == 'rejected' ?  'selected="selected"' : ''}}>Rechazado</option>
