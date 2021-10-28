@@ -2,7 +2,7 @@
 
 namespace App\Models;
 use Carbon\Carbon;
-
+use App\Models\TypeProject;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
@@ -70,18 +70,26 @@ class Project extends Model
 
     public static function createProject($request)
     {
+        $project = new Project;
+        $project->name = $request->name;
+        $project->code = $request->code;
+        $project->code_number = $request->code_number;
+        $project->entry_number = $request->entry_number;
+        $project->description = $request->description;
+        $project->address = $request->address;
+        $project->commune_id = $request->commune_id;
+        $project->status = $request->status;
+        $project->customer_id = $request->customer_id;
+        $project->reviser_id = $request->reviser_id;
+        $project->type_project_id = $request->type_project_id;
+
+        $project->save();
+
         if($request->entry_date){
-            $newEntryDate = Carbon::createFromFormat('d-m-Y', $request->entry_date);
-            $request->request->remove('entry_date');
-            $request->request->add(['entry_date' => $newEntryDate->format('Y-m-d')]);
-            $daysLimit = \App\Models\TypeProject::find($request->type_project_id)->observation_days_limit;
-            $request->request->add(['limit_observation_date' => $newEntryDate->addDays($daysLimit)->format('Y-m-d')]);
+            Project::changeEntryDate($request->entry_date, true, $project);
         }
 
-        $project = Project::create($request->all());
-
         $dir = 'public/project/'.$project->id.'/entry_doc_path';
-
         if ($request->hasFile('entry_doc')){
             
             $file = $request->entry_doc;
@@ -115,6 +123,18 @@ class Project extends Model
 
     public static function updateProject($request, $project)
     {
+        $project->name = $request->name;
+        $project->code = $request->code;
+        $project->code_number = $request->code_number;
+        $project->entry_number = $request->entry_number;
+        $project->description = $request->description;
+        $project->address = $request->address;
+        $project->commune_id = $request->commune_id;
+        $project->status = $request->status;
+        $project->customer_id = $request->customer_id;
+        $project->reviser_id = $request->reviser_id;
+        $project->type_project_id = $request->type_project_id;
+        
         $dir = 'public/project/'.$project->id.'/entry_doc_path';
 
         if ($request->hasFile('entry_doc')){
@@ -124,42 +144,58 @@ class Project extends Model
             }
             $file = $request->entry_doc;
             $path = $file->storeAs($dir, $file->getClientOriginalName());
-            $request->request->add(['entry_doc_path'=> $path]);
+            
+            $project->entry_doc_path = $path;
         }
 
+        $dir2 = 'public/project/'.$project->id.'/re_entry_doc_path';
+       
+        if ($request->hasFile('re_entry_doc')){
+            $file = $request->re_entry_doc;
+            $path = $file->storeAs($dir2, $file->getClientOriginalName());
+            $project->re_entry_doc_path = $path;
+        
+        }
+
+        $project_update = $project->save();
+
+        $requestEntryDate = $request->entry_date ? Carbon::createFromFormat('d-m-Y',$request->entry_date) :'';
+        $projectEntryDate = $project->entry_date ? Carbon::createFromFormat('Y-m-d',$project->entry_date) : '';
+
+        $requestObservationDate = $request->observation_date ? Carbon::createFromFormat('d-m-Y',$request->observation_date): '';
+        $projectObservationDate = $project->observation_date ? Carbon::createFromFormat('Y-m-d',$project->observation_date): '';
+
+        $requestReEntryDate = $request->re_entry_date ? Carbon::createFromFormat('d-m-Y',$request->re_entry_date): '';
+        $projectReEntryDate = $project->re_entry_date ? Carbon::createFromFormat('Y-m-d',$project->re_entry_date): '';
+
+        $requestFinalStatusDate = $request->final_status_date ? Carbon::createFromFormat('d-m-Y',$request->final_status_date): '';
+        $projectFinalStatusDate = $project->final_status_date ? Carbon::createFromFormat('Y-m-d',$project->final_status_date): '';
+
         if($request->entry_date){
-            $newEntryDate = Carbon::createFromFormat('d-m-Y', $request->entry_date);
-            $request->request->remove('entry_date');
-            $request->request->add(['entry_date' => $newEntryDate->format('Y-m-d')]);
-            $daysLimit = \App\Models\TypeProject::find($request->type_project_id)->observation_days_limit;
-            $request->request->add(['limit_observation_date' => $newEntryDate->addDays($daysLimit)->format('Y-m-d')]);
+            if($requestEntryDate != $projectEntryDate){    
+                Project::changeEntryDate($request->entry_date, true, $project);
+            }
         }
 
         if($request->observation_date){
-            $newObservationDate = Carbon::createFromFormat('d-m-Y', $request->observation_date);
-            $request->request->remove('observation_date');
-            $request->request->add(['observation_date' => $newObservationDate->format('Y-m-d')]);
-            $daysLimit = \App\Models\TypeProject::find($request->type_project_id)->re_entry_days_limit;
-            $request->request->add(['limit_re_entry_date' => $newObservationDate->addDays($daysLimit)->format('Y-m-d')]);
+            if($requestObservationDate != $projectObservationDate){
+                Project::changeObservation($request->observation_date, true, $project, 0);
+            }
         }
 
-        if($request->re_entry_date){
-            $newReEntryDate = Carbon::createFromFormat('d-m-Y', $request->re_entry_date);
-            $request->request->remove('re_entry_date');
-            $request->request->add(['re_entry_date' => $newReEntryDate->format('Y-m-d')]);
-            $daysLimit = \App\Models\TypeProject::find($request->type_project_id)->final_status_days_limit;
-            $request->request->add(['limit_final_status_date' => $newReEntryDate->addDays($daysLimit)->format('Y-m-d')]);
+        if($request->re_entry_date ){
+            if($requestReEntryDate != $projectReEntryDate){
+                Project::changeReEntryDate($request->re_entry_date, true, $project, 0);
+            }
         }
 
-        if($request->final_status_date){
-            $newFinalStatusDate = Carbon::createFromFormat('d-m-Y', $request->final_status_date);
-            $request->request->remove('final_status_date');
-            $request->request->add(['final_status_date' => $newFinalStatusDate->format('Y-m-d')]);
+        if($request->final_status_date ){
+            if($requestFinalStatusDate != $projectFinalStatusDate ){
+                Project::changeFinalStatusDate($request->final_status_date, true, $project, 0);
+            }
         }
-
 
         
-        $project_update = $project->update($request->all());
 
         if($project){
             $status = array(
@@ -221,18 +257,32 @@ class Project extends Model
             $date = Project::statusDateChange($request->status)['date'];
             $days = Project::statusDateChange($request->status)['days'];
             $limit = Project::statusDateChange($request->status)['limit'];
-            
-            if(isset($date)){
-                $project->$date = $requestDate->format('Y-m-d');
-            }
+            $nameFunction = Project::statusDateChange($request->status)['function'];
 
             if(isset($days)){
-                $daysLimit = \App\Models\TypeProject::find($project->type_project_id)->$days;
+                $daysLimit = TypeProject::find($project->type_project_id)->$days;
             }
 
             if(isset($limit)){
                 $project->$limit =  $requestDate->addDays($daysLimit)->format('Y-m-d');
             }
+
+            if(isset($date)){
+                $project->$date = $requestDate->format('Y-m-d');
+                if($nameFunction){
+                    //dd($request->status_date);
+                    Project::$nameFunction($request->status_date, true, $project,0);
+                }
+            }
+        }
+
+        $dir = 'public/project/'.$project->id.'/re_entry_doc_path';
+       
+        if ($request->hasFile('re_entry_doc')){
+            $file = $request->re_entry_doc;
+            $path = $file->storeAs($dir, $file->getClientOriginalName());
+            $project->re_entry_doc_path = $path;
+        
         }
 
         $projectUpdateStatus = $project->save();
@@ -376,7 +426,9 @@ class Project extends Model
 
     public static function statusDateChange($status)
     {
-       
+
+        
+        
         if($status){
             $statusDate = [
                 'registered_for_observation' => 
@@ -384,6 +436,7 @@ class Project extends Model
                     'date' => 'entry_date' ,
                     'limit' => 'limit_observation_date',
                     'days' => 'observation_days_limit',
+                    'function' => 'changeEntryDate',
                 ],
 
                 'in_correction' => 
@@ -391,6 +444,7 @@ class Project extends Model
                     'date' => 'observation_date',
                     'limit' => 'limit_re_entry_date',
                     'days' => 're_entry_days_limit',
+                    'function' => 'changeObservation',
                 ],
                 
                 're_entered' => 
@@ -398,6 +452,7 @@ class Project extends Model
                     'date' => 're_entry_date' ,
                     'limit' => 'limit_final_status_date',
                     'days' => 'final_status_days_limit',
+                    'function' => 'changeReEntryDate',
                 ],
                 
                 'accepted' => 
@@ -405,6 +460,7 @@ class Project extends Model
                     'date' => 'final_status_date' ,
                     'limit' => null,
                     'days' => null,
+                    'function' => 'changeFinalStatusDate',
                 ],
                 
                 'rejected' => 
@@ -412,6 +468,7 @@ class Project extends Model
                     'date' => 'final_status_date' ,
                     'limit' => null,
                     'days' => null,
+                    'function' => null,
                 ],
                 
                 'in_budget' => 
@@ -419,6 +476,7 @@ class Project extends Model
                     'date' => null ,
                     'limit' => null,
                     'days' => null,
+                    'function' => null,
                 ],
             ];
         
@@ -427,5 +485,61 @@ class Project extends Model
        return null;
     }
 
+
+    public static function changeEntryDate($date, $changeFormat, $project) 
+    {    
+        $observation_days_limit = $project->type_project->observation_days_limit;
+        $re_entry_days_limit = $project->type_project->re_entry_days_limit;
+        $final_status_days_limit = $project->type_project->final_status_days_limit;
+
+        $date = $changeFormat ? Carbon::createFromFormat('d-m-Y', $date) : $date;
+        $project->entry_date = $date;
+        $project->save();
+
+        $observation_date = Project::changeObservation($date , false, $project,$observation_days_limit);
+        $re_entry_date = Project::changeReEntryDate(Carbon::createFromFormat('Y-m-d', $observation_date), false, $project, $re_entry_days_limit);
+        Project::changeFinalStatusDate(Carbon::createFromFormat('Y-m-d', $re_entry_date), false, $project, $final_status_days_limit);
+        
+        return $project;
+    }
+
+    public static function changeObservation($date, $changeFormat, $project , $days) 
+    {
+        $re_entry_days_limit = $project->type_project->re_entry_days_limit;
+        $final_status_days_limit = $project->type_project->final_status_days_limit;
+
+        $date = $changeFormat ? Carbon::createFromFormat('d-m-Y', $date) : $date;
+
+        $project->observation_date = $date->addDays($days)->format('Y-m-d');
+        $project->limit_observation_date = $project->observation_date;
+        $project->save();
+        $re_entry_date = Project::changeReEntryDate(Carbon::createFromFormat('Y-m-d', $project->observation_date), false, $project,$re_entry_days_limit );
+        Project::changeFinalStatusDate(Carbon::createFromFormat('Y-m-d', $re_entry_date), false, $project,$final_status_days_limit);
+        
+        return $project->observation_date;
+    }
+
+    public static function changeReEntryDate($date, $changeFormat, $project , $days) 
+    {
+        $final_status_days_limit = $project->type_project->final_status_days_limit;
+        
+        $date = $changeFormat ? Carbon::createFromFormat('d-m-Y', $date) : $date;
+        $project->re_entry_date = $date->addDays($days)->format('Y-m-d');
+        $project->limit_re_entry_date = $project->re_entry_date;
+        $project->save();
+        Project::changeFinalStatusDate(Carbon::createFromFormat('Y-m-d', $project->re_entry_date), false, $project,$final_status_days_limit );
+        
+        return $project->re_entry_date;
+    }
+
+    public static function changeFinalStatusDate($date, $changeFormat, $project, $days) 
+    {
+        $date = $changeFormat ? Carbon::createFromFormat('d-m-Y', $date) : $date;
+        $project->final_status_date = $date->addDays($days)->format('Y-m-d');
+        $project->limit_final_status_date = $project->final_status_date;
+        $project->save();
+
+        return $project->final_status_date;
+    }
     
 }

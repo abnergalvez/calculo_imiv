@@ -17,8 +17,6 @@ use Illuminate\Support\Str;
 					<th>Código</th>
 					<th>Nombre</th>
 					<th>Estado</th>
-					
-					<th>Comuna</th>
 					<th>Fechas</th>
 					<th>Limite <br> Re-Ingreso</th>
 					<th>Acciones</th>
@@ -46,44 +44,84 @@ use Illuminate\Support\Str;
 					</td>
 
 					<td>
-						<small>{{ $project->commune ? $project->commune->label : '-' }}</small>
+					@if ($project->entry_date)
+						@if(
+							$project->status == "registered_for_observation" ||
+							$project->status == "in_correction" ||
+							$project->status == "re_entered" ||
+							$project->status == "accepted" || 
+							$project->status == "rejected"
+							)
+						<i class="far fa-calendar-check text-success"></i>
+						@endif	
+						<strong class="badge bg-primary">Ingreso para Observación</strong> : <span class="badge bg-light text-dark"> {{ \Carbon\Carbon::createFromFormat('Y-m-d', $project->entry_date)->locale('es_ES')->isoFormat('D MMM YYYY') }} </span> 
+					@endif 
+					@if ($project->observation_date)
+						<br>
+						@if(
+							$project->status == "in_correction" ||
+							$project->status == "re_entered" ||
+							$project->status == "accepted" || 
+							$project->status == "rejected"
+						)
+						<i class="far fa-calendar-check text-success"></i>
+						@endif	
+						<strong class="badge bg-primary">Corrección</strong> : <span class="badge bg-light text-dark"> {{ \Carbon\Carbon::createFromFormat('Y-m-d', $project->observation_date)->locale('es_ES')->isoFormat('D MMM YYYY') }} </span>
 						
-					</td>
-					<td>
-					@if ($project->entry_date)	
-						<strong class="badge bg-success">Ingresado</strong> : <span class="badge bg-light text-dark"> {{ \Carbon\Carbon::createFromFormat('Y-m-d', $project->entry_date)->locale('es_ES')->isoFormat('D MMM YYYY') }} </span> <br>
-					@endif
-					@if ($project->limit_re_entry_date)
-						<strong class="badge bg-danger">Limite Re-Ingreso</strong> : <span class="badge bg-light text-dark"> {{ \Carbon\Carbon::createFromFormat('Y-m-d', $project->limit_re_entry_date)->locale('es_ES')->isoFormat('D MMM YYYY') }} </span><br>
-					@endif
+					@endif 
 					@if ($project->re_entry_date)
-						<strong class="badge bg-success">Re-ingresado</strong> : <span class="badge bg-light text-dark"> {{ $project->re_entry_date ? \Carbon\Carbon::createFromFormat('Y-m-d', $project->re_entry_date)->locale('es_ES')->isoFormat('D MMM YYYY') : '-' }} </span>
-						&nbsp;&nbsp; <a href="{{ route('admin.projects.editReEntry', $project) }}" title="Re-Ingresar Proyecto"><i class="far fa-calendar-plus"></i> </a>
+						<br>
+						@if(
+							$project->status == "re_entered" ||
+							$project->status == "accepted" || 
+							$project->status == "rejected"
+						)
+						<i class="far fa-calendar-check text-success"></i>
+						@endif
+						<strong class="badge bg-primary">Re-ingreso</strong> : <span class="badge bg-light text-dark"> {{ \Carbon\Carbon::createFromFormat('Y-m-d', $project->re_entry_date)->locale('es_ES')->isoFormat('D MMM YYYY') }} </span>
+					@endif 
+					@if ($project->final_status_date)
+						<br>
+						@if(
+							$project->status == "accepted" || 
+							$project->status == "rejected"
+						)
+						<i class="far fa-calendar-check text-success"></i>
+						@endif
+						<strong class="badge bg-primary">Etado Final </strong> : <span class="badge bg-light text-dark"> {{ \Carbon\Carbon::createFromFormat('Y-m-d', $project->final_status_date)->locale('es_ES')->isoFormat('D MMM YYYY') }} </span>
+				
 					@endif
 					</td>
 					
 					<td>
-					@if ($project->entry_date)	
+					
+					@if($project->entry_date)		
+						{{  \Carbon\Carbon::createFromFormat('Y-m-d', $project->re_entry_date)->locale('es_ES')->isoFormat('D MMM YYYY') }}
+					
+						<br>
+						@if($project->re_entry_date < \Carbon\Carbon::today() && (
+								$project->status == "registered_for_observation" ||
+								$project->status == "in_correction"
+							))
+							<strong class="badge bg-danger">Vencido <br> No Re-Ingresado</strong><br>
+						@endif
 
-						{{ $project->limit_re_entry_date ? \Carbon\Carbon::createFromFormat('Y-m-d', $project->limit_re_entry_date)->locale('es_ES')->isoFormat('D MMM YYYY') : '-' }}
-					
-						<br>	
-					
-						@if($project->re_entry_date)
+						@if($project->re_entry_date && (
+							$project->status == "re_entered" ||
+							$project->status == "accepted" || 
+							$project->status == "rejected"
+							))
 							<strong class="badge bg-success">Re-Ingresado</strong><br>
-								@if($project->re_entry_date > $project->limit_re_entry_date )
-									<strong class="badge bg-primary">Fuera de fecha</strong>
-								@endif
-
 						@else
-							@if($project->limit_re_entry_date)
-								@if($project->limit_re_entry_date >= $now )
-									<strong class="badge bg-warning">por Ingresar</strong>
-								@else
-									<strong class="badge bg-danger">Vencido <br> No Re-Ingresado</strong>
-								@endif
+							@if($project->re_entry_date >= \Carbon\Carbon::today()  && (
+								$project->status == "registered_for_observation" ||
+								$project->status == "in_correction"
+							) )
+							<strong class="badge bg-warning">por Ingresar</strong><br>
 							@endif
 						@endif
+					@else
+					 sin datos
 					@endif
 					</td>
 					<td>

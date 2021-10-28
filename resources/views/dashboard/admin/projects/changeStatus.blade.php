@@ -16,7 +16,7 @@
                 <div class="card card-body shadow-sm mb-4">
 
 					<div class="row">
-						<div class="col-md-6 mb-3">
+						<div class="col-md-4 mb-3">
                             <label for="status">Estado</label>
                             <select name="status" class="form-select mb-0 select2" id="status" aria-label="seleccione el estado" placeholder="Seleccione...">
                                 <option value="">Seleccione...</option>
@@ -29,7 +29,7 @@
 
                             </select>
                         </div>
-                        <div class="col-md-6 mb-3" id="dateStatus">
+                        <div class="col-md-4 mb-3" id="dateStatus">
 							<label for="status_date"> Fecha <span id="dateName"></span> </label>
                             <div class="input-group">
 								<span class="input-group-text">
@@ -43,6 +43,11 @@
                                 >
 							</div>
                             <small class="text-dark mb-0 text-wrap fw-lighter" style="font-size:.8125rem">Ingresar si se desea cambiar la fecha</small>
+                        </div>
+
+                        <div class="col-md-4 mb-3" id="re_entry_doc" {{ $project->status == 're_entered' ? 'style="display:block;"' : ''}}>
+                                <label for="entry_doc">Documentos Asociados Re-Ingreso(zip)</label>
+                                <input name="re_entry_doc" class="form-control" id="re_entry_doc" type="file" >
                         </div>
 
                     </div>
@@ -82,6 +87,12 @@
                         }
                     }
                 });
+
+                if($('#status :selected').val() == 're_entered'){
+                    $('#re_entry_doc').css('display','block');
+                }else{
+                    $('#re_entry_doc').css('display','none');
+                }
 
             });
         });
