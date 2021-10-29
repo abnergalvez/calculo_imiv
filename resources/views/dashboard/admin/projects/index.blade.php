@@ -95,7 +95,7 @@ use Illuminate\Support\Str;
 					
 					<td>
 					
-					@if($project->entry_date)		
+					@if($project->entry_date && $project->re_entry_date)		
 						{{  \Carbon\Carbon::createFromFormat('Y-m-d', $project->re_entry_date)->locale('es_ES')->isoFormat('D MMM YYYY') }}
 					
 						<br>
