@@ -12,7 +12,17 @@
 	<div class="col-12 col-sm-12 col-xl-12 mb-0">
 		<div class="alert alert-warning alert-dismissible fade show" role="alert">
 			
-			<p><strong class="">Atención!</strong> Tienes {{ count($budgetSoonExpired) }} ingresos de <strong><a href="{{ route('admin.budgets.soonExpire')}}">presupuestos por vencer</a></strong> en 3 dias mas.</p>
+			<p><strong class="">Atención!</strong> Tienes {{ count($budgetSoonExpired) }} ingresos de <strong><a href="{{ route('admin.budgets.soonExpire')}}"> presupuestos por vencer</a></strong> en 3 dias mas.</p>
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+	</div>
+	@endif
+
+    @if(count($budgetExpired) > 0)
+	<div class="col-12 col-sm-12 col-xl-12 mb-0">
+		<div class="alert alert-danger alert-dismissible fade show" role="alert">
+			
+			<p><strong class="">Atención!</strong> Tienes {{ count($budgetExpired) }} ingresos de <strong><a href="{{ route('admin.budgets.expired')}}"> presupuestos vencidos</a></strong>.</p>
 			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 		</div>
 	</div>

@@ -214,11 +214,19 @@ class BudgetController extends Controller
 
         $now = Carbon::today();
 
-        $budgets = Budget::all()->filter(function ($value, $key) use ($now) {
-            $limite = Carbon::parse($value->limit_entry_date);
-            if($limite >= $now && $now->diffInDays($limite) <= 2 && !isset($value->entry_date)){
-                return $value; 
-            }});
+        $budgets = Budget::all()->filter(function ($value) {
+            $ahora = Carbon::today();
+            $limite = Carbon::parse($value->entry_date)->format('Y-m-d');
+            
+            if( $limite >= $ahora && $ahora->diffInDays($limite) <= 3 ){
+                if(isset($value->entry_date)){
+                    if( $value->status == 'accepted' || $value->status == NULL){
+                        return $value; 
+                    }
+                }
+                    
+            }
+        });
             
         return view('dashboard.admin.budgets.index')
             ->with('title_section',$title_section)
@@ -231,29 +239,37 @@ class BudgetController extends Controller
     public function expired()
     {
         $title_section = [
-            'title' => 'Proyectos Vencidos en Re-Ingreso',
+            'title' => 'Presupuestos vencidos de Ingreso',
             'description' => '', 
         ];
 
         $breadcrumbs = collect([
             ['title' => 'home', 'href' => route('home')],
-            ['title' => 'Lista Proyectos', 'href' => route('admin.projects.index')],
-            ['title' => 'Vencidos', 'active' => true],
+            ['title' => 'Lista Presupuestos', 'href' => route('admin.budgets.index')],
+            ['title' => 'Vencidos de Ingreso', 'active' => true],
         ]);
 
         $now = Carbon::today();
 
-        $projects = Project::all()->filter(function ($value, $key) use ($now) {
-            
-            if($value->limit_re_entry_date < $now && !isset($value->re_entry_date)){
-                return $value; 
-            }});
+        $budgets = Budget::all()->filter(function ($value) {
+            $ahora = Carbon::today();
+            $limite = Carbon::parse($value->entry_date)->format('Y-m-d');
+        
+            if( $limite < $ahora ){
+                if(isset($value->entry_date)){
+                    if( $value->status == 'accepted' || $value->status == NULL){
+                        return $value; 
+                    }
+                }
+                    
+            }
+        });
 
-        return view('dashboard.admin.projects.index')
+        return view('dashboard.admin.budgets.index')
             ->with('title_section',$title_section)
             ->with('breadcrumbs',$breadcrumbs)
             ->with('now',$now)
-            ->with('projects', $projects);
+            ->with('budgets', $budgets);
     }
 
 }

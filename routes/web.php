@@ -72,7 +72,7 @@ Route::group(
         
         Route::resource('presupuestos', 'BudgetController')->names('admin.budgets')->middleware('super'); 
         Route::get('ingresos_presupuestos_por_vencer', 'BudgetController@soonExpire')->name('admin.budgets.soonExpire')->middleware('super'); 
-        Route::get('ingresos_presupuestos_vencidos', 'BudgetController@expired')->name('admin.projects.budgets')->middleware('super'); 
+        Route::get('ingresos_presupuestos_vencidos', 'BudgetController@expired')->name('admin.budgets.expired')->middleware('super'); 
 
         Route::get('presupuestos/{presupuesto}/cambio_estado', 'BudgetController@editStatus')->name('admin.budgets.editStatus')->middleware('super'); 
         Route::put('presupuestos/{presupuesto}/cambio_estado', 'BudgetController@updateStatus')->name('admin.budgets.updateStatus')->middleware('super'); 

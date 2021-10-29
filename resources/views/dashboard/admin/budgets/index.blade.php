@@ -81,7 +81,7 @@
 						@if($budget->entry_date && $budget->status == "entered")
 							<strong class="badge bg-success">Ingresado</strong><br>
 						@else
-							@if($budget->entry_date >= \Carbon\Carbon::today()  &&  $budget->status == "accepted")
+							@if($budget->entry_date >= \Carbon\Carbon::today()  && ( $budget->status == "accepted" || $budget->status == NULL))
 							<strong class="badge bg-warning">por Ingresar</strong><br>
 							@endif
 						@endif

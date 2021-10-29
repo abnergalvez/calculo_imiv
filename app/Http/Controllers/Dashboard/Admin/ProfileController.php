@@ -69,47 +69,85 @@ class ProfileController extends Controller
 
         $projectSoonExpired = $projects['total']->filter(function ($value, $key) {
                 $ahora = Carbon::today();
-                $limite = Carbon::parse($value->limit_re_entry_date);
+                $limite = Carbon::parse($value->re_entry_date);
                 if($limite >= $ahora 
                 && $ahora->diffInDays($limite) <= 3 
-                && !isset($value->re_entry_date)
-                && isset($value->limit_re_entry_date)){
+                && isset($value->re_entry_date)
+                && (
+                    $value->status == "registered_for_observation" ||
+                    $value->status == "in_correction" ||
+                    $value->status == NULL
+                )){
                     return $value; 
-                }});
+        }});
 
         $projectObservationSoonExpired = $projects['total']->filter(function ($value, $key) {
             $ahora = Carbon::today();
-            $limite = Carbon::parse($value->limit_observation_date);
+            $limite = Carbon::parse($value->observation_date);
             if($limite >= $ahora 
             && $ahora->diffInDays($limite) <= 3 
-            && !isset($value->observation_date) 
-            && isset($value->limit_observation_date)){
+            && isset($value->observation_date) 
+            && (
+                $value->status == "registered_for_observation" ||
+                $value->status == NULL
+            )
+            ){
                 return $value; 
-            }});
+        }});
 
         $projectFinalStatusSoonExpire = $projects['total']->filter(function ($value, $key) {
             $ahora = Carbon::today();
-            $limite = Carbon::parse($value->limit_final_status_date);
+            $limite = Carbon::parse($value->final_status_date);
             if($limite >= $ahora 
             && $ahora->diffInDays($limite) <= 3 
-            && !isset($value->final_status_date) 
-            && isset($value->limit_final_status_date)){
+            && isset($value->final_status_date) 
+            && (
+                $value->status == "registered_for_observation" ||
+                $value->status == "in_correction" ||
+                $value->status == "re_entered" ||
+                $value->status == NULL
+            )
+            ){
                 return $value; 
             }});
 
-        $budgetSoonExpired = $budgets['total']->filter(function ($value, $key) {
+        $budgetSoonExpired = $budgets['total']->filter(function ($value) {
+                $ahora = Carbon::today();
+                $limite = Carbon::parse($value->entry_date)->format('Y-m-d');
+                
+                if( $limite >= $ahora && $ahora->diffInDays($limite) <= 3 ){
+                    if(isset($value->entry_date)){
+                        if( $value->status == 'accepted' || $value->status == NULL){
+                            return $value; 
+                        }
+                    }
+                       
+                }
+        });
+        
+        $budgetExpired = $budgets['total']->filter(function ($value) {
             $ahora = Carbon::today();
-            $limite = Carbon::parse($value->limit_entry_date);
-            if($limite >= $ahora 
-            && $ahora->diffInDays($limite) <= 3 
-            && !isset($value->entry_date)
-            && isset($value->limit_entry_date)){
-                return $value; 
-            }});
+            $limite = Carbon::parse($value->entry_date)->format('Y-m-d');
+        
+            if( $limite < $ahora ){
+                if(isset($value->entry_date)){
+                    if( $value->status == 'accepted' || $value->status == NULL){
+                        return $value; 
+                    }
+                }
+                    
+            }
+        });
+        
         
         $projectExpired = $projects['total']->filter(function ($value, $key) {
-            
-            if($value->limit_re_entry_date < now() && !isset($value->re_entry_date)){
+
+            if($value->re_entry_date < now() && 
+                isset($value->re_entry_date) && (
+                    $value->status == "registered_for_observation" ||
+                    $value->status == "in_correction" ||
+                    $value->status == NULL
+                )){
                 return $value; 
             }});
         
@@ -129,6 +167,7 @@ class ProfileController extends Controller
             ->with('projectObservationSoonExpired',$projectObservationSoonExpired)
             ->with('projectFinalStatusSoonExpire',$projectFinalStatusSoonExpire)
             ->with('budgetSoonExpired',$budgetSoonExpired)
+            ->with('budgetExpired',$budgetExpired)
             ->with('projectExpired',$projectExpired)
             ->with('title_section', $title_section);
     }

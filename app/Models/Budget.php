@@ -94,6 +94,7 @@ class Budget extends Model
         if($requestEntryDate){
             if($requestEntryDate != $budgetEntryDate){
                 $budget->entry_date = $requestEntryDate->format('Y-m-d');
+                $budget->limit_entry_date = $budget->entry_date;
             }
         }
 

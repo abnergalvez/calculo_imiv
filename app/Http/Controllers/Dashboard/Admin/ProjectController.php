@@ -198,14 +198,19 @@ class ProjectController extends Controller
 
         $now = Carbon::today();
 
-        $projects = Project::all()->filter(function ($value, $key) use ($now) {
-            $limite = Carbon::parse($value->limit_observation_date);
-            if($limite >= $now 
-            && $now->diffInDays($limite) <= 3 
-            && !isset($value->observation_date)
-            && isset($value->limit_observation_date)){
+        $projects = Project::all()->filter(function ($value, $key) {
+            $ahora = Carbon::today();
+            $limite = Carbon::parse($value->observation_date);
+            if($limite >= $ahora 
+            && $ahora->diffInDays($limite) <= 3 
+            && isset($value->observation_date) 
+            && (
+                $value->status == "registered_for_observation" ||
+                $value->status == NULL
+            )
+            ){
                 return $value; 
-            }});
+        }});
             
         return view('dashboard.admin.projects.index')
             ->with('title_section',$title_section)
@@ -229,12 +234,20 @@ class ProjectController extends Controller
 
         $now = Carbon::today();
 
-        $projects = Project::all()->filter(function ($value, $key) use ($now) {
-            $limite = Carbon::parse($value->limit_final_status_date);
-            if($limite >= $now 
-            && $now->diffInDays($limite) <= 3 
-            && !isset($value->final_status_date)
-            && isset($value->limit_final_status_date)){
+
+        $projects = Project::all()->filter(function ($value, $key) {
+            $ahora = Carbon::today();
+            $limite = Carbon::parse($value->final_status_date);
+            if($limite >= $ahora 
+            && $ahora->diffInDays($limite) <= 3 
+            && isset($value->final_status_date) 
+            && (
+                $value->status == "registered_for_observation" ||
+                $value->status == "in_correction" ||
+                $value->status == "re_entered" ||
+                $value->status == NULL
+            )
+            ){
                 return $value; 
             }});
             
@@ -260,14 +273,19 @@ class ProjectController extends Controller
 
         $now = Carbon::today();
 
-        $projects = Project::all()->filter(function ($value, $key) use ($now) {
-            $limite = Carbon::parse($value->limit_re_entry_date);
-            if($limite >= $now 
-            && $now->diffInDays($limite) <= 3 
-            && !isset($value->re_entry_date)
-            && isset($value->limit_re_entry_date)){
+        $projects = Project::all()->filter(function ($value, $key) {
+            $ahora = Carbon::today();
+            $limite = Carbon::parse($value->re_entry_date);
+            if($limite >= $ahora 
+            && $ahora->diffInDays($limite) <= 3 
+            && isset($value->re_entry_date)
+            && (
+                $value->status == "registered_for_observation" ||
+                $value->status == "in_correction" ||
+                $value->status == NULL
+            )){
                 return $value; 
-            }});
+        }});
             
         return view('dashboard.admin.projects.index')
             ->with('title_section',$title_section)
@@ -293,7 +311,12 @@ class ProjectController extends Controller
 
         $projects = Project::all()->filter(function ($value, $key) use ($now) {
             
-            if($value->limit_re_entry_date < $now && !isset($value->re_entry_date)){
+            if(isset($value->re_entry_date) && 
+                $value->re_entry_date < $now  && (
+                $value->status == "registered_for_observation" ||
+                $value->status == "in_correction" ||
+                $value->status == NULL
+            )){
                 return $value; 
             }});
 
