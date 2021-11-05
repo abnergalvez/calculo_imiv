@@ -47,9 +47,9 @@ class Esparcimiento extends Model
     public static function labelIngreso($subproyecto_key)
     {
         $labels = [
-            "casino_de_juegos" => "Superficie Total (M2)", 
-            "otro_equipamiento" => "Superficie Total (M2)",
-            "parque_juegos_electronicos" => "Superficie Total (M2)",
+            "casino_de_juegos" => "Superficie Útil Construida (M2)", 
+            "otro_equipamiento" => "Superficie Útil Construida (M2)",
+            "parque_juegos_electronicos" => "Superficie Útil Construida (M2)",
         ];
 
         return $labels[$subproyecto_key];

@@ -18,7 +18,7 @@
         @if($proyecto_seleccionado == "casas" || $proyecto_seleccionado == "departamentos")
         
         <div class="col-md-4">
-            <label class="form-label fw-bold" for="superficie1">Superficie Total Util Construida en m<sup>2</sup> </label>
+            <label class="form-label fw-bold" for="superficie1">Superficie Util Construida en m<sup>2</sup> </label>
             <input placeholder="Superficie" type="number" min="1" placeholder="0.00" step="any" class="form-control" name="superficies[]" id="superficie1" required>
         </div>
         <div class="col-md-4">

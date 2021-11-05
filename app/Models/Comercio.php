@@ -69,12 +69,12 @@ class Comercio extends Model
     public static function labelIngreso($subproyecto_key)
     {
         $labels = [
-            "tienda_por_departamentos" => "Superficie Total (M2)", 
-            "centro_automotor" => "Superficie Total (M2)",
+            "tienda_por_departamentos" => "Superficie Útil Construida (M2)", 
+            "centro_automotor" => "Superficie Útil Construida (M2)",
             "estacion_servicio_dispensador" => "Cantidad Dispensadores",
-            "supermercado_local_comercial" => "Superficie Total (M2)",
-            "restaurant_bar_discoteca" => "Superficie Total (M2)",
-            "otro_equipamiento" => "Superficie Total (M2)",
+            "supermercado_local_comercial" => "Superficie Útil Construida (M2)",
+            "restaurant_bar_discoteca" => "Superficie Útil Construida (M2)",
+            "otro_equipamiento" => "Superficie Útil Construida (M2)",
         ];
 
         return $labels[$subproyecto_key];
