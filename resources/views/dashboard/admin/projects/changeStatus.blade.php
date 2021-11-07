@@ -20,6 +20,8 @@
                             <label for="status">Estado</label>
                             <select name="status" class="form-select mb-0 select2" id="status" aria-label="seleccione el estado" placeholder="Seleccione...">
                                 <option value="">Seleccione...</option>
+                                <option value="adjudication"  {{ $project->status == 'adjudication' ? 'selected="selected"':'' }}>Adjudicado</option>
+                                <option value="to_engineer"  {{ $project->status == 'to_engineer' ? 'selected="selected"':'' }}>Entregado a Ingeniero</option>
 								<option value="registered_for_observation" {{ $project->status == 'registered_for_observation' ? 'selected="selected"':'' }}>Primer Ingreso</option>
 								<option value="in_correction" {{ $project->status == 'in_correction' ? 'selected="selected"':'' }}>Observaciones</option>
 								<option value="re_entered" {{ $project->status == 're_entered' ? 'selected="selected"':'' }}>Segundo Ingreso</option>

@@ -50,11 +50,11 @@
                         <th class="table-active"><strong>Fechas</strong></th>
                         <td>
                             <ul>
-                                <li><strong>Ingreso</strong>:&nbsp;&nbsp; 
+                                <li><strong>Primer Ingreso</strong>:&nbsp;&nbsp; 
                                     {{ $project->entry_date ? \Carbon\Carbon::createFromFormat('Y-m-d', $project->entry_date)->locale('es_ES')->isoFormat('D MMMM  YYYY') : ''}}
                                 
                                 </li>
-                                <li><strong>Observación</strong>:&nbsp;&nbsp;
+                                <li><strong>Observaciones</strong>:&nbsp;&nbsp;
                                     {{ $project->observation_date ? \Carbon\Carbon::createFromFormat('Y-m-d', $project->observation_date)->locale('es_ES')->isoFormat('D MMMM  YYYY') : ' - ' }} 
                                     @if($project->limit_observation_date)
                                     <small class="mx-8 float-end">Fecha Limite : 
@@ -65,7 +65,7 @@
                                     @endif
                                     
                                 </li>
-                                <li><strong>Re-Ingreso</strong>:&nbsp;&nbsp; 
+                                <li><strong>Segundo Ingreso</strong>:&nbsp;&nbsp; 
                                     {{ $project->re_entry_date ? \Carbon\Carbon::createFromFormat('Y-m-d', $project->re_entry_date)->locale('es_ES')->isoFormat('D MMMM  YYYY') : ' - ' }} 	
                                     @if($project->limit_re_entry_date)
                                     <small class="mx-8 float-end">Fecha Limite : 
@@ -75,7 +75,7 @@
                                     </small>
                                     @endif
                                 </li>
-                                <li><strong>Estado Final</strong>:&nbsp;&nbsp; 
+                                <li><strong>Aprobación / Rechazo</strong>:&nbsp;&nbsp; 
                                     {{ $project->final_status_date ? \Carbon\Carbon::createFromFormat('Y-m-d', $project->final_status_date)->locale('es_ES')->isoFormat('D MMMM  YYYY') : ' - ' }} 	
                                     @if($project->limit_final_status_date)
                                     <small class="mx-8 float-end">Fecha Limite : 
@@ -99,17 +99,24 @@
                         <th class="table-active"><strong>Presupuesto</strong></th>
                         <td>
                             @if($project->budget)
-                            # {{ $project->budget->number }} <small>(Numero) </small> - 
+                            # {{ $project->budget->number }} <small>(Numero) </small>  
+                                @if($project->budget->status)
+                                -
                                 <span class="badge bg-{{ $project->budget->statusLabels()['class']  }}">{{ $project->budget->statusLabels()['label'] }} </span>
-                                 
+                                @endif 
+
                                 @if($project->budget->doc_path)
                                 -  
                                 <a href="{{ Storage::url($project->budget->doc_path) }}" target="_blank" title="Descargar"><i class="fas fa-download  text-white"></i></a>
                                 @endif
                                 <br>
+                                @if($project->budget->accepted_date)
                                 <strong>Fecha Aceptacion </strong>:&nbsp;&nbsp; 
                                     {{ $project->budget->accepted_date ? \Carbon\Carbon::createFromFormat('Y-m-d', $project->budget->accepted_date )->locale('es_ES')->isoFormat('D MMMM  YYYY') : ' - ' }} 	
                                 <br>
+                                @endif
+
+                                @if($project->budget->entry_date)
                                 <strong>Fecha Ingreso </strong>:&nbsp;&nbsp; 
                                     {{ $project->budget->entry_date ? \Carbon\Carbon::createFromFormat('Y-m-d', $project->budget->entry_date )->locale('es_ES')->isoFormat('D MMMM  YYYY') : ' - ' }} 	
                                     @if($project->budget->limit_entry_date)
@@ -119,6 +126,7 @@
                                         </span>
                                     </small>
                                     @endif
+                                @endif
                             @endif
 						</td>
                     </tr>
@@ -131,6 +139,16 @@
 						@endif
                         @if($project->re_entry_doc_path)	
 							<a class="btn btn-info" target="_blank" href="{{ Storage::url($project->re_entry_doc_path) }}"><i class="fas fa-cloud-download-alt"></i> Re-Ingreso </a>
+                        @endif
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="table-active"><strong>Link de Aprobación</strong></th>
+                        <td>
+                        @if($project->approval_link)
+							<a class="text-white" target="_blank" href="{{ $project->approval_link }}">{{ $project->approval_link }}</a> 
+						@else
+                        -
                         @endif
                         </td>
                     </tr>

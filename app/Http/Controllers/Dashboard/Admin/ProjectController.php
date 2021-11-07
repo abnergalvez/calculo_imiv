@@ -7,6 +7,7 @@ use App\Models\TypeProject;
 use App\Models\Reviser;
 use App\Models\Customer;
 use App\Models\Commune;
+use App\Models\User;
 use Carbon\Carbon;
 
 use App\Http\Requests\ProjectStoreRequest;
@@ -115,6 +116,7 @@ class ProjectController extends Controller
             ->with('communes', Commune::all())
             ->with('type_projects', TypeProject::all())
             ->with('revisers', Reviser::all())
+            ->with('users', User::all())
             ->with('customers', Customer::all());
     }
 
@@ -166,6 +168,7 @@ class ProjectController extends Controller
             ->with('type_projects', TypeProject::all())
             ->with('customers', Customer::all())
             ->with('revisers', Reviser::all())
+            ->with('users', User::all())
             ->with('project', $proyecto);
     }
 

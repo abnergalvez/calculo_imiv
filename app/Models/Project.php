@@ -36,6 +36,11 @@ class Project extends Model
         'customer_id',
         'reviser_id',
         'type_project_id',
+
+        'adjudication_date',
+        'to_engineer_date',
+        'engineer_user_id',
+        'approval_link',
     ];
 
     public function type_project()
@@ -82,6 +87,15 @@ class Project extends Model
         $project->customer_id = $request->customer_id;
         $project->reviser_id = $request->reviser_id;
         $project->type_project_id = $request->type_project_id;
+        
+        if($request->adjudication_date){
+            $project->adjudication_date = Carbon::createFromFormat('d-m-Y',$request->adjudication_date);  
+        }
+        if($request->to_engineer_date){
+            $project->to_engineer_date = Carbon::createFromFormat('d-m-Y',$request->to_engineer_date); 
+        }
+        
+        $project->engineer_user_id = $request->engineer_user_id;
 
         $project->save();
 
@@ -134,6 +148,16 @@ class Project extends Model
         $project->customer_id = $request->customer_id;
         $project->reviser_id = $request->reviser_id;
         $project->type_project_id = $request->type_project_id;
+
+        if($request->adjudication_date){
+            $project->adjudication_date = Carbon::createFromFormat('d-m-Y',$request->adjudication_date);  
+        }
+        if($request->to_engineer_date){
+            $project->to_engineer_date = Carbon::createFromFormat('d-m-Y',$request->to_engineer_date); 
+        }
+        
+        $project->engineer_user_id = $request->engineer_user_id;
+        $project->approval_link = $request->approval_link;
         
         $dir = 'public/project/'.$project->id.'/entry_doc_path';
 
@@ -352,6 +376,8 @@ class Project extends Model
     {
        if($status_in){
             $status = [
+                'adjudication' => 'Adjudicado',
+                'to_engineer' => 'Entregado a Ingeniero',
                 'registered_for_observation' => 'Primer Ingreso',
                 'in_correction' => 'Observaciones',
                 're_entered' => 'Segundo Ingreso',
@@ -364,6 +390,7 @@ class Project extends Model
        }
 
        return ' - ';
+       
 
     }
 
@@ -372,6 +399,8 @@ class Project extends Model
     {
        if($status_in){
             $status = [
+                'adjudication' => '#FBA918',
+                'to_engineer' => '#63b1bd',
                 'registered_for_observation' => '#2361ce',
                 'in_correction' => '#FBA918',
                 're_entered' => '#fb503b',
@@ -389,6 +418,8 @@ class Project extends Model
     {
        if($this->status){
             $status = [
+                'adjudication' => 'Adjudicado',
+                'to_engineer' => 'Entregado a Ingeniero',
                 'registered_for_observation' => 'Primer Ingreso',
                 'in_correction' => 'Observaciones',
                 're_entered' => 'Segundo Ingreso',
@@ -409,6 +440,8 @@ class Project extends Model
        
         if($this->status){
             $statusBadge = [
+                'adjudication' => 'warning text-dark',
+                'to_engineer' => 'primary',
                 'registered_for_observation' => 'info',
                 'in_correction' => 'warning text-dark',
                 're_entered' => 'info',
@@ -478,6 +511,22 @@ class Project extends Model
                     'days' => null,
                     'function' => null,
                 ],
+                
+                'adjudication' => 
+                [
+                    'date' => 'adjudication_date' ,
+                    'limit' => null,
+                    'days' => null,
+                    'function' => null,
+                ],
+                
+                'to_engineer' => 
+                [
+                    'date' => 'to_engineer_date' ,
+                    'limit' => null,
+                    'days' => null,
+                    'function' => null,
+                ]
             ];
         
             return $statusDate[$status];

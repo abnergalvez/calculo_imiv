@@ -58,7 +58,7 @@
                         <th class="table-active"><strong>Fechas</strong></th>
                         <td>
                             <ul><?php $status = $project->status; ?>
-                                <li><strong>Ingreso</strong>:&nbsp;&nbsp; 
+                                <li><strong>Primer Ingreso</strong>:&nbsp;&nbsp; 
                                     {{ $project->entry_date ? \Carbon\Carbon::createFromFormat('Y-m-d', $project->entry_date)->locale('es_ES')->isoFormat('D MMMM  YYYY') : ''}}
                                     @if(
                                         $status == "registered_for_observation" ||
@@ -70,7 +70,7 @@
                                     <i class="far fa-calendar-check text-success"></i>
                                     @endif
                                 </li>
-                                <li><strong>Observación</strong>:&nbsp;&nbsp;
+                                <li><strong>Observaciones</strong>:&nbsp;&nbsp;
                                     {{ $project->observation_date ? \Carbon\Carbon::createFromFormat('Y-m-d', $project->observation_date)->locale('es_ES')->isoFormat('D MMMM  YYYY') : ' - ' }} 
                                     @if(
                                         $status == "in_correction" ||
@@ -83,7 +83,7 @@
 
                                     
                                 </li>
-                                <li><strong>Re-Ingreso</strong>:&nbsp;&nbsp; 
+                                <li><strong>Segundo Ingreso</strong>:&nbsp;&nbsp; 
                                     {{ $project->re_entry_date ? \Carbon\Carbon::createFromFormat('Y-m-d', $project->re_entry_date)->locale('es_ES')->isoFormat('D MMMM  YYYY') : ' - ' }} 	
                                     @if(
                                         $status == "re_entered" ||
@@ -93,7 +93,7 @@
                                     <i class="far fa-calendar-check text-success"></i>
                                     @endif
                                 </li>
-                                <li><strong>Estado Final</strong>:&nbsp;&nbsp; 
+                                <li><strong>Aprobación / Rechazo</strong>:&nbsp;&nbsp; 
                                     {{ $project->final_status_date ? \Carbon\Carbon::createFromFormat('Y-m-d', $project->final_status_date)->locale('es_ES')->isoFormat('D MMMM  YYYY') : ' - ' }} 	
                                     @if(
                                         $status == "accepted" || 
@@ -123,7 +123,18 @@
 							<a class="btn btn-info" target="_blank" href="{{ Storage::url($project->re_entry_doc_path) }}"><i class="fas fa-cloud-download-alt"></i> Re-Ingreso </a>
                         @endif
                         </td>
-                    </tr>                   
+                    </tr>
+                    
+                    <tr>
+                        <th class="table-active"><strong>Link de Aprobación</strong></th>
+                        <td>
+                        @if($project->approval_link)
+							<a class="" target="_blank" href="{{ $project->approval_link }}">{{ $project->approval_link }}</a> 
+						@else
+                        -
+                        @endif
+                        </td>
+                    </tr>
                     
                 </table>
                 </div>

@@ -22,6 +22,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('/dateNamesFromStatus',function(Request $request){
     $statusDate = [
+        'adjudication' => 'Adjudicacion',
+        'to_engineer' => 'Entrega a Ingeniero',
         'registered_for_observation' => 'Primer Ingreso',
         'in_correction' => 'Llegada Observación (Revisor)',
         're_entered' => 'Segundo Ingreso (Corrección)',

@@ -60,6 +60,8 @@
                             <label for="status">Estado</label>
                             <select name="status" class="form-select mb-0 select2" id="status" aria-label="seleccione el estado" placeholder="Seleccione...">
                                 <option value="">Seleccione...</option>
+                                <option value="adjudication"  {{ $project->status == 'adjudication' ? 'selected="selected"':'' }}>Adjudicado</option>
+                                <option value="to_engineer"  {{ $project->status == 'to_engineer' ? 'selected="selected"':'' }}>Entregado a Ingeniero</option>
 								<option value="registered_for_observation" {{ $project->status == 'registered_for_observation' ? 'selected="selected"':'' }}>Primer Ingreso</option>
 								<option value="in_correction" {{ $project->status == 'in_correction' ? 'selected="selected"':'' }}>Observaciones</option>
 								<option value="re_entered" {{ $project->status == 're_entered' ? 'selected="selected"':'' }}>Segundo Ingreso</option>
@@ -124,12 +126,66 @@
                             <input name="re_entry_doc" class="form-control" id="re_entry_doc" type="file" >
                             <small>El documento ingresado reemplazara al anterior!</small>
                         </div>
+                        <div class="col-md-8 mb-3">
+                            <div class="form-group">
+                                <label for="approval_link">Link de Aprobación</label>
+                                <input name="approval_link" class="form-control" id="approval_link" type="text"  placeholder="Ingrese link de aprobacion" value="{{ $project->approval_link }}">
+                            </div>
+                        </div>
 
                     </div>
                     <hr>
                     <div class="row">
                         <h5>Fechas del Proyecto</h5>
+                        <div class="col-md-4 mb-3">
+							<label for="adjudication_date">Fecha Adjudicación </label>
+                            <div class="input-group">
+								<span class="input-group-text">
+									<svg class="icon icon-xs" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+									<path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
+								</span>
+								<input data-datepicker="" 
+                                name="adjudication_date" 
+                                class="form-control" 
+                                id="adjudication_date" 
+                                type="text" 
+                                placeholder="dd-mm-yyyy"
+                                value="{{ $project->adjudication_date ? \Carbon\Carbon::createFromFormat('Y-m-d', $project->adjudication_date)->format('d-m-Y') : '' }}" 
+                                >
+							</div>
+                        </div>
 
+                        <div class="col-md-4 mb-3">
+							<label for="to_engineer_date">Fecha Entrega Ingeniero </label>
+                            <div class="input-group">
+								<span class="input-group-text">
+									<svg class="icon icon-xs" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+									<path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
+								</span>
+								<input 
+                                data-datepicker="" 
+                                name="to_engineer_date" 
+                                class="form-control" 
+                                id="to_engineer_date" 
+                                type="text" 
+                                placeholder="dd-mm-yyyy" 
+                                value="{{ $project->to_engineer_date ? \Carbon\Carbon::createFromFormat('Y-m-d', $project->to_engineer_date)->format('d-m-Y') : '' }}" 
+
+                                >
+							</div>
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label for="engineer_user_id">Ingeniero Encargado (Entrega)</label>
+                            <select name="engineer_user_id" class="form-select mb-0 select2" id="engineer_user_id" placeholder="Seleccione...">
+                                <option value="" >Seleccione...</option>
+                                @foreach ($users as $user )
+								<option  value="{{ $user->id }}"  {{ $user->id == $project->engineer_user_id ? 'selected="selected"' : '' }}>{{ $user->name }}</option>
+								@endforeach
+                                
+                            </select>
+                        </div>
+                        <hr>
                         <div class="col-md-3 mb-3">
 							<label for="entry_date"> Primer Ingreso </label>
                             <div class="input-group">
