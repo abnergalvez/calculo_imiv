@@ -352,11 +352,11 @@ class Project extends Model
     {
        if($status_in){
             $status = [
-                'registered_for_observation' => 'Ingresado para observación',
-                'in_correction' => 'En Corrección',
-                're_entered' => 'Re-Ingresado',
-                'accepted' => 'Aceptado',
-                'rejected' => 'Rechazado',
+                'registered_for_observation' => 'Primer Ingreso',
+                'in_correction' => 'Observaciones',
+                're_entered' => 'Segundo Ingreso',
+                'accepted' => 'Aprobación',
+                'rejected' => 'Rechazo',
                 'in_budget' => 'En Presupuesto'
             ];
         
@@ -389,11 +389,11 @@ class Project extends Model
     {
        if($this->status){
             $status = [
-                'registered_for_observation' => 'Ingresado para observación',
-                'in_correction' => 'En Corrección',
-                're_entered' => 'Re-Ingresado',
-                'accepted' => 'Aceptado',
-                'rejected' => 'Rechazado',
+                'registered_for_observation' => 'Primer Ingreso',
+                'in_correction' => 'Observaciones',
+                're_entered' => 'Segundo Ingreso',
+                'accepted' => 'Aprobación',
+                'rejected' => 'Rechazo',
                 'in_budget' => 'En Presupuesto'
             ];
         

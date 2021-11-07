@@ -60,11 +60,11 @@
                             <label for="status">Estado</label>
                             <select name="status" class="form-select mb-0 select2" id="status" aria-label="seleccione el estado" placeholder="Seleccione...">
                                 <option value="">Seleccione...</option>
-								<option value="registered_for_observation" {{ $project->status == 'registered_for_observation' ? 'selected="selected"':'' }}>Ingresado para Observación</option>
-								<option value="in_correction" {{ $project->status == 'in_correction' ? 'selected="selected"':'' }}>En Corrección</option>
-								<option value="re_entered" {{ $project->status == 're_entered' ? 'selected="selected"':'' }}>Re-Ingresado</option>
-								<option value="accepted" {{ $project->status == 'accepted' ? 'selected="selected"':'' }}>Aceptado</option>
-								<option value="rejected" {{ $project->status == 'rejected' ? 'selected="selected"':'' }}>Rechazado</option>
+								<option value="registered_for_observation" {{ $project->status == 'registered_for_observation' ? 'selected="selected"':'' }}>Primer Ingreso</option>
+								<option value="in_correction" {{ $project->status == 'in_correction' ? 'selected="selected"':'' }}>Observaciones</option>
+								<option value="re_entered" {{ $project->status == 're_entered' ? 'selected="selected"':'' }}>Segundo Ingreso</option>
+								<option value="accepted" {{ $project->status == 'accepted' ? 'selected="selected"':'' }}>Aprobación</option>
+								<option value="rejected" {{ $project->status == 'rejected' ? 'selected="selected"':'' }}>Rechazo</option>
                                 <option value="in_budget" {{ $project->status == 'in_budget' ? 'selected="selected"':'' }}>En Presupuesto</option>
 
                             </select>
@@ -131,7 +131,7 @@
                         <h5>Fechas del Proyecto</h5>
 
                         <div class="col-md-3 mb-3">
-							<label for="entry_date"> Ingreso </label>
+							<label for="entry_date"> Primer Ingreso </label>
                             <div class="input-group">
 								<span class="input-group-text">
                                     <i class="fas fa-calendar-check icon icon-xs {{ $project->entry_date ? 'text-success' : ''}}" fill="currentColor"></i>
@@ -147,7 +147,7 @@
                         </div>
 
                         <div class="col-md-3 mb-3">
-							<label for="observation_date">Llegada Observación (Revisor) </label>
+							<label for="observation_date">Observaciones (Revisor) </label>
                             <div class="input-group">
 								<span class="input-group-text">
                                     <i class="fas fa-calendar-check icon icon-xs {{ $project->observation_date ? 'text-success' : ''}}" fill="currentColor"></i>
@@ -164,7 +164,7 @@
                         
 
                         <div class="col-md-3 mb-3">
-							<label for="re_entry_date"> Re-Ingreso (Corrección) </label>
+							<label for="re_entry_date"> Segundo Ingreso (Corrección) </label>
                             <div class="input-group">
 								<span class="input-group-text">
                                     <i class="fas fa-calendar-check icon icon-xs {{ $project->re_entry_date ? 'text-success' : ''}}" fill="currentColor"></i>
@@ -181,7 +181,7 @@
                         
 
                         <div class="col-md-3 mb-3">
-							<label for="final_status_date">Llegada Estado Final (Revisor) </label>
+							<label for="final_status_date">Aprobación / Rechazo (Revisor) </label>
                             <div class="input-group">
 								<span class="input-group-text">
                                     <i class="fas fa-calendar-check icon icon-xs {{ $project->final_status_date ? 'text-success' : ''}}" fill="currentColor"></i>

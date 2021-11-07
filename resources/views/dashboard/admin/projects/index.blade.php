@@ -54,7 +54,7 @@ use Illuminate\Support\Str;
 							)
 						<i class="far fa-calendar-check text-success"></i>
 						@endif	
-						<strong class="badge bg-primary">Ingreso para Observación</strong> : <span class="badge bg-light text-dark"> {{ \Carbon\Carbon::createFromFormat('Y-m-d', $project->entry_date)->locale('es_ES')->isoFormat('D MMM YYYY') }} </span> 
+						<strong class="badge bg-primary">Primer Ingreso</strong> : <span class="badge bg-light text-dark"> {{ \Carbon\Carbon::createFromFormat('Y-m-d', $project->entry_date)->locale('es_ES')->isoFormat('D MMM YYYY') }} </span> 
 					@endif 
 					@if ($project->observation_date)
 						<br>
@@ -66,7 +66,7 @@ use Illuminate\Support\Str;
 						)
 						<i class="far fa-calendar-check text-success"></i>
 						@endif	
-						<strong class="badge bg-primary">Corrección</strong> : <span class="badge bg-light text-dark"> {{ \Carbon\Carbon::createFromFormat('Y-m-d', $project->observation_date)->locale('es_ES')->isoFormat('D MMM YYYY') }} </span>
+						<strong class="badge bg-primary">Observaciones</strong> : <span class="badge bg-light text-dark"> {{ \Carbon\Carbon::createFromFormat('Y-m-d', $project->observation_date)->locale('es_ES')->isoFormat('D MMM YYYY') }} </span>
 						
 					@endif 
 					@if ($project->re_entry_date)
@@ -78,7 +78,7 @@ use Illuminate\Support\Str;
 						)
 						<i class="far fa-calendar-check text-success"></i>
 						@endif
-						<strong class="badge bg-primary">Re-ingreso</strong> : <span class="badge bg-light text-dark"> {{ \Carbon\Carbon::createFromFormat('Y-m-d', $project->re_entry_date)->locale('es_ES')->isoFormat('D MMM YYYY') }} </span>
+						<strong class="badge bg-primary">Segundo Ingreso</strong> : <span class="badge bg-light text-dark"> {{ \Carbon\Carbon::createFromFormat('Y-m-d', $project->re_entry_date)->locale('es_ES')->isoFormat('D MMM YYYY') }} </span>
 					@endif 
 					@if ($project->final_status_date)
 						<br>
@@ -88,7 +88,7 @@ use Illuminate\Support\Str;
 						)
 						<i class="far fa-calendar-check text-success"></i>
 						@endif
-						<strong class="badge bg-primary">Etado Final </strong> : <span class="badge bg-light text-dark"> {{ \Carbon\Carbon::createFromFormat('Y-m-d', $project->final_status_date)->locale('es_ES')->isoFormat('D MMM YYYY') }} </span>
+						<strong class="badge bg-primary">Aprobación / Rechazo </strong> : <span class="badge bg-light text-dark"> {{ \Carbon\Carbon::createFromFormat('Y-m-d', $project->final_status_date)->locale('es_ES')->isoFormat('D MMM YYYY') }} </span>
 				
 					@endif
 					</td>

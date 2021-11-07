@@ -22,9 +22,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('/dateNamesFromStatus',function(Request $request){
     $statusDate = [
-        'registered_for_observation' => 'Ingreso para Observacion',
+        'registered_for_observation' => 'Primer Ingreso',
         'in_correction' => 'Llegada Observación (Revisor)',
-        're_entered' => 'Re-Ingreso (Corrección)',
+        're_entered' => 'Segundo Ingreso (Corrección)',
         'accepted' => 'Llegada Estado Final (Revisor)',
         'rejected' => 'Llegada Estado Final (Revisor)',
         'in_budget' => null,
