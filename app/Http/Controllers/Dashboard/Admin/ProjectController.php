@@ -130,6 +130,7 @@ class ProjectController extends Controller
 
     public function show(Project $proyecto)
     {
+        
         $title_section = [
             'title' => 'Ficha Proyecto',
             'description' => 'Detalle de toda la informacion del proyecto.', 

@@ -6,6 +6,7 @@ use App\Models\TypeProject;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Http;
 
 class Project extends Model
 {
@@ -155,7 +156,7 @@ class Project extends Model
         if($request->to_engineer_date){
             $project->to_engineer_date = Carbon::createFromFormat('d-m-Y',$request->to_engineer_date); 
         }
-        
+
         $project->engineer_user_id = $request->engineer_user_id;
         $project->approval_link = $request->approval_link;
         
@@ -589,6 +590,54 @@ class Project extends Model
         $project->save();
 
         return $project->final_status_date;
+    }
+
+    //Procesa una fecha, verifica si no es feriado ni sabado / domingo y 
+    //si es feriado trae la anterior mas cercana.
+
+    public static function dateWithOutHolyday($date)
+    {
+        $habilDate = false;
+        
+        while($habilDate == false) 
+        {
+            $holyDay = Project::isHolydayinChile($date);
+            $weekEndDay = Project::isWeekEndDay($date);
+
+            if($weekEndDay){
+                $date = Carbon::createFromFormat('Y-m-d', $date);
+                $date =  $date->subDays(1)->format('Y-m-d');
+                
+            }else{
+                if($holyDay){
+                    $date = Carbon::createFromFormat('Y-m-d', $date);
+                    $date =  $date->subDays(1)->format('Y-m-d');
+                   
+                }else{
+                    $habilDate = true;
+                    $exitDate =  $date;
+                }
+            }
+
+        }
+        return $exitDate;
+    }
+    // date Y-m-d
+    public static function isHolydayinChile($date)
+    {
+        $date_format = Carbon::createFromFormat('Y-m-d', $date)->format('Y/m/d');
+        $response = Http::get('https://apis.digital.gob.cl/fl/feriados/'.$date_format);
+        if($response->json() && isset($response->json()['error']))
+        {
+            return false;
+        }
+        return true; 
+    }
+    // date Y-m-d
+    public static function isWeekEndDay($date)
+    {
+        $day = Carbon::createFromFormat('Y-m-d', $date);
+        return $day->isWeekend() ? $day->isWeekend() : false;  
     }
     
 }
