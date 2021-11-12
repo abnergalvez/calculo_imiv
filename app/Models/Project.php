@@ -538,18 +538,37 @@ class Project extends Model
 
     public static function changeEntryDate($date, $changeFormat, $project) 
     {    
-        $observation_days_limit = $project->type_project->observation_days_limit;
-        $re_entry_days_limit = $project->type_project->re_entry_days_limit;
-        $final_status_days_limit = $project->type_project->final_status_days_limit;
-
-        $date = $changeFormat ? Carbon::createFromFormat('d-m-Y', $date) : $date;
-        $project->entry_date = $date;
-        $project->save();
-
-        $observation_date = Project::changeObservation($date , false, $project,$observation_days_limit);
-        $re_entry_date = Project::changeReEntryDate(Carbon::createFromFormat('Y-m-d', $observation_date), false, $project, $re_entry_days_limit);
-        Project::changeFinalStatusDate(Carbon::createFromFormat('Y-m-d', $re_entry_date), false, $project, $final_status_days_limit);
         
+        if($project->isAllLimitDays()){
+
+            $observation_days_limit = $project->type_project->observation_days_limit;
+            $re_entry_days_limit = $project->type_project->re_entry_days_limit;
+            $final_status_days_limit = $project->type_project->final_status_days_limit;
+    
+            $date = $changeFormat ? Carbon::createFromFormat('d-m-Y', $date) : $date;
+            $project->entry_date = $date;
+            $project->save();
+    
+            $observation_date = Project::changeObservation($date , false, $project,$observation_days_limit);
+            $re_entry_date = Project::changeReEntryDate(Carbon::createFromFormat('Y-m-d', $observation_date), false, $project, $re_entry_days_limit);
+            Project::changeFinalStatusDate(Carbon::createFromFormat('Y-m-d', $re_entry_date), false, $project, $final_status_days_limit);
+        
+        }elseif($project->isDirectFinalEvaluation()){
+            
+            $final_status_days_limit = $project->type_project->final_status_days_limit;
+            $date = $changeFormat ? Carbon::createFromFormat('d-m-Y', $date) : $date;
+            $project->entry_date = $date;
+            $project->save();
+            Project::changeFinalStatusDate($date, false, $project, $final_status_days_limit);
+
+        }elseif($project->isNotRegisteredLimitDays()){
+
+            return false;    
+
+        }else{
+            return false;
+        }
+
         return $project;
     }
 
@@ -566,6 +585,10 @@ class Project extends Model
         $re_entry_date = Project::changeReEntryDate(Carbon::createFromFormat('Y-m-d', $project->observation_date), false, $project,$re_entry_days_limit );
         Project::changeFinalStatusDate(Carbon::createFromFormat('Y-m-d', $re_entry_date), false, $project,$final_status_days_limit);
         
+        $project->observation_date = Project::dateWithOutHolyday($project->observation_date);
+        $project->limit_observation_date = Project::dateWithOutHolyday($project->observation_date);
+        $project->save();
+
         return $project->observation_date;
     }
 
@@ -638,6 +661,42 @@ class Project extends Model
     {
         $day = Carbon::createFromFormat('Y-m-d', $date);
         return $day->isWeekend() ? $day->isWeekend() : false;  
+    }
+
+    public function isAllLimitDays()
+    {
+        if($this->type_project->observation_days_limit &&
+            $this->type_project->re_entry_days_limit &&
+            $this->type_project->final_status_days_limit){
+            
+                return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function isDirectFinalEvaluation()
+    {
+        if(!$this->type_project->observation_days_limit &&
+            !$this->type_project->re_entry_days_limit &&
+            $this->type_project->final_status_days_limit){
+            
+                return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function isNotRegisteredLimitDays()
+    {
+        if(!$this->type_project->observation_days_limit &&
+        !$this->type_project->re_entry_days_limit &&
+        !$this->type_project->final_status_days_limit){
+        
+            return true;
+        }else{
+            return false;
+        }
     }
     
 }

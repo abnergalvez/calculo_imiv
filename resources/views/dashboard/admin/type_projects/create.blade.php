@@ -29,26 +29,26 @@
                         </div>
                         <div class="col-md-3 mb-3">
                             <div class="form-group">
-                                <label for="budget_entry_days_limit">Límite días para Ingreso <br> Presupuesto *</label>
-                                <input name="budget_entry_days_limit" class="form-control" id="budget_entry_days_limit" type="number" min="1" step="1" required>
+                                <label for="budget_entry_days_limit">Límite días para Ingreso <br> Presupuesto </label>
+                                <input name="budget_entry_days_limit" class="form-control" id="budget_entry_days_limit" type="number" min="1" step="1" >
                             </div>
                         </div>
                         <div class="col-md-3 mb-3">
                             <div class="form-group">
-                                <label for="observation_days_limit">Límite días para<br>  Obsevacion *</label>
-                                <input name="observation_days_limit" class="form-control" id="observation_days_limit" type="number" min="1" step="1" required>
+                                <label for="observation_days_limit">Límite días para<br>  Obsevacion </label>
+                                <input name="observation_days_limit" class="form-control" id="observation_days_limit" type="number" min="1" step="1" >
                             </div>
                         </div>
                         <div class="col-md-3 mb-3">
                             <div class="form-group">
-                                <label for="re_entry_days_limit">Límite días para<br>  Re-Ingreso *</label>
-                                <input name="re_entry_days_limit" class="form-control" id="re_entry_days_limit" type="number" min="1" step="1" required>
+                                <label for="re_entry_days_limit">Límite días para<br>  Segundo Ingreso </label>
+                                <input name="re_entry_days_limit" class="form-control" id="re_entry_days_limit" type="number" min="1" step="1" >
                             </div>
                         </div>
 						<div class="col-md-3 mb-3">
                             <div class="form-group">
-                                <label for="final_status_days_limit">Límite días para<br>  Estado Final *</label>
-                                <input name="final_status_days_limit" class="form-control" id="final_status_days_limit" type="number" min="1" step="1" required>
+                                <label for="final_status_days_limit">Límite días para<br>  Aprobación / Rechazo </label>
+                                <input name="final_status_days_limit" class="form-control" id="final_status_days_limit" type="number" min="1" step="1" >
                             </div>
                         </div>
 

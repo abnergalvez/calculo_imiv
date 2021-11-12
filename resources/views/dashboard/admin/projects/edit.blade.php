@@ -120,12 +120,13 @@
                             <input name="entry_doc" class="form-control" id="entry_doc" type="file" >
 							<small>El documento ingresado reemplazara al anterior!</small>
                         </div>
-
+                        @if(!$project->isDirectFinalEvaluation())
                         <div class="col-md-4 mb-3">
                             <label for="entry_doc">Documentos Re-Ingreso(zip)</label>
                             <input name="re_entry_doc" class="form-control" id="re_entry_doc" type="file" >
                             <small>El documento ingresado reemplazara al anterior!</small>
                         </div>
+                        @endif
                         <div class="col-md-8 mb-3">
                             <div class="form-group">
                                 <label for="approval_link">Link de Aprobación</label>
@@ -186,6 +187,7 @@
                             </select>
                         </div>
                         <hr>
+                        @if(!$project->isNotRegisteredLimitDays())
                         <div class="col-md-3 mb-3">
 							<label for="entry_date"> Primer Ingreso </label>
                             <div class="input-group">
@@ -201,7 +203,7 @@
 							</div>
                             <small class="text-dark mb-0 text-wrap fw-lighter" style="font-size:.8125rem">Envío a Entidad Revisora</small>
                         </div>
-
+                        @if(!$project->isDirectFinalEvaluation())
                         <div class="col-md-3 mb-3">
 							<label for="observation_date">Observaciones (Revisor) </label>
                             <div class="input-group">
@@ -235,6 +237,7 @@
                             <small class="text-dark mb-0 text-wrap fw-lighter" style="font-size:.8125rem">Re-ingreso/Envío para Entidad Revisora</small>
                         </div>
                         
+                        @endif
 
                         <div class="col-md-3 mb-3">
 							<label for="final_status_date">Aprobación / Rechazo (Revisor) </label>
@@ -251,7 +254,7 @@
 							</div>
                             <small class="text-dark mb-0 text-wrap fw-lighter" style="font-size:.8125rem">Respuesta Final Entidad Revisora</small>
                         </div>
-                       
+                        @endif
 
                     </div>
                     <div class="mt-2">

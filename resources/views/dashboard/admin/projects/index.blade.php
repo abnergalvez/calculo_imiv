@@ -17,7 +17,7 @@ use Illuminate\Support\Str;
 					<th>Código</th>
 					<th>Nombre</th>
 					<th>Estado</th>
-					<th>Fechas</th>
+					<th>Fechas *</th>
 					<th>Limite <br> Re-Ingreso</th>
 					<th>Acciones</th>
 				</tr>
@@ -181,7 +181,18 @@ use Illuminate\Support\Str;
 			<tbody>	
         </table>
       </div>
+
     </div>
+	<div class="card">
+	<div class="row col-md-12 ">
+			<strong class="p-4"> * Si el resultado del calculo de la fechas queda en día no hábil, 
+				la fecha resultado será el día hábil anterior a la fecha limite 
+				(en cada caso) de la cual se calculará la fecha limite siguiente.  </strong>
+		</div>
+	</div>
+
+
+
 </div>
 
 

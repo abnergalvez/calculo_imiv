@@ -23,10 +23,10 @@
 			  	@foreach($type_projects as $tp)
 			  	<tr>
 				  	<td>{{ $tp->name }}</td>
-					<td>{{ $tp->budget_entry_days_limit }} días</td>
-					<td>{{ $tp->observation_days_limit }} días</td>
-					<td>{{ $tp->re_entry_days_limit }} días</td>
-					<td>{{ $tp->final_status_days_limit }} días</td>
+					<td>{{ $tp->budget_entry_days_limit ? $tp->budget_entry_days_limit.' días' : '-' }} </td>
+					<td>{{ $tp->observation_days_limit ? $tp->observation_days_limit.' días' : '-' }} </td>
+					<td>{{ $tp->re_entry_days_limit ? $tp->re_entry_days_limit.' días' : '-' }} </td>
+					<td>{{ $tp->final_status_days_limit ? $tp->final_status_days_limit.' días' : '-' }}</td>
 					<td>
 						 @forelse($tp->projects as $project)
 						 {{ $project->code }}

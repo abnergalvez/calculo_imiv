@@ -22,11 +22,15 @@
                                 <option value="">Seleccione...</option>
                                 <option value="adjudication"  {{ $project->status == 'adjudication' ? 'selected="selected"':'' }}>Adjudicado</option>
                                 <option value="to_engineer"  {{ $project->status == 'to_engineer' ? 'selected="selected"':'' }}>Entregado a Ingeniero</option>
-								<option value="registered_for_observation" {{ $project->status == 'registered_for_observation' ? 'selected="selected"':'' }}>Primer Ingreso</option>
-								<option value="in_correction" {{ $project->status == 'in_correction' ? 'selected="selected"':'' }}>Observaciones</option>
+                                @if(!$project->isNotRegisteredLimitDays())
+                                <option value="registered_for_observation" {{ $project->status == 'registered_for_observation' ? 'selected="selected"':'' }}>Primer Ingreso</option>
+								@if(!$project->isDirectFinalEvaluation())
+                                <option value="in_correction" {{ $project->status == 'in_correction' ? 'selected="selected"':'' }}>Observaciones</option>
 								<option value="re_entered" {{ $project->status == 're_entered' ? 'selected="selected"':'' }}>Segundo Ingreso</option>
+                                @endif
 								<option value="accepted" {{ $project->status == 'accepted' ? 'selected="selected"':'' }}>Aprobación</option>
 								<option value="rejected" {{ $project->status == 'rejected' ? 'selected="selected"':'' }}>Rechazo</option>
+                                @endif
                                 <option value="in_budget" {{ $project->status == 'in_budget' ? 'selected="selected"':'' }}>En Presupuesto</option>
 
                             </select>
