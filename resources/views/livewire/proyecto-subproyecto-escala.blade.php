@@ -19,11 +19,11 @@
         
         <div class="col-md-4">
             <label class="form-label fw-bold" for="superficie1">Superficie Util Construida en m<sup>2</sup> </label>
-            <input placeholder="Superficie" type="number" min="1" placeholder="0.00" step="any" class="form-control" name="superficies[]" id="superficie1" required>
+            <input placeholder="Superficie Util Construida" type="number" min="1" placeholder="0.00" step="any" class="form-control" name="superficies[]" id="superficie1" required>
         </div>
         <div class="col-md-4">
             <label class="form-label fw-bold" for="cantidad1">Número de {{ $proyecto_seleccionado == "departamentos" ? 'Departamentos' : 'Viviendas'}}</label>
-            <input placeholder="Cantidad Construida" min="1" type="number" class="form-control" name="cantidades[]" id="cantidad1" required>
+            <input placeholder="Número de {{ $proyecto_seleccionado == 'departamentos' ? 'Departamentos' : 'Viviendas'}}" min="1" type="number" class="form-control" name="cantidades[]" id="cantidad1" required>
             
         </div>
 

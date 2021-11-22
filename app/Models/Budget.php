@@ -28,6 +28,11 @@ class Budget extends Model
         return $this->belongsTo(Project::class);
     }
 
+    public function alerts()
+    {
+        return $this->morphMany(Alert::class, 'alertable');
+    }
+
     public static function storeBudget($request)
     {
 
@@ -35,8 +40,9 @@ class Budget extends Model
             $newAceptedDate = Carbon::createFromFormat('d-m-Y', $request['accepted_date']);
             $request['accepted_date'] = $newAceptedDate->format('Y-m-d');
             $daysLimit = Project::find($request['project_id'])->type_project->budget_entry_days_limit;
-            $request['limit_entry_date'] = $newAceptedDate->addDays($daysLimit)->format('Y-m-d');
-            $request['entry_date'] = $newAceptedDate->addDays($daysLimit)->format('Y-m-d');
+            
+            $request['entry_date'] = Project::dateWithOutHolyday($newAceptedDate->addDays($daysLimit)->format('Y-m-d'));
+            $request['limit_entry_date'] = $request['entry_date'];
         }
 
         $budget = Budget::create($request->all());

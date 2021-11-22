@@ -111,11 +111,21 @@ class ProfileController extends Controller
                 return $value; 
             }});
 
+    
+            
+
         $budgetSoonExpired = $budgets['total']->filter(function ($value) {
                 $ahora = Carbon::today();
                 $limite = Carbon::parse($value->entry_date)->format('Y-m-d');
-                
-                if( $limite >= $ahora && $ahora->diffInDays($limite) <= 3 ){
+
+                $day1 = $this->searchHabilDayAlert($limite);
+                $day2 = $this->searchHabilDayAlert($day1); 
+                $day3 = $this->searchHabilDayAlert($day2);
+
+                if( 
+                    $limite >= $ahora 
+                    && ($ahora == $day1 || $ahora == $day2 || $ahora == $day3)
+                    ){
                     if(isset($value->entry_date)){
                         if( $value->status == 'accepted' || $value->status == NULL){
                             return $value; 
@@ -195,5 +205,11 @@ class ProfileController extends Controller
     {
         $user_update = User::updateProfile( $request, $request->id);
         return redirect()->route('admin.profile');
+    }
+
+    public function searchHabilDayAlert($date)
+    {
+        $date = Carbon::parse($date)->subDays(1)->format('Y-m-d');
+        return \App\Models\Project::dateWithOutHolyday($date);
     }
 }

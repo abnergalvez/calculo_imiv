@@ -74,6 +74,11 @@ class Project extends Model
         return $this->hasOne(Budget::class);
     }
 
+    public function alerts()
+    {
+        return $this->morphMany(Alert::class, 'alertable');
+    }
+
     public static function createProject($request)
     {
         $project = new Project;
@@ -550,15 +555,19 @@ class Project extends Model
             $project->save();
     
             $observation_date = Project::changeObservation($date , false, $project,$observation_days_limit);
-            $re_entry_date = Project::changeReEntryDate(Carbon::createFromFormat('Y-m-d', $observation_date), false, $project, $re_entry_days_limit);
-            Project::changeFinalStatusDate(Carbon::createFromFormat('Y-m-d', $re_entry_date), false, $project, $final_status_days_limit);
-        
+
         }elseif($project->isDirectFinalEvaluation()){
             
             $final_status_days_limit = $project->type_project->final_status_days_limit;
             $date = $changeFormat ? Carbon::createFromFormat('d-m-Y', $date) : $date;
             $project->entry_date = $date;
+
+            $project->observation_date = null;
+            $project->limit_observation_date = null;
+            $project->re_entry_date = null;
+            $project->limit_re_entry_date = null;
             $project->save();
+
             Project::changeFinalStatusDate($date, false, $project, $final_status_days_limit);
 
         }elseif($project->isNotRegisteredLimitDays()){
@@ -578,15 +587,11 @@ class Project extends Model
         $final_status_days_limit = $project->type_project->final_status_days_limit;
 
         $date = $changeFormat ? Carbon::createFromFormat('d-m-Y', $date) : $date;
-
         $project->observation_date = $date->addDays($days)->format('Y-m-d');
-        $project->limit_observation_date = $project->observation_date;
-        $project->save();
         $re_entry_date = Project::changeReEntryDate(Carbon::createFromFormat('Y-m-d', $project->observation_date), false, $project,$re_entry_days_limit );
-        Project::changeFinalStatusDate(Carbon::createFromFormat('Y-m-d', $re_entry_date), false, $project,$final_status_days_limit);
-        
+
         $project->observation_date = Project::dateWithOutHolyday($project->observation_date);
-        $project->limit_observation_date = Project::dateWithOutHolyday($project->observation_date);
+        $project->limit_observation_date = $project->observation_date;
         $project->save();
 
         return $project->observation_date;
@@ -598,10 +603,12 @@ class Project extends Model
         
         $date = $changeFormat ? Carbon::createFromFormat('d-m-Y', $date) : $date;
         $project->re_entry_date = $date->addDays($days)->format('Y-m-d');
+        Project::changeFinalStatusDate(Carbon::createFromFormat('Y-m-d', $project->re_entry_date), false, $project,$final_status_days_limit );
+
+        $project->re_entry_date = Project::dateWithOutHolyday($project->re_entry_date);
         $project->limit_re_entry_date = $project->re_entry_date;
         $project->save();
-        Project::changeFinalStatusDate(Carbon::createFromFormat('Y-m-d', $project->re_entry_date), false, $project,$final_status_days_limit );
-        
+
         return $project->re_entry_date;
     }
 
@@ -610,8 +617,20 @@ class Project extends Model
         $date = $changeFormat ? Carbon::createFromFormat('d-m-Y', $date) : $date;
         $project->final_status_date = $date->addDays($days)->format('Y-m-d');
         $project->limit_final_status_date = $project->final_status_date;
-        $project->save();
+ 
+        $project->final_status_date = Project::dateWithOutHolyday($project->final_status_date);
+        $project->limit_final_status_date = $project->final_status_date;
+        
+        if($project->isDirectFinalEvaluation()){
+            
+            $project->observation_date = null;
+            $project->limit_observation_date = null;
+            $project->re_entry_date = null;
+            $project->limit_re_entry_date = null;
+            
+        }
 
+        $project->save();
         return $project->final_status_date;
     }
 
