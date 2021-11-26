@@ -16,7 +16,10 @@ class CalculoDepartamentosController extends Controller
         foreach ($request->superficies as $key => $value) {
             
             $value = $value/$request->cantidades[$key];
+            $value = floatval(bcdiv($value, '1', 2));
+            
             $rango = FuncionesCalculos::superficie_rango($value);
+            
 
             switch ($rango) {
                 case '1_50':
@@ -27,22 +30,22 @@ class CalculoDepartamentosController extends Controller
                     break;
                     
                 case '51_60':
-                    $PTL_entrada = 1+(0.02*(intval($value)-50));
-                    $PML_salida = 1+(0.02*(intval($value)-50));
+                    $PTL_entrada = 1+(0.02*($value-50));
+                    $PML_salida = 1+(0.02*($value-50));
                     $items_entrada = json_decode( stripslashes(file_get_contents("tasas/departamentos/entrada/50-60.json")) , true);
                     $items_salida = json_decode( stripslashes(file_get_contents("tasas/departamentos/salida/50-60.json")) , true);
                     break;
 
                 case '61_140':
-                    $PTL_entrada = 1.2+(0.01*(intval($value)-60));
-                    $PML_salida = 1.2+(0.01*(intval($value)-60));
+                    $PTL_entrada = 1.2+(0.01*($value-60));
+                    $PML_salida = 1.2+(0.01*($value-60));
                     $items_entrada = json_decode( stripslashes(file_get_contents("tasas/departamentos/entrada/60-140.json")) , true);
                     $items_salida = json_decode( stripslashes(file_get_contents("tasas/departamentos/salida/60-140.json")) , true);
                     break;
 
                 case '141_280':
-                    $PTL_entrada = 2+(0.005*(intval($value)-140));
-                    $PML_salida = 2+(0.005*(intval($value)-140));
+                    $PTL_entrada = 2+(0.005*($value-140));
+                    $PML_salida = 2+(0.005*($value-140));
                     $items_entrada = json_decode( stripslashes(file_get_contents("tasas/departamentos/entrada/140-280.json")) , true);
                     $items_salida = json_decode( stripslashes(file_get_contents("tasas/departamentos/salida/140-280.json")) , true);
                     break;

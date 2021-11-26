@@ -3,6 +3,7 @@
 namespace App\Models;
 use Carbon\Carbon;
 use App\Models\TypeProject;
+use App\Models\Alert;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
@@ -118,6 +119,32 @@ class Project extends Model
             $project->save();
 
         }
+
+        // Creacion de Alertas
+
+        if($project->isAllLimitDays()){
+            $alert_day = $project->re_entry_date;
+            $alert_field = 're_entry_date';
+        }
+
+        if($project->isDirectFinalEvaluation()){
+
+            $alert_day = $project->final_status_days_limit;
+            $alert_field = 'final_status_date';
+        }
+
+        if($project->isAllLimitDays() || $project->isDirectFinalEvaluation()){
+
+            $day1 = Project::dateWithOutHolyday(Carbon::parse($alert_day)->subDays(1)->format('Y-m-d'));
+            $day2 = Project::dateWithOutHolyday(Carbon::parse($day1)->subDays(1)->format('Y-m-d'));
+            $day3 = Project::dateWithOutHolyday(Carbon::parse($day2)->subDays(1)->format('Y-m-d'));
+            Alert::createAlert($day1,  $alert_field, $project);
+            Alert::createAlert($day2,  $alert_field, $project);
+            Alert::createAlert($day3,  $alert_field, $project);
+        }
+
+        
+        //
 
         if($project){
             $status = array(

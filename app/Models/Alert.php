@@ -21,14 +21,39 @@ class Alert extends Model
         return $this->morphTo();
     }
 
-    public static function createAlert($day, $field_name_date, $entity)
-    {
-
-    }
-
     public static function markAsAlerted()
     {
         
+    }
+
+    public static function createAlert($day, $field_name_date, $entity)
+    {
+
+        $result = $entity->alerts()->create([
+            'day' => $day,
+            'field_name_date' => $field_name_date,
+            'alerted' => 0
+        ]);
+
+        return $result ? true : false ;
+    }
+
+
+
+    public static function deleteAllDocuments($entity)
+    {
+        $documents = $entity->documents;
+        foreach ($documents as $doc) {
+            Storage::delete($doc->path);
+            $doc->delete();
+        }
+    }
+
+    public static function deleteAlert($path)
+    {
+        $doc = Document::where('path', $path);
+        Storage::delete($path);
+        $doc->delete();
     }
 
 

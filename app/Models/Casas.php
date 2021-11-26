@@ -26,10 +26,13 @@ class Casas extends Model
             }
         }else{
             $viajes_h_por_vivienda = [];
+
             foreach ($items_entrada as $key => $value) {
                 $viajes_h_por_vivienda[$key] = $value["viajes_h_por_vivienda"]*$PTL_entrada;  
+                
             }
-    
+            
+
             foreach ($items_entrada as $key => $value) {
             
                 $resultado_entradas[$key]["viajes_h_por_vivienda"] = $viajes_h_por_vivienda[$key] * $cantidad;
@@ -38,8 +41,12 @@ class Casas extends Model
                 $resultado_entradas[$key]["transporte_publico"] = $value["transporte_publico"] * $viajes_h_por_vivienda[$key] * $cantidad;
                 $resultado_entradas[$key]["peatones_viajes"] = $value["peatones_viajes"] * $viajes_h_por_vivienda[$key] * $cantidad;
                 $resultado_entradas[$key]["ciclos_viajes"] = $value["ciclos_viajes"] * $viajes_h_por_vivienda[$key] * $cantidad;
+
+                
             }
+            
         }
+       
         return $resultado_entradas;
     }
 
