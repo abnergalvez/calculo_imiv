@@ -16,8 +16,6 @@ class CalculoDepartamentosController extends Controller
         foreach ($request->superficies as $key => $value) {
             
             $value = $value/$request->cantidades[$key];
-            $value = floatval(bcdiv($value, '1', 2));
-            
             $rango = FuncionesCalculos::superficie_rango($value);
             
 
