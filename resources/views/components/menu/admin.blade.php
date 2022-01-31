@@ -49,6 +49,12 @@
                 <span class="sidebar-text">Entidades Revisoras</span>
               </a>
             </li>
+            <li class="nav-item {{ Request::segment(3) == 'feriados' ? 'active' : '' }}">
+              <a class="nav-link" href="{{ route('admin.holidays.index') }}" >
+              <span class="sidebar-text-contracted">F</span>
+                <span class="sidebar-text"> Fin Semana / Feriados </span>
+              </a>
+            </li>
           </ul>
         </div>
       </li>

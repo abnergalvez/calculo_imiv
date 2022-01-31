@@ -11,17 +11,17 @@ class AdminSendNearExpiredProjects extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $admin;
-    public $projectsSoonExpired;
+    public $user;
+    public $project;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($admin,$projectSoonExpired)
+    public function __construct($user,$project)
     {
-        $this->admin = $admin;
-        $this->projectsSoonExpired = $projectSoonExpired;
+        $this->user = $user;
+        $this->project = $project;
     }
 
     /**

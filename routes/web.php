@@ -49,6 +49,9 @@ Route::group(
             Route::resource('clientes', 'CustomerController')->names('admin.customers'); 
             Route::resource('tipos_proyectos', 'TypeProjectController')->names('admin.type_projects'); 
             Route::resource('revisores', 'ReviserController')->names('admin.revisers'); 
+            Route::get('feriados', 'HolidayController@index')->name('admin.holidays.index'); 
+            Route::get('generar_feriados', 'HolidayController@setHolidays')->name('admin.holidays.set'); 
+            
 
         });
         Route::resource('proyectos', 'ProjectController')->names('admin.projects'); 

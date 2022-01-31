@@ -98,6 +98,7 @@ class Project extends Model
         if($request->adjudication_date){
             $project->adjudication_date = Carbon::createFromFormat('d-m-Y',$request->adjudication_date);  
         }
+        
         if($request->to_engineer_date){
             $project->to_engineer_date = Carbon::createFromFormat('d-m-Y',$request->to_engineer_date); 
         }

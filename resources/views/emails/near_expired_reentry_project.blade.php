@@ -16,15 +16,21 @@
         <h2>Notificación Sistema GyS Ingenieria</h2>
     </div>
     <hr>
-    <p> Estimado {{ $admin->name }}, segun los registros del sistema los siguentes proyectos estan por vencer:</p>
+    <p> Estimado {{ $user->name }}, segun los registros del sistema los siguentes proyectos estan por vencer:</p>
     <ul>
-    @foreach($projectsSoonExpired as $project)
+
         <li>
-            <strong>Proyecto :</strong> {{ $project->name ? $project->name : ' - ' }}  -  Codigo ( {{$project->code }} ) <strong>vence el :</strong> &nbsp; 
+            <strong>Proyecto :</strong> {{ isset($project->name) ? $project->name : ' - ' }}  -  Codigo ( {{ isset($project->code) ? $project->code : ' - '}}  ) <strong>vence el :</strong> &nbsp; 
+            <?php
+             if(isset($project->re_entry_date)){
+            ?>
             {{ \Carbon\Carbon::createFromFormat('Y-m-d', $project->re_entry_date)->locale('es_ES')->isoFormat('D MMM YYYY') }}
-            
+
+            <?php
+             }
+            ?>
         </li>
-    @endforeach
+
     </ul>
 
     <div>
