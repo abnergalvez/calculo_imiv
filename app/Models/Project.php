@@ -4,6 +4,8 @@ namespace App\Models;
 use Carbon\Carbon;
 use App\Models\TypeProject;
 use App\Models\Alert;
+use App\Models\Holiday;
+use App\Models\Weekend;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
@@ -695,19 +697,33 @@ class Project extends Model
     // date Y-m-d
     public static function isHolydayinChile($date)
     {
-        $date_format = Carbon::createFromFormat('Y-m-d', $date)->format('Y/m/d');
-        $response = Http::get('https://apis.digital.gob.cl/fl/feriados/'.$date_format);
-        if($response->json() && isset($response->json()['error']))
-        {
-            return false;
+ 
+        if(count(Holiday::all()) > 0 ){
+            $date_format = Carbon::createFromFormat('Y-m-d', $date);
+            return count(Holiday::where('date',$date)->get()) ? true : false;
+
+        }else{
+
+            $date_format = Carbon::createFromFormat('Y-m-d', $date)->format('Y/m/d');
+            $response = Http::get('https://apis.digital.gob.cl/fl/feriados/'.$date_format);
+            if($response->json() && isset($response->json()['error']))
+            {
+                return false;
+            }
+            return true;
         }
-        return true; 
+
     }
     // date Y-m-d
     public static function isWeekEndDay($date)
     {
         $day = Carbon::createFromFormat('Y-m-d', $date);
-        return $day->isWeekend() ? $day->isWeekend() : false;  
+
+        if(count(Weekend::all()) > 0 ){
+            return count(Weekend::where('date',$date)->get()) ? true : false;
+        }else{
+            return $day->isWeekend() ? $day->isWeekend() : false;  
+        }  
     }
 
     public function isAllLimitDays()

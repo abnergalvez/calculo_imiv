@@ -35,8 +35,18 @@ class CalculoController extends Controller
             
 
         }else{
+            $factor_ap = 1;  //Auto Privado
 
-        
+            switch ($request->subproyecto) {
+                case 'grandes_depositos_bodegas':
+                    $factor_ap = 2.5;
+                    break;
+                
+                default:
+                    $factor_ap = 1;
+                    break;
+            }
+
             $dir_escala = $request->proyecto."/".$request->subproyecto."/".$request->escala;
             $dir_subproyecto = $request->proyecto."/".$request->subproyecto;
             $tipoCalculo = $request->modelo::tipoCalculo($request->subproyecto);
@@ -51,15 +61,15 @@ class CalculoController extends Controller
 
             if($tipoCalculo == 'superficie')
             {
-                $entrada_resultado = $this->calcular_cada100($items_entrada,$request->superficie);
-                $salida_resultado = $this->calcular_cada100($items_salida,$request->superficie);
+                $entrada_resultado = $this->calcular_cada100($items_entrada,$request->superficie,$factor_ap);
+                $salida_resultado = $this->calcular_cada100($items_salida,$request->superficie, $factor_ap);
             
             }
 
             if($tipoCalculo == 'cantidad')
             {
-                $entrada_resultado = $this->calcular_unitario($items_entrada,$request->cantidad);
-                $salida_resultado = $this->calcular_unitario($items_salida,$request->cantidad);
+                $entrada_resultado = $this->calcular_unitario($items_entrada,$request->cantidad, $factor_ap);
+                $salida_resultado = $this->calcular_unitario($items_salida,$request->cantidad, $factor_ap);
             }
             $sumatoria = FuncionesCalculos::sum_total_otros_flujos($entrada_resultado,$salida_resultado);
             $maximo_t_privado = floor(FuncionesCalculos::buscar_mayor_columna($sumatoria,"transporte_privado"));
@@ -106,11 +116,11 @@ class CalculoController extends Controller
 
 
 
-    public function calcular_unitario($items,$cantidad)
+    public function calcular_unitario($items,$cantidad, $factor_ap)
     {
         foreach ($items as $key => $value) {
             
-            $resultado[$key]["transporte_privado"] = $value["transporte_privado"]  * $cantidad;
+            $resultado[$key]["transporte_privado"] = $value["transporte_privado"]  * $cantidad * $factor_ap;
             $resultado[$key]["transporte_publico"] = $value["transporte_publico"] * $cantidad;
             $resultado[$key]["peatones_viajes"] = $value["peatones_viajes"] * $cantidad;
             $resultado[$key]["ciclos_viajes"] = $value["ciclos_viajes"]  * $cantidad;
@@ -119,12 +129,12 @@ class CalculoController extends Controller
     }
 
 
-    public  function calcular_cada100($items,$superficie)
+    public  function calcular_cada100($items,$superficie,$factor_ap)
     {
         $indice_sup = $superficie/100;
         foreach ($items as $key => $value) {
             
-            $resultado[$key]["transporte_privado"] = $value["transporte_privado"]  * $indice_sup;
+            $resultado[$key]["transporte_privado"] = $value["transporte_privado"]  * $indice_sup * $factor_ap;
             $resultado[$key]["transporte_publico"] = $value["transporte_publico"] * $indice_sup;
             $resultado[$key]["peatones_viajes"] = $value["peatones_viajes"] * $indice_sup;
             $resultado[$key]["ciclos_viajes"] = $value["ciclos_viajes"]  * $indice_sup;
