@@ -52,7 +52,7 @@ class FuncionesCalculos extends Model
     
     public static function superficie_rango($superficie)
     {
-        if($superficie <= 50){
+        if($superficie <= 50 && $superficie >= 1 ){
             return '1_50';
         }elseif($superficie >= 51 && $superficie <= 60){
             return '51_60';
@@ -61,6 +61,8 @@ class FuncionesCalculos extends Model
         }elseif($superficie >= 141 && $superficie <= 280){
             return '141_280';
         }elseif($superficie >= 281){
+            return '281_n';
+        }else{
             return '281_n';
         }
     }

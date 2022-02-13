@@ -55,7 +55,7 @@ class CalculoDepartamentosController extends Controller
                     $items_salida = json_decode( stripslashes(file_get_contents("tasas/departamentos/salida/280-n.json")) , true);
                     break;
             }
-            
+
             $entrada_resultado[$key] = Departamentos::entradas($PTL_entrada,$items_entrada,$rango,$request->cantidades[$key]);
             $salida_resultado[$key] = Departamentos::salidas($PML_salida,$items_salida,$rango,$request->cantidades[$key]);
     
