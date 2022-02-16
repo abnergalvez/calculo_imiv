@@ -51,10 +51,10 @@ class Salud extends Model
     public static function labelIngreso($subproyecto_key)
     {
         $labels = [
-            "atencion_primaria_urgencia_familiar" => "Superficie Útil Construida (M2)", 
-            "cementerio_crematorio" => "Superficie Útil Construida (M2)",
-            "hospital_clinica" => "Superficie Útil Construida (M2)",
-            "rehabilitacion" => "Superficie Útil Construida (M2)",
+            "atencion_primaria_urgencia_familiar" => "Superficie Edificada (M2)", 
+            "cementerio_crematorio" => "Superficie Edificada (M2)",
+            "hospital_clinica" => "Superficie Edificada (M2)",
+            "rehabilitacion" => "Superficie Edificada (M2)",
         ];
 
         return $labels[$subproyecto_key];

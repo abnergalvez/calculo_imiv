@@ -51,10 +51,10 @@ class CultoCultura extends Model
     public static function labelIngreso($subproyecto_key)
     {
         $labels = [
-            "centro_cultural" => "Superficie Útil Construida (M2)", 
-            "conciertos_cine_teatro" => "Superficie Útil Construida (M2)",
-            "otro_equipamiento" => "Superficie Útil Construida (M2)",
-            "templo_desarrollo" => "Superficie Útil Construida (M2)",
+            "centro_cultural" => "Superficie Edificada (M2)", 
+            "conciertos_cine_teatro" => "Superficie Edificada (M2)",
+            "otro_equipamiento" => "Superficie Edificada (M2)",
+            "templo_desarrollo" => "Superficie Edificada (M2)",
         ];
 
         return $labels[$subproyecto_key];

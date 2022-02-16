@@ -50,10 +50,10 @@ class Industrial extends Model
     public static function labelIngreso($subproyecto_key)
     {
         $labels = [
-            "grandes_depositos_bodegas" => "Superficie Útil Construida (M2)",
-            "industrias" => "Superficie Útil Construida (M2)",
-            "planta_revision_tecnica" => "Cantidad Lineas Revisión",
-            "talleres" => "Superficie Útil Construida (M2)",
+            "grandes_depositos_bodegas" => "Superficie Edificada (M2)",
+            "industrias" => "Superficie Edificada (M2)",
+            "planta_revision_tecnica" => "Línea de Revisión",
+            "talleres" => "Superficie Edificada (M2)",
         ];
 
         return $labels[$subproyecto_key];

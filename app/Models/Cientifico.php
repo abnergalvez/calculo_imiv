@@ -40,7 +40,7 @@ class Cientifico extends Model
     public static function labelIngreso($subproyecto_key)
     {
         $labels = [
-            "centro_investigacion" => "Superficie Útil Construida (M2)",
+            "centro_investigacion" => "Superficie Edificada (M2)",
         ];
 
         return $labels[$subproyecto_key];

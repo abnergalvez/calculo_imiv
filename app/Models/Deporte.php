@@ -53,11 +53,11 @@ class Deporte extends Model
     public static function labelIngreso($subproyecto_key)
     {
         $labels = [
-            "club_deportivo" => "Superficie Útil Construida (M2)", 
-            "estadio" => "Superficie Útil Construida (M2)",
-            "gimnasio" => "Superficie Útil Construida (M2)",
-            "multicancha" => "Superficie Útil Construida (M2)",
-            "otro_equipamiento" => "Superficie Útil Construida (M2)",
+            "club_deportivo" => "Superficie Edificada (M2)", 
+            "estadio" => "Superficie Edificada (M2)",
+            "gimnasio" => "Superficie Edificada (M2)",
+            "multicancha" => "Superficie de Terreno (M2)",
+            "otro_equipamiento" => "Superficie de Terreno (M2)",
         ];
 
         return $labels[$subproyecto_key];
