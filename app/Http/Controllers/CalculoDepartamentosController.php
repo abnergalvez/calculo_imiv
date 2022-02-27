@@ -18,7 +18,6 @@ class CalculoDepartamentosController extends Controller
             $value = $value/$request->cantidades[$key];
             $rango = FuncionesCalculos::superficie_rango($value);
             
-
             switch ($rango) {
                 case '1_50':
                     $PTL_entrada = 1;
