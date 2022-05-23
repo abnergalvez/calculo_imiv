@@ -71,8 +71,8 @@ class CalculoDepartamentosController extends Controller
         $sum_entradas = FuncionesCalculos::sum_flujos($entrada_resultado);
         $sum_salidas = FuncionesCalculos::sum_flujos($salida_resultado);
         $sumatoria = FuncionesCalculos::sum_total_flujos($sum_entradas,$sum_salidas);
-        $maximo_t_privado = floor(FuncionesCalculos::buscar_mayor_columna($sumatoria,"transporte_privado"));
-        $maximo_t_otros = floor(FuncionesCalculos::busca_mayor_otras_columnas($sumatoria)); 
+        $maximo_t_privado = round(FuncionesCalculos::buscar_mayor_columna($sumatoria,"transporte_privado"));
+        $maximo_t_otros = round(FuncionesCalculos::busca_mayor_otras_columnas($sumatoria)); 
         $suma_otros = FuncionesCalculos::sumar_columnas_otros($sumatoria);
         $imiv_t_privado= FuncionesCalculos::categoria_imiv_t_privado($maximo_t_privado);
         $imiv_t_otros = FuncionesCalculos::categoria_imiv_t_otros($maximo_t_otros);

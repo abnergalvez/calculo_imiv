@@ -72,8 +72,8 @@ class CalculoController extends Controller
                 $salida_resultado = $this->calcular_unitario($items_salida,$request->cantidad, $factor_ap);
             }
             $sumatoria = FuncionesCalculos::sum_total_otros_flujos($entrada_resultado,$salida_resultado);
-            $maximo_t_privado = floor(FuncionesCalculos::buscar_mayor_columna($sumatoria,"transporte_privado"));
-            $maximo_t_otros = floor(FuncionesCalculos::busca_mayor_otras_columnas($sumatoria)); 
+            $maximo_t_privado = round(FuncionesCalculos::buscar_mayor_columna($sumatoria,"transporte_privado"));
+            $maximo_t_otros = round(FuncionesCalculos::busca_mayor_otras_columnas($sumatoria)); 
 
             // datos en texto calculo 
             $escala_text = $request->escala ? ' - Escala: '.$request->escala : '';
